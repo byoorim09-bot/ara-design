@@ -3044,7 +3044,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var photo = null;             /* 사진이 들어갈 사각형 */
     if (ph) {
       if (place === 'left' || place === 'right') {
-        var pw = Math.min(W * 0.46, H * 1.02);
+        var pw = Math.min(W * 0.46, Math.max(H * 1.55, W * 0.34));
         var gapP = short * 0.055;
         if (place === 'left') { photo = { x: 0, y: 0, w: pw, h: H }; C0 = pw + gapP; }
         else { photo = { x: W - pw, y: 0, w: pw, h: H }; C1 = W - pw - gapP; }
@@ -3233,6 +3233,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     /* ---------------- 글자 ---------------- */
+    /* 사진과 글자 사이 경계선 — 사진을 따로 붙인 느낌을 정리 */
+    if (photo && (place === 'left' || place === 'right')) {
+      var dvW = Math.max(0.22, short * 0.015);
+      scene.shapes.push({
+        t: 'rect', x: place === 'left' ? photo.w : photo.x - dvW, y: 0, w: dvW, h: H,
+        fill: pal.accent, alpha: styleIdx === 1 ? 0.9 : 0.75
+      });
+    }
+
     function pushText(text, leftX, baseY, size, color) {
       if (!text) return;
       scene.texts.push({ text: text, x: leftX, y: baseY, size: size, color: color, f: fontId });
