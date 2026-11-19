@@ -6490,6 +6490,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (!applied && !fresh) {
       var restored = false;
       try { restored = asRestore(); } catch (e) { restored = false; }
+      asQuiet = false;
       if (restored) setTimeout(asSchedule, 800);
     }
     asWire();
