@@ -2983,6 +2983,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       tvEl.fstate.textContent = meta.cat + ' · 글자 그대로 벡터로 만들어요';
       var paths = textToPaths(font, tv.text, tv);
       if (!paths.length) throw new Error('글자를 넣어 주세요');
+      /* 1) 겹친 획을 먼저 하나로 합치기 — 안쪽에 엇갈린 선이 남지 않게 */
+      paths = unionPaths(paths);
+      /* 2) 합친 윤곽선을 굵기만큼 실제 벡터로 밀어내기 */
       var weight = Number(tv.weight) || 0;
       if (Math.abs(weight) > 0.01) {
         var bb0 = Core.bboxOfPaths(paths);
@@ -2990,8 +2993,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         var off = offsetPaths(paths, (weight / 2) * unitsPerMm);
         if (off) paths = off;
         else toast('굵기 조절을 쓰려면 인터넷 연결이 필요해요 — 원래 굵기로 보여 드릴게요');
-      } else {
-        paths = unionPaths(paths);   /* 겹친 획은 하나로 합쳐 안쪽 선이 남지 않게 */
       }
       var bbox = Core.bboxOfPaths(paths);
       var pageW = Math.max(1, tv.widthCm) * CM_PT;
