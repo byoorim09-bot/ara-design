@@ -4278,6 +4278,100 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ara: ARA, araRenderAll: araRenderAll, araExport: araExport, araScene: araScene,
     araApplyRequest: araApplyRequest, araParseRequest: araParseRequest, araPalettes: araPalettes
   };
+
+  /* ============================================================
+     주소(URL)에 적힌 값으로 디자인 탭을 바로 채우기
+     예) /?cat=sign&w=5&h=1&title=솥뚜껑삼겹살&phone=000-0000-0000
+            &text=솥뚜껑삼겹살&sub=국내산 생삼겹 전문&tpos=tl&mpos=center
+     이 주소를 카카오톡·문자로 보내면 받은 사람도 같은 시안 3개를 바로 봅니다.
+     ============================================================ */
+  function araApplyQuery() {
+    var raw = String(location.search || '').replace(/^\?/, '');
+    if (!raw) return false;
+
+    var q = {};
+    raw.split('&').forEach(function (kv) {
+      if (!kv) return;
+      var eq = kv.indexOf('=');
+      var k = eq < 0 ? kv : kv.slice(0, eq);
+      var v = eq < 0 ? '' : kv.slice(eq + 1);
+      try { k = decodeURIComponent(k.replace(/\+/g, ' ')); } catch (e) {}
+      try { v = decodeURIComponent(v.replace(/\+/g, ' ')); } catch (e) {}
+      k = String(k).trim().toLowerCase();
+      if (k) q[k] = v;
+    });
+
+    var has = function (k) { return Object.prototype.hasOwnProperty.call(q, k); };
+    var num = function (v, min, max) {
+      var n = parseFloat(String(v).replace(/[^0-9.\-]/g, ''));
+      if (!isFinite(n) || n <= 0) return null;
+      n = Math.max(min, Math.min(max, n));
+      return Math.round(n * 100) / 100;
+    };
+    var line = function (v) { return String(v == null ? '' : v).replace(/\\n/g, '\n').replace(/\r/g, '').trim(); };
+    var one = function (v) { return line(v).replace(/\s+/g, ' '); };
+
+    var TPOS = { tl: 'tl', lt: 'tl', topleft: 'tl', 'top-left': 'tl',
+      tr: 'tr', rt: 'tr', topright: 'tr', 'top-right': 'tr',
+      bl: 'bl', lb: 'bl', bottomleft: 'bl', 'bottom-left': 'bl',
+      br: 'br', rb: 'br', bottomright: 'br', 'bottom-right': 'br' };
+    var MPOS = { center: 'center', centre: 'center', middle: 'center',
+      top: 'top', bottom: 'bottom', left: 'left', right: 'right' };
+
+    var changed = false, i;
+
+    if (has('cat')) {
+      var cat = String(q.cat || '').trim().toLowerCase();
+      if (ARA_CATS[cat]) { ARA.cat = cat; ARA.wM = ARA_CATS[cat].w; ARA.hM = ARA_CATS[cat].h; changed = true; }
+    }
+    if (has('w')) { var w = num(q.w, 0.2, 30); if (w) { ARA.wM = w; changed = true; } }
+    if (has('h')) { var h = num(q.h, 0.2, 30); if (h) { ARA.hM = h; changed = true; } }
+    if (has('title') && one(q.title)) { ARA.title = one(q.title); changed = true; }
+    if (has('phone') && one(q.phone)) { ARA.phone = one(q.phone); changed = true; }
+    if (has('text') && line(q.text)) { ARA.main = line(q.text); changed = true; }
+    if (has('sub')) { ARA.sub = one(q.sub); changed = true; }
+
+    var tp = has('tpos') ? TPOS[String(q.tpos || '').trim().toLowerCase()] : null;
+    if (tp) { ARA.corner = tp; changed = true; }
+    var mp = has('mpos') ? MPOS[String(q.mpos || '').trim().toLowerCase()] : null;
+    if (mp) { ARA.zone = mp; changed = true; }
+
+    if (has('font')) {
+      var fid = String(q.font || '').trim();
+      for (i = 0; i < FONTS.length; i++) if (FONTS[i].id === fid) break;
+      if (i < FONTS.length) {
+        ARA.font = fid; fillFontSelect(araEl.font, ARA.font); changed = true;
+        loadFace(ARA.font).then(function () { araSoon(20); }).catch(function () {});
+      }
+    }
+    if (has('color')) {
+      var c = String(q.color || '').trim().replace(/^#/, '');
+      if (/^[0-9a-f]{6}$/i.test(c) || /^[0-9a-f]{3}$/i.test(c)) {
+        ARA.theme = '#' + c; ARA.themeColor = '#' + c; changed = true;
+      }
+    }
+
+    if (!changed) return false;
+
+    /* 입력칸도 같은 값으로 맞춰 두기 */
+    if (araEl.title) araEl.title.value = ARA.title;
+    if (araEl.phone) araEl.phone.value = ARA.phone;
+    if (araEl.main) araEl.main.value = ARA.main;
+    if (araEl.sub) araEl.sub.value = ARA.sub;
+    if (ARA.theme && ARA.theme !== 'auto') {
+      if (araEl.color) araEl.color.value = ARA.themeColor;
+      if (araEl.colorH) araEl.colorH.value = ARA.themeColor;
+    }
+
+    if (!ARA.made) araBuildCards();
+    araSyncInputs();
+    switchTab('design');
+    araRenderAll();
+    return true;
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', araApplyQuery);
+  else araApplyQuery();
 })();
 </script>
 
