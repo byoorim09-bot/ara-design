@@ -529,6 +529,20 @@
         <p class="fileinfo" id="fileInfo"><img class="thumb" id="thumb" alt=""><span class="cut-name" id="fileName"></span><span id="filePx"></span></p>
       </section>
 
+      <section class="card" id="deskewCard">
+        <div class="head"><span class="num">📐</span><h2>사진 반듯하게 (수평 맞춤)</h2><button class="q" type="button" data-h="deskew" aria-expanded="false" aria-label="수평 맞춤 설명 보기">?</button><span class="sub" id="deskewInfo">0°</span></div>
+        <p class="mini" style="margin:-8px 0 10px">찍은 사진이 삐딱하면 <b>자동 수평 맞추기</b>를 누르세요. 글자 줄을 찾아 반듯하게 돌려 줍니다.</p>
+        <div class="btnrow">
+          <button class="btn primary" id="deskewAuto" type="button" style="flex:1">📐 자동 수평 맞추기</button>
+          <button class="btn ghost" id="deskewReset" type="button">원래대로 (0°)</button>
+        </div>
+        <div class="slider" style="margin-top:14px">
+          <div class="row"><span>각도 미세 조절 <button class="q" type="button" data-h="deskewFine" aria-expanded="false" aria-label="각도 미세 조절 설명 보기">?</button></span><span class="val" id="vAngle">0°</span></div>
+          <input type="range" id="angle" min="-15" max="15" step="0.5" value="0">
+          <div class="ends"><span>-15° 왼쪽</span><span>0°</span><span>+15° 오른쪽</span></div>
+        </div>
+      </section>
+
       <section class="card">
         <div class="head"><span class="num">2</span><h2>크기 정하기</h2><button class="q" type="button" data-h="size" aria-expanded="false" aria-label="크기 정하기 설명 보기">?</button><span class="sub">실제 자로 잰 크기</span></div>
         <div class="size-row">
@@ -816,6 +830,7 @@
           <div class="field"><div class="lblrow"><span class="lbl2">정렬</span><button class="q" type="button" data-h="tvAlign" aria-expanded="false" aria-label="정렬 설명 보기">?</button></div><div class="pills" id="tvAlign"><button type="button" data-a="left">왼쪽</button><button type="button" data-a="center" class="on">가운데</button><button type="button" data-a="right">오른쪽</button></div></div>
           <div class="field"><div class="lblrow"><span class="lbl2">모양</span><button class="q" type="button" data-h="tvPaint" aria-expanded="false" aria-label="모양 설명 보기">?</button></div><div class="pills" id="tvPaint"><button type="button" data-p="stroke" class="on">외곽선만</button><button type="button" data-p="fill">면 채우기</button></div></div>
           <div class="field"><div class="lblrow"><span class="lbl2">선 굵기</span><button class="q" type="button" data-h="tvStroke" aria-expanded="false" aria-label="선 굵기 설명 보기">?</button></div><div class="pills" id="tvStroke"><button type="button" data-w="0.25">0.25pt</button><button type="button" data-w="0.5" class="on">0.5pt</button><button type="button" data-w="1">1pt</button></div></div>
+          <div class="slider"><div class="row"><span>글자 굵기 (살찌우기) <button class="q" type="button" data-h="tvWeight" aria-expanded="false" aria-label="글자 굵기 설명 보기">?</button></span><span class="val" id="tvWeightV">0.0 mm</span></div><input type="range" id="tvWeight" min="-0.5" max="2.5" step="0.1" value="0"><div class="ends"><span>-0.5 mm 얇게</span><span>0</span><span>+2.5 mm 두껍게</span></div></div>
           <div class="field"><div class="lblrow"><label class="lbl2" for="tvColor">색</label><button class="q" type="button" data-h="tvColor" aria-expanded="false" aria-label="색 설명 보기">?</button></div><div class="colrow"><input type="color" id="tvColor" value="#000000"><div class="input"><input id="tvColorH" value="#000000" style="font-size:13px"></div></div></div>
         </section>
       </div>
@@ -863,8 +878,18 @@
             <button type="button" data-cat="vertical"><b>배너 (세로형)</b><span>0.6 × 1.8 m</span></button>
             <button type="button" data-cat="sign"><b>간판</b><span>4.0 × 1.0 m</span></button>
             <button type="button" data-cat="window"><b>유리창 시트지</b><span>1.2 × 0.6 m</span></button>
+            <button type="button" data-cat="led"><b>✨ LED 간판</b><span>4.0 × 1.0 m</span></button>
           </div>
           <p class="mini">카테고리를 고르면 그에 맞는 크기가 자동으로 채워집니다. 아래에서 직접 고쳐도 됩니다.</p>
+        </section>
+
+        <section class="card" id="araLedCard" hidden>
+          <div class="head"><span class="num">💡</span><h2>LED 간판 설정</h2><button class="q" type="button" data-h="araLed" aria-expanded="false" aria-label="LED 간판 설명 보기">?</button><span class="sub">야간 발광</span></div>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="araLedNight" checked> 🌙 야간(불 켠 모습)으로 미리보기</label>
+            <button class="q" type="button" data-h="araLedNight" aria-expanded="false" aria-label="야간 미리보기 설명 보기">?</button>
+          </div>
+          <p class="mini" style="margin-top:10px">시안 A는 <b>전광 화이트·골드</b>, B는 <b>후광 웜화이트</b>, C는 <b>컬러 네온</b> 채널 LED 입니다.<br>PDF·AI로 저장하면 발광 번짐 없이 <b>깨끗한 벡터 외곽선</b>만 담겨, 채널간판 제작소에서 바로 쓸 수 있어요.</p>
         </section>
 
         <section class="card">
@@ -1091,6 +1116,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js" onerror="window.__otFail=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/paper@0.12.18/dist/paper-core.min.js" onerror="window.__paperFail=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipper-lib@6.4.2/clipper.js" onerror="window.__clipperFail=true"></script>
 
 <!-- ================= 핵심 계산(순수 JS) ================= -->
 <script id="cutline-core">
@@ -1126,7 +1153,7 @@ var CutlineCore = (function () {
     var borderBg = cnt ? sum / cnt : 255;
     var invert = borderBg < 118; // 배경이 어두우면 밝은 부분이 글자
     for (i = 0; i < n; i++) ink[i] = invert ? lum[i] : 255 - lum[i];
-    return { ink: ink, alphaMode: false, invert: invert };
+    return { ink: ink, alphaMode: false, invert: invert, borderBg: borderBg };
   }
 
   function boxBlur(src, w, h, r) {
@@ -1270,6 +1297,12 @@ var CutlineCore = (function () {
     return s / 2;
   }
   function dist(a, b) { var dx = a.x - b.x, dy = a.y - b.y; return Math.sqrt(dx * dx + dy * dy); }
+  /* 점 p가 선분 a-b에서 떨어진 거리 */
+  function lineDist(p, a, b) {
+    var dx = b.x - a.x, dy = b.y - a.y, len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 1e-9) return dist(p, a);
+    return Math.abs(dy * (p.x - a.x) - dx * (p.y - a.y)) / len;
+  }
 
   function rdpOpen(pts, eps) {
     var n = pts.length;
@@ -1468,6 +1501,12 @@ var CutlineCore = (function () {
       var cur = new Array(n);
       for (i = 0; i < n; i++) {
         var a = out[(i - 1 + n) % n], b = out[i], c = out[(i + 1) % n];
+        /* 꺾이는 곳(진짜 모서리)은 그대로 둔다 — 얇은 획·뾰족한 끝이 깎여 사려지지 않게 */
+        var v1 = V.sub(b, a), v2 = V.sub(c, b);
+        var l1 = V.len(v1), l2 = V.len(v2);
+        if (l1 < 1e-6 || l2 < 1e-6) { cur[i] = { x: b.x, y: b.y }; continue; }
+        var cosA = V.dot(v1, v2) / (l1 * l2);
+        if (cosA < 0.74) { cur[i] = { x: b.x, y: b.y }; continue; }
         cur[i] = { x: (a.x + 2 * b.x + c.x) / 4, y: (a.y + 2 * b.y + c.y) / 4 };
       }
       out = cur;
@@ -1629,7 +1668,48 @@ var CutlineCore = (function () {
       if (bad) { segs.push({ t: 'L', p: pb }); continue; }
       for (q = 0; q < local.length; q++) segs.push(local[q]);
     }
-    if (!segs.length) return null;
+    if (!segs.length) {
+      /* 어떤 이유로 조각이 하나도 안 나왔을 때 — 획이 통째로 사라지지 않도록
+         다듬은 폴리곤을 그대로 직선으로 이어 붙인다 */
+      for (i = 0; i < m; i++) {
+        var pn = poly[(i + 1) % m];
+        if (dist(poly[i], pn) < 1e-7) continue;
+        segs.push({ t: 'L', p: pn });
+      }
+      if (!segs.length) return null;
+      startPt = poly[0];
+    } else {
+      /* --- 반듯하게 다듬기 ---
+         거의 반듯한 곡선은 직선으로 바꾸고, 방향이 같은 직선은 하나로 잇는다.
+         손으로 그린 듯 꿈틀대는 선 대신, 획(줄기)이 곧은 선으로 나오게. */
+      var sp = startPt, pass = [], i3;
+      for (i3 = 0; i3 < segs.length; i3++) {
+        var sg3 = segs[i3], nx3 = sg3.p;
+        if (sg3.t === 'C') {
+          var Lc = dist(sp, nx3);
+          var tolC = Math.max(0.55, Lc * 0.045);
+          if (Lc > 2.5 && lineDist(sg3.c1, sp, nx3) < tolC && lineDist(sg3.c2, sp, nx3) < tolC) {
+            sg3 = { t: 'L', p: nx3 };
+          }
+        }
+        pass.push(sg3); sp = nx3;
+      }
+      var fin = [], sp2 = startPt, i4 = 0;
+      while (i4 < pass.length) {
+        var sg4 = pass[i4];
+        if (sg4.t === 'L') {
+          var end4 = sg4.p, j4 = i4;
+          while (j4 + 1 < pass.length && pass[j4 + 1].t === 'L') {
+            var va = V.norm(V.sub(end4, sp2)), vb = V.norm(V.sub(pass[j4 + 1].p, end4));
+            if (V.dot(va, vb) < 0.998) break;   /* 3.6도 넘게 꺾이면 그대로 둠 */
+            end4 = pass[j4 + 1].p; j4++;
+          }
+          fin.push({ t: 'L', p: end4 }); sp2 = end4; i4 = j4 + 1; continue;
+        }
+        fin.push(sg4); sp2 = sg4.p; i4++;
+      }
+      segs = fin;
+    }
     return { start: startPt, segs: segs, poly: poly };
   }
 
@@ -1638,9 +1718,19 @@ var CutlineCore = (function () {
     var info = toInk(rgba, w, h);
     var ink = info.ink;
     ink = boxBlur(ink, w, h, o.blurRadius);
+    var total = w * h;
     var T;
     if (info.alphaMode) T = clamp(128 - (o.sensitivity - 5) * 13, 20, 235);
-    else T = clamp(otsu(ink, w * h) + (5 - o.sensitivity) * 9, 6, 250);
+    else {
+      var tOtsu = otsu(ink, total);
+      /* 배경 기준 상대 임계값 — 진한 검은 글자가 섞여 있어도 회색 얇은 획을 놓지지 않게 */
+      var bgInk = info.invert ? info.borderBg : (255 - info.borderBg);
+      var peak = 0, q, step = total > 400000 ? 11 : 5;
+      for (q = 0; q < total; q += step) if (ink[q] > peak) peak = ink[q];
+      var tRel = bgInk + Math.max(16, (peak - bgInk) * 0.30);
+      var baseT = o.textMode === false ? tOtsu : Math.min(tOtsu, tRel);
+      T = clamp(baseT + (5 - o.sensitivity) * 9, 6, 250);
+    }
 
     var traced = traceContours(ink, w, h, T);
     var rings = traced.rings;
@@ -1664,7 +1754,8 @@ var CutlineCore = (function () {
       }
       if ((maxx - minx) < 1.2 || (maxy - miny) < 1.2) continue;
       var touchesEdge = (minx <= edge || miny <= edge || maxx >= w - 1 - edge || maxy >= h - 1 - edge);
-      if (o.trimBorder && touchesEdge && ar > (w * h) * 0.35) continue;
+      if (o.trimBorder && touchesEdge && ar > (w * h) * 0.35 &&
+          (maxx - minx) > w * 0.90 && (maxy - miny) > h * 0.90) continue;
 
       var path = buildRingPath(ring, o);
       if (!path) continue;
@@ -1837,12 +1928,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     mode: 'text', widthCm: 30, heightManual: false, heightCm: 0,
     sensitivity: 5, smooth: 5, denoise: 5,
     strokeW: 0.5, color: '#000000', trimBorder: true,
+    angle: 0,
     view: 'cut', result: null, page: null, prep: null, prepKey: ''
   };
 
   var el = {
     drop: $('#drop'), file: $('#file'), fileInfo: $('#fileInfo'), thumb: $('#thumb'), fileName: $('#fileName'), filePx: $('#filePx'),
     wcm: $('#wcm'), hcm: $('#hcm'), hManual: $('#hManual'),
+    angle: $('#angle'), vAngle: $('#vAngle'), deskewInfo: $('#deskewInfo'),
+    deskewAuto: $('#deskewAuto'), deskewReset: $('#deskewReset'),
     sens: $('#sens'), smooth: $('#smooth'), den: $('#den'),
     vSens: $('#vSens'), vSmooth: $('#vSmooth'), vDen: $('#vDen'),
     stage: $('#stage'), cv: $('#cv'), empty: $('#empty'),
@@ -1873,6 +1967,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     state.img = img;
     state.name = name || 'cutline';
     state.prep = null; state.prepKey = '';
+    angleBase = { key: '', cv: null };
+    state.angle = 0;
+    if (el.angle) el.angle.value = '0';
+    if (el.vAngle) el.vAngle.textContent = '0°';
+    if (el.deskewInfo) el.deskewInfo.textContent = '0°';
     el.fileInfo.classList.add('on');
     el.thumb.src = img.src;
     el.fileName.textContent = name || '사진';
@@ -1960,12 +2059,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   function prepare() {
     var img = state.img;
     if (!img) return null;
+    var src = rotatedSource();
+    if (!src) return null;
     var maxSide = state.mode === 'text' ? 2000 : 1100;
-    var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+    var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
     var s = Math.min(1, maxSide / Math.max(iw, ih));
     if (s > 1) s = 1;
     var w = Math.max(8, Math.round(iw * s)), h = Math.max(8, Math.round(ih * s));
-    var key = w + 'x' + h + '|' + state.mode;
+    var key = w + 'x' + h + '|' + state.mode + '|' + (state.angle || 0);
     if (state.prep && state.prepKey === key) return state.prep;
     var c = document.createElement('canvas');
     c.width = w; c.height = h;
@@ -1973,11 +2074,172 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(img, 0, 0, w, h);
+    ctx.drawImage(src, 0, 0, w, h);
     var data = ctx.getImageData(0, 0, w, h).data;
     state.prep = { w: w, h: h, data: data };
     state.prepKey = key;
     return state.prep;
+  }
+
+  /* ---------- 사진 반듯하게 (수평 맞춤) ---------- */
+  /* 원본을 화면에 쓰기 좋은 크기로 한 번만 줄여 둔다 (기울기를 바꿔도 다시 줄이지 않음) */
+  var angleBase = { key: '', cv: null };
+  function angleBaseCanvas() {
+    var img = state.img;
+    if (!img) return null;
+    var maxSide = state.mode === 'text' ? 2400 : 1400;
+    var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+    var s = Math.min(1, maxSide / Math.max(iw, ih));
+    var w = Math.max(8, Math.round(iw * s)), h = Math.max(8, Math.round(ih * s));
+    var key = w + 'x' + h + '|' + state.mode;
+    if (angleBase.cv && angleBase.key === key) return angleBase.cv;
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var g = c.getContext('2d');
+    g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.drawImage(img, 0, 0, w, h);
+    angleBase = { key: key, cv: c };
+    return c;
+  }
+
+  /* 각도만큼 돌린 사진 — 0°이면 원본 그대로. 돌릴 때 생기는 빈 자리는 흰색으로 채운다 */
+  function rotatedSource() {
+    var base = angleBaseCanvas();
+    if (!base) return state.img;
+    var deg = state.angle || 0;
+    if (Math.abs(deg) < 0.05) return base;
+    var rad = deg * Math.PI / 180;
+    var cos = Math.cos(rad), sin = Math.sin(rad);
+    var w0 = base.width, h0 = base.height;
+    var w = Math.ceil(Math.abs(w0 * cos) + Math.abs(h0 * sin)) + 2;
+    var h = Math.ceil(Math.abs(w0 * sin) + Math.abs(h0 * cos)) + 2;
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var g = c.getContext('2d');
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+    g.translate(w / 2, h / 2);
+    g.rotate(rad);
+    g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.drawImage(base, -w0 / 2, -h0 / 2);
+    return c;
+  }
+
+  function fmtDeg(v) {
+    var n = Math.round((Number(v) || 0) * 100) / 100;
+    var s = (Math.abs(n - Math.round(n)) < 0.001) ? String(Math.round(n)) : String(n);
+    return (n > 0 ? '+' : '') + s + '°';
+  }
+
+  /* 기운 각도 찾기 — 글자(잉크) 픽셀을 여러 각도로 돌려 보며,
+     가로줄에 가장 잘 몰리는 각도를 고른다 (투영 프로파일 방식) */
+  function detectSkew() {
+    var img = state.img;
+    if (!img) return null;
+    var maxSide = 480;
+    var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+    var s = Math.min(1, maxSide / Math.max(iw, ih));
+    var w = Math.max(24, Math.round(iw * s)), h = Math.max(24, Math.round(ih * s));
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var g = c.getContext('2d', { willReadFrequently: true });
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(img, 0, 0, w, h);
+    var d;
+    try { d = g.getImageData(0, 0, w, h).data; } catch (e) { return null; }
+
+    /* 테두리(배경) 밝기 — 배경이 어두우면 밝은 글자를 글자로 본다 */
+    var bw = Math.max(1, Math.round(Math.min(w, h) * 0.02)), sum = 0, cnt = 0, x, y, p, lum;
+    for (y = 0; y < h; y++) {
+      for (x = 0; x < w; x++) {
+        if (x < bw || y < bw || x >= w - bw || y >= h - bw) {
+          p = (y * w + x) * 4;
+          sum += 0.299 * d[p] + 0.587 * d[p + 1] + 0.114 * d[p + 2]; cnt++;
+        }
+      }
+    }
+    var bgLum = cnt ? sum / cnt : 255;
+    var invert = bgLum < 118;
+
+    /* 글자(잉크) 픽셀만 모으기 */
+    var px = [], py = [];
+    for (y = 0; y < h; y++) {
+      for (x = 0; x < w; x++) {
+        p = (y * w + x) * 4;
+        lum = 0.299 * d[p] + 0.587 * d[p + 1] + 0.114 * d[p + 2];
+        var v = invert ? (lum - bgLum) : (bgLum - lum);
+        if (v > 42) { px.push(x - w / 2); py.push(y - h / 2); }
+      }
+    }
+    if (px.length < 30) return null;
+
+    var rows = h + w + 8;
+    var hist = new Int32Array(rows * 2 + 4);
+    function scoreAt(deg) {
+      var a = deg * Math.PI / 180, sa = Math.sin(a), ca = Math.cos(a), i, bin;
+      hist.fill(0);
+      for (i = 0; i < px.length; i++) {
+        bin = Math.round(px[i] * sa + py[i] * ca) + rows;
+        if (bin >= 0 && bin < hist.length) hist[bin]++;
+      }
+      var q = 0, used = 0, hv;
+      for (i = 0; i < hist.length; i++) { hv = hist[i]; if (hv) { q += hv * hv; used++; } }
+      return used ? q / used : 0;
+    }
+
+    var best = 0, bestScore = -1, ai, sc, all = [];
+    for (ai = -15; ai <= 15.0001; ai += 0.5) {
+      sc = scoreAt(ai);
+      all.push(sc);
+      if (sc > bestScore) { bestScore = sc; best = ai; }
+    }
+    /* 글자가 없는 그림(별·로고 등)에서는 방향이 우연히 정해진다 — 그때는 건드리지 않는다 */
+    all.sort(function (x, y) { return x - y; });
+    var mid = all[Math.floor(all.length / 2)] || 0;
+    var s0 = scoreAt(0);
+    if (best <= -14.9 || best >= 14.9) return null;         /* 한쪽 끝에 걸리면 믿지 않음 */
+    if (!(bestScore > mid * 1.15) || !(bestScore > s0 * 1.08)) return null;
+    var fine = best, fScore = -1;
+    for (ai = best - 0.5; ai <= best + 0.5001; ai += 0.1) {
+      sc = scoreAt(ai);
+      if (sc > fScore) { fScore = sc; fine = ai; }
+    }
+    var angle = Math.max(-15, Math.min(15, Math.round(fine * 4) / 4));
+    return { angle: angle, pixels: px.length, invert: invert };
+  }
+
+  /* 각도 적용 — 미리보기와 커팅선을 바로 다시 그린다 */
+  function setAngle(deg, delay) {
+    deg = Math.max(-15, Math.min(15, Number(deg) || 0));
+    state.angle = Math.round(deg * 100) / 100;
+    if (el.angle) el.angle.value = String(Math.round(state.angle * 2) / 2);
+    if (el.vAngle) el.vAngle.textContent = fmtDeg(state.angle);
+    if (el.deskewInfo) el.deskewInfo.textContent = Math.abs(state.angle) < 0.01 ? '반듯함 0°' : fmtDeg(state.angle);
+    state.prep = null; state.prepKey = '';
+    schedule(delay === undefined ? 60 : delay);
+    if (state.view === 'orig') drawPreview();
+  }
+
+  function autoDeskew() {
+    if (!state.img) { toast('먼저 사진을 넣어 주세요'); return; }
+    busy(true);
+    setTimeout(function () {
+      try {
+        var r = detectSkew();
+        if (!r) {
+          toast('글자 줄을 찾지 못했어요 — 각도 미세 조절로 직접 맞춰 보세요');
+        } else if (Math.abs(r.angle) < 0.3) {
+          setAngle(0);
+          toast('사진이 이미 반듯해요 (0°)');
+        } else {
+          setAngle(r.angle);
+          toast('사진을 ' + fmtDeg(r.angle) + ' 돌려 반듯하게 맞췄어요');
+        }
+      } catch (e) {
+        console.error(e);
+        toast('수평을 맞추지 못했어요');
+      }
+      busy(false);
+    }, 30);
   }
 
   /* ---------- 계산 ---------- */
@@ -1991,15 +2253,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       sensitivity: state.sensitivity,
       denoise: state.denoise,
       trimBorder: state.trimBorder,
+      textMode: txt,
       blurRadius: txt ? 0 : 1,
       smoothPasses: Math.max(0, Math.round((sm - 1) / 2.5)),
-      rdpEps: txt ? (0.35 + sm * 0.09) : (0.7 + sm * 0.15),
-      fitError: txt ? (0.35 + sm * 0.22) : (0.8 + sm * 0.4),
-      lineDev: txt ? (1.15 + sm * 0.12) : (2.0 + sm * 0.2),
+      rdpEps: txt ? (0.32 + sm * 0.07) : (0.7 + sm * 0.15),
+      fitError: txt ? (0.5 + sm * 0.28) : (0.8 + sm * 0.4),
+      lineDev: txt ? (1.8 + sm * 0.16) : (2.0 + sm * 0.2),
       bevel: txt ? 1.8 : 2.6,
       cornerAngle: txt ? 40 : 55,
-      snapAngle: 1.6,
-      minSeg: txt ? 3 : 4
+      snapAngle: txt ? 3.5 : 1.6,
+      minSeg: txt ? 1.6 : 4
     };
     if (window.__testOpts) for (var k in window.__testOpts) base[k] = window.__testOpts[k];
     return base;
@@ -2075,7 +2338,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     if (state.view === 'orig') {
-      var iw = state.img.naturalWidth || state.img.width, ih = state.img.naturalHeight || state.img.height;
+      var src = rotatedSource();
+      var iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
       var sc = Math.min(boxW / iw, 420 / ih);
       var cw = Math.round(iw * sc), ch = Math.round(ih * sc);
       cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
@@ -2083,7 +2347,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       var x = cv.getContext('2d');
       x.setTransform(dpr, 0, 0, dpr, 0, 0);
       x.fillStyle = '#fff'; x.fillRect(0, 0, cw, ch);
-      x.drawImage(state.img, 0, 0, cw, ch);
+      x.drawImage(src, 0, 0, cw, ch);
       return;
     }
     if (!state.result || !state.page) { el.empty.style.display = ''; cv.style.display = 'none'; return; }
@@ -2277,6 +2541,17 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   bindRange(el.smooth, el.vSmooth, 'smooth');
   bindRange(el.den, el.vDen, 'denoise');
 
+  /* ---------- 수평 맞춤 단추 · 각도 막대 ---------- */
+  if (el.deskewAuto) el.deskewAuto.addEventListener('click', autoDeskew);
+  if (el.deskewReset) el.deskewReset.addEventListener('click', function () {
+    if (!state.img) return;
+    setAngle(0);
+    toast('원래대로 되돌렸어요 (0°)');
+  });
+  if (el.angle) el.angle.addEventListener('input', function () {
+    setAngle(parseFloat(this.value), 200);
+  });
+
   $('#trim').addEventListener('change', function () {
     state.trimBorder = $('#trim').checked;
     schedule(0);
@@ -2440,13 +2715,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     text: '커팅 외곽선\n30cm', font: 'black-han-sans', widthCm: 30,
     lineHeight: 1.15, tracking: 0, align: 'center',
     paint: 'stroke', strokeW: 0.5, color: '#000000', view: 'cut',
+    weight: 0,
     result: null, page: null, busy: false, pending: false, _t: null
   };
   var tvEl = {
     text: $('#tvText'), font: $('#tvFont'), w: $('#tvW'), h: $('#tvH'), lh: $('#tvLh'), tr: $('#tvTr'),
     lhV: $('#tvLhV'), trV: $('#tvTrV'), preview: $('#tvPreview'), lic: $('#tvLicense'), fstate: $('#tvFontState'),
     canvas: $('#tvCanvas'), empty: $('#tvEmpty'), dim: $('#tvDimText'), chip: $('#tvPathChip'), curve: $('#tvCurveChip'),
-    stage: $('#tvStage')
+    stage: $('#tvStage'), weight: $('#tvWeight'), weightV: $('#tvWeightV')
   };
   fillFontSelect(tvEl.font, tv.font);
   $('#stFont').innerHTML = tvEl.font.innerHTML;
@@ -2469,6 +2745,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     });
     var maxW = Math.max.apply(null, widths.concat([1]));
     var paths = [];
+    var groups = [];
+    paths._groups = groups;
     var base = asc;
     for (var li = 0; li < lines.length; li++) {
       var chars = Array.from(lines[li]);
@@ -2480,7 +2758,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         var ch = chars[ci], gl = font.charToGlyph(ch);
         if (ch !== ' ' && gl && gl.path) {
           var gp = gl.getPath(x, y, size);
+          var from = paths.length;
           appendGlyph(paths, gp);
+          if (paths.length > from) groups.push({ from: from, to: paths.length });
         }
         x += (gl.advanceWidth || 0) * scaleU + track;
       }
@@ -2512,6 +2792,182 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
   function tvSchedule(d) { clearTimeout(tv._t); tv._t = setTimeout(tvBuild, d || 240); }
 
+  /* ============================================================
+     글자 살찌우기 (굵기 조절)
+     글자 외곽선을 실제 벡터로 밖으로 밀어내 획을 두껍게(또는 얇게) 만든다.
+     ClipperOffset(다각형 오프셋)을 쓰고, 겹친 획은 이때 하나로 합쳐진다.
+     ============================================================ */
+  function bezAt(p0, s, t) {
+    var u = 1 - t, uu = u * u, tt = t * t;
+    return {
+      x: uu * u * p0.x + 3 * uu * t * s.c1.x + 3 * u * tt * s.c2.x + tt * t * s.p.x,
+      y: uu * u * p0.y + 3 * uu * t * s.c1.y + 3 * u * tt * s.c2.y + tt * t * s.p.y
+    };
+  }
+  function flattenPath(p, tol) {
+    var pts = [{ x: p.start.x, y: p.start.y }], i, j;
+    for (i = 0; i < p.segs.length; i++) {
+      var s = p.segs[i];
+      if (s.t === 'L') { pts.push({ x: s.p.x, y: s.p.y }); continue; }
+      var p0 = pts[pts.length - 1];
+      var rough = Math.abs(s.p.x - p0.x) + Math.abs(s.p.y - p0.y) +
+        Math.abs(s.c1.x - p0.x) + Math.abs(s.c1.y - p0.y) +
+        Math.abs(s.c2.x - s.p.x) + Math.abs(s.c2.y - s.p.y);
+      var n = Math.max(2, Math.min(48, Math.ceil(rough / Math.max(0.8, tol))));
+      for (j = 1; j <= n; j++) pts.push(bezAt(p0, s, j / n));
+    }
+    return pts;
+  }
+  function simplifyPoly(pts, eps) {
+    var n = pts.length;
+    if (n < 6) return pts;
+    var out = [pts[0]], i;
+    for (i = 1; i < n - 1; i++) {
+      var a = out[out.length - 1], b = pts[i], c = pts[i + 1];
+      var dx = c.x - a.x, dy = c.y - a.y, len = Math.sqrt(dx * dx + dy * dy);
+      if (len < 1e-9) continue;
+      var dev = Math.abs(dx * (b.y - a.y) - dy * (b.x - a.x)) / len;
+      if (dev < eps) continue;   /* 거의 일직선인 점은 버린다 */
+      out.push(b);
+    }
+    out.push(pts[n - 1]);
+    return out;
+  }
+  function offsetPaths(paths, delta) {
+    var CL = window.ClipperLib;
+    if (!CL || !CL.ClipperOffset) return null;
+    var scale = 1000;
+    var co = new CL.ClipperOffset(2.0, 0.2 * scale);
+    var added = 0, i, j, k;
+    for (i = 0; i < paths.length; i++) {
+      if (!paths[i].segs || !paths[i].segs.length) continue;
+      var poly = flattenPath(paths[i], 0.6);
+      if (poly.length < 3) continue;
+      var ip = [];
+      for (j = 0; j < poly.length; j++) ip.push({ X: Math.round(poly[j].x * scale), Y: Math.round(poly[j].y * scale) });
+      co.AddPath(ip, CL.JoinType.jtRound, CL.EndType.etClosedPolygon);
+      added++;
+    }
+    if (!added) return null;
+    var sol = new CL.Paths();
+    /* 좌표계가 화면 기준(y 아래)이라 클리퍼 기준과 반대 — 부호를 뒤집어야 살이 찀다 */
+    co.Execute(sol, delta * scale);
+    var out = [];
+    for (k = 0; k < sol.length; k++) {
+      var pts = [];
+      for (j = 0; j < sol[k].length; j++) pts.push({ x: sol[k][j].X / scale, y: sol[k][j].Y / scale });
+      pts = simplifyPoly(pts, 0.1);
+      if (pts.length < 3) continue;
+      var st = { x: pts[0].x, y: pts[0].y }, segs = [];
+      for (j = 1; j < pts.length; j++) segs.push({ t: 'L', p: { x: pts[j].x, y: pts[j].y } });
+      out.push({ start: st, segs: segs });
+    }
+    return out.length ? out : null;
+  }
+
+  /* ============================================================
+     글자 외곽선 합치기 (Boolean Union)
+     한글 폰트는 한 글자 안에서 가로·세로 획이 서로 겹치게 그려진 경우가 많다.
+     그대로 선을 따면 겹친 안쪽 선까지 나와서 커팅이 엉킨다.
+     paper.js로 교차를 풀어(합치기) 속이 빈 깨끗한 외곽선만 남긴다.
+     ============================================================ */
+  var paperScope = null;
+  function getPaperScope() {
+    if (!window.paper || !window.paper.PaperScope) return null;
+    if (!paperScope) {
+      try {
+        var cv = document.createElement('canvas');
+        cv.width = 8; cv.height = 8;
+        paperScope = new window.paper.PaperScope();
+        paperScope.setup(cv);
+      } catch (e) { paperScope = null; }
+    }
+    return paperScope;
+  }
+  function pathToD(p) {
+    var s = 'M' + p.start.x.toFixed(3) + ' ' + p.start.y.toFixed(3);
+    for (var i = 0; i < p.segs.length; i++) {
+      var g = p.segs[i];
+      if (g.t === 'L') s += 'L' + g.p.x.toFixed(3) + ' ' + g.p.y.toFixed(3);
+      else s += 'C' + g.c1.x.toFixed(3) + ' ' + g.c1.y.toFixed(3) + ' ' +
+        g.c2.x.toFixed(3) + ' ' + g.c2.y.toFixed(3) + ' ' + g.p.x.toFixed(3) + ' ' + g.p.y.toFixed(3);
+    }
+    return s + 'Z';
+  }
+  function paperToPaths(item) {
+    var out = [];
+    if (!item) return out;
+    var kids = (item.children && item.children.length) ? item.children : [item];
+    for (var k = 0; k < kids.length; k++) {
+      var ch = kids[k];
+      if (ch.children && ch.children.length) { out = out.concat(paperToPaths(ch)); continue; }
+      var curves = ch.curves;
+      if (!curves || !curves.length) continue;
+      var p = { start: { x: curves[0].point1.x, y: curves[0].point1.y }, segs: [] };
+      for (var i = 0; i < curves.length; i++) {
+        var cv = curves[i];
+        /* paper의 handle1/handle2는 꼭짓점 기준 상대값 — 실제 제어점은 꼭짓점 + handle */
+        var h1 = cv.handle1 || { x: 0, y: 0 }, h2 = cv.handle2 || { x: 0, y: 0 };
+        var z1 = Math.abs(h1.x) < 1e-4 && Math.abs(h1.y) < 1e-4;
+        var z2 = Math.abs(h2.x) < 1e-4 && Math.abs(h2.y) < 1e-4;
+        if (z1 && z2) p.segs.push({ t: 'L', p: { x: cv.point2.x, y: cv.point2.y } });
+        else p.segs.push({
+          t: 'C',
+          c1: { x: cv.point1.x + h1.x, y: cv.point1.y + h1.y },
+          c2: { x: cv.point2.x + h2.x, y: cv.point2.y + h2.y },
+          p: { x: cv.point2.x, y: cv.point2.y }
+        });
+      }
+      /* 시작점으로 돌아오는 마지막 직선은 생략 (어차피 닫힌 선으로 그림) */
+      var lastS = p.segs[p.segs.length - 1];
+      if (lastS && lastS.t === 'L' && Math.abs(lastS.p.x - p.start.x) < 1e-4 && Math.abs(lastS.p.y - p.start.y) < 1e-4) p.segs.pop();
+      if (p.segs.length) out.push(p);
+    }
+    return out;
+  }
+  function unionPaths(paths) {
+    if (!paths || !paths.length) return paths;
+    var scope = getPaperScope();
+    if (!scope) return paths;   /* paper.js를 못 불러오면 원래대로 (안전한 되돌림) */
+    try {
+      scope.activate();
+      var proj = scope.project;
+      proj.clear();
+      var groups = paths._groups;
+      if (!groups || !groups.length) groups = [{ from: 0, to: paths.length }];
+      var acc = null, g, i;
+      for (g = 0; g < groups.length; g++) {
+        var kids = [];
+        for (i = groups[g].from; i < groups[g].to; i++) {
+          if (i >= paths.length || !paths[i].segs || !paths[i].segs.length) continue;
+          kids.push(new scope.Path({ pathData: pathToD(paths[i]), insert: false }));
+        }
+        if (!kids.length) continue;
+        /* 한 글자 안의 여러 획(ㅋ·ㅓ 등)은 하나의 덩어리로 보고 합친다.
+           멀리 떨어진 작은 삼각형과 unite 하는 것은, 그 글자의 자가교차·겹친 획을
+           Boolean Union으로 풀어내기 위한 방아쇠 역할이다. */
+        var item = (kids.length === 1) ? kids[0] : new scope.CompoundPath({ children: kids, insert: false });
+        var one = item;
+        try {
+          var sliver = new scope.Path({ pathData: 'M-900000 -900000L-899998 -900000L-899998 -899998Z', insert: false });
+          one = item.unite(sliver, { insert: false });
+        } catch (e) { one = item; }
+        acc = acc ? acc.unite(one, { insert: false }) : one;
+      }
+      if (!acc) { proj.clear(); return paths; }
+      var out = paperToPaths(acc);
+      /* 방아쇠용 삼각형("보조 도형")이 남았으면 걸러낸다 */
+      out = out.filter(function (p) { return Math.abs(p.start.x) < 500000 && Math.abs(p.start.y) < 500000; });
+      proj.clear();
+      window.__unionInfo = { before: paths.length, after: out.length, kids: groups.length };
+      return out.length ? out : paths;
+    } catch (e) {
+      window.__unionErr = (e && e.message) || String(e);
+      try { if (scope && scope.project) scope.project.clear(); } catch (e2) {}
+      return paths;
+    }
+  }
+
   function tvBuild() {
     if (tv.busy) { tv.pending = true; return; }
     if (!window.opentype) {
@@ -2527,6 +2983,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       tvEl.fstate.textContent = meta.cat + ' · 글자 그대로 벡터로 만들어요';
       var paths = textToPaths(font, tv.text, tv);
       if (!paths.length) throw new Error('글자를 넣어 주세요');
+      var weight = Number(tv.weight) || 0;
+      if (Math.abs(weight) > 0.01) {
+        var bb0 = Core.bboxOfPaths(paths);
+        var unitsPerMm = bb0.w / Math.max(1, (tv.widthCm || 30) * 10);
+        var off = offsetPaths(paths, (weight / 2) * unitsPerMm);
+        if (off) paths = off;
+        else toast('굵기 조절을 쓰려면 인터넷 연결이 필요해요 — 원래 굵기로 보여 드릴게요');
+      } else {
+        paths = unionPaths(paths);   /* 겹친 획은 하나로 합쳐 안쪽 선이 남지 않게 */
+      }
       var bbox = Core.bboxOfPaths(paths);
       var pageW = Math.max(1, tv.widthCm) * CM_PT;
       var scale = pageW / bbox.w;
@@ -2629,6 +3095,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     tv.tracking = parseInt(tvEl.tr.value, 10);
     tvEl.trV.textContent = (tv.tracking > 0 ? '+' : '') + tv.tracking;
     tvSchedule();
+  });
+  if (tvEl.weight) tvEl.weight.addEventListener('input', function () {
+    tv.weight = Math.round(parseFloat(this.value) * 10) / 10 || 0;
+    if (tvEl.weightV) tvEl.weightV.textContent = (tv.weight > 0 ? '+' : '') + tv.weight.toFixed(1) + ' mm';
+    tvSchedule(150);
   });
   $('#tvAlign').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
@@ -3009,9 +3480,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     banner:   { name: '현수막',       w: 3.0, h: 0.9 },
     vertical: { name: '배너(세로형)', w: 0.6, h: 1.8 },
     sign:     { name: '간판',         w: 4.0, h: 1.0 },
-    window:   { name: '유리창 시트지', w: 1.2, h: 0.6 }
+    window:   { name: '유리창 시트지', w: 1.2, h: 0.6 },
+    led:      { name: 'LED 간판',     w: 4.0, h: 1.0 }
   };
   var ARA_STYLE_NAMES = ['A · 모던 · 고급', 'B · 깔끔 · 내추럴', 'C · 강렬 · 프로모션'];
+  var ARA_LED_NAMES = {
+    night: ['A · 전광 화이트·골드', 'B · 후광 웜화이트', 'C · 컬러 네온'],
+    day:   ['A · 화이트 채널', 'B · 크림 채널', 'C · 컬러 채널']
+  };
+  function araStyleNames() {
+    if (ARA.cat !== 'led') return ARA_STYLE_NAMES;
+    return (ARA.ledNight === false) ? ARA_LED_NAMES.day : ARA_LED_NAMES.night;
+  }
   var ARA_TEXT_DEFAULT = [
     '현수막 · 간판 · 시트지\n아라광고 디자인',
     '맞춤 제작 · 빠른 납기',
@@ -3029,6 +3509,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       { text: ARA_TEXT_DEFAULT[2], pos: 'tr', size: 0.35 }
     ],
     theme: 'auto', themeColor: '#0f766e',
+    ledNight: true,
     photo: null, place: 'full', darken: 25,
     view: 0, confirmed: -1, made: false, _t: null, _mctx: null, _measIdx: 0, cards: []
   };
@@ -3059,9 +3540,64 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   }
   function araLighten(c, t) { return araMix(c, '#ffffff', t); }
   function araDarken(c, t) { return araMix(c, '#000000', t); }
+  function araRGBA(c, a) {
+    var A = araHex(c);
+    return 'rgba(' + A[0] + ',' + A[1] + ',' + A[2] + ',' + Math.max(0, Math.min(1, a)).toFixed(3) + ')';
+  }
+  /* 네온 불빛 색 — 고른 색의 색상(색조)은 그대로 두고, 진하고 밝게 만든다 */
+  function araNeon(c, sat, light) {
+    var A = araHex(c).map(function (v) { return v / 255; });
+    var mx = Math.max(A[0], A[1], A[2]), mn = Math.min(A[0], A[1], A[2]);
+    var l = (mx + mn) / 2, h = 0, s = 0, d = mx - mn;
+    if (d) {
+      s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+      if (mx === A[0]) h = (A[1] - A[2]) / d + (A[1] < A[2] ? 6 : 0);
+      else if (mx === A[1]) h = (A[2] - A[0]) / d + 2;
+      else h = (A[0] - A[1]) / d + 4;
+      h /= 6;
+    }
+    s = sat == null ? 0.92 : sat;
+    l = light == null ? 0.60 : light;
+    function hue(p, q, t) {
+      if (t < 0) t += 1; if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    }
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s, pp = 2 * l - q;
+    var rgb = [hue(pp, q, h + 1 / 3), hue(pp, q, h), hue(pp, q, h - 1 / 3)];
+    return '#' + rgb.map(function (v) {
+      var n = Math.round(Math.max(0, Math.min(1, v)) * 255);
+      return ('0' + n.toString(16)).slice(-2);
+    }).join('');
+  }
   function araLum(c) { var A = araHex(c); return (0.2126 * A[0] + 0.7152 * A[1] + 0.0722 * A[2]) / 255; }
 
   function araPalettes() {
+    var brand = (ARA.themeColor || '#0f766e');
+    /* ✨ LED 간판 — 밤에 불 켰을 때(A·B·C) / 낮에 봤을 때 */
+    if (ARA.cat === 'led') {
+      if (ARA.ledNight !== false) {
+        var autoLed = (!ARA.theme || ARA.theme === 'auto');
+        var goldA = autoLed ? '#e6c27e' : araLighten(brand, 0.55);
+        var amber = autoLed ? '#ffb14d' : araLighten(brand, 0.42);
+        return [
+          /* A · 전광 화이트·골드 채널 LED — 짙은 갈바 판 + 금색 테두리 + 선명한 전광 */
+          { bg1: '#07090d', bg2: '#151d26', accent: goldA, ink: '#ffffff', soft: '#f2dfb6', tone: 'led', night: true, led: 'A', glow: '#fff4d6' },
+          /* B · 후광(역광) 웜화이트·앰버 — 어두운 벽면 + 글자 뒤로 퍼지는 따뜻한 빛 */
+          { bg1: '#100b08', bg2: '#26180f', accent: amber, ink: '#ffeccf', soft: '#ffcf91', tone: 'led', night: true, led: 'B', glow: '#ff9d2e' },
+          /* C · 컬러 네온·사이버 — 브랜드 색 네온 글로우 + 아크릴 채널 테두리 */
+          { bg1: '#06040d', bg2: '#1a0a2e', accent: araNeon(brand), ink: '#ffffff', soft: araLighten(araNeon(brand), 0.55), tone: 'led', night: true, led: 'C', glow: araNeon(brand), neon2: '#ff6ad5' }
+        ];
+      }
+      var dayInk = araDarken(brand, 0.72);
+      return [
+        { bg1: '#f8fafc', bg2: '#e5e9ee', accent: '#a9863c', ink: '#18202a', soft: '#4d5765', tone: 'led', night: false, led: 'A', glow: null },
+        { bg1: '#fffaf1', bg2: '#f0e3cd', accent: '#a5681d', ink: '#2a1e12', soft: '#5c4a34', tone: 'led', night: false, led: 'B', glow: null },
+        { bg1: araLighten(brand, 0.92), bg2: araLighten(brand, 0.80), accent: brand, ink: dayInk, soft: araDarken(brand, 0.35), tone: 'led', night: false, led: 'C', glow: null }
+      ];
+    }
     if (!ARA.theme || ARA.theme === 'auto') {
       return [
         /* A · 모던 · 고급 — 딥 차콜 + 샴페인 골드 */
@@ -3173,7 +3709,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ARA._measIdx = styleIdx;
     var W = ARA.wM * 100, H = ARA.hM * 100;
     var short = Math.min(W, H);
-    var mg = short * 0.075;
+    var isLed = !!(pal && pal.tone === 'led');
+    var mg = short * (isLed ? 0.10 : 0.075);
     var fTitle = araFontFor(styleIdx, 'title');
     var fPhone = araFontFor(styleIdx, 'phone');
     var fText = araFontFor(styleIdx, 'text');
@@ -3358,8 +3895,61 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       scene.shapes.push({ t: 'rect', x: x2, y: y2, w: w2, h: thick, fill: color, alpha: alpha });
     }
 
+    /* ---------------- ✨ LED 간판 : 야간 채널 LED ---------------- */
+    if (isLed) {
+      var ledNight = (pal.night !== false);
+      var fwL = Math.max(0.16, short * 0.010);
+      var insL = Math.min(mg * 0.32, short * 0.035);
+      scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
+
+      /* 간판 빛이 벽에 번지는 느낌 (화면·PNG·JPG 전용 — PDF/AI에는 넣지 않는다) */
+      if (ledNight) {
+        scene.shapes.push({ t: 'glow', x: W * 0.5 - short * 1.35, y: H * 0.5 - short * 1.0, w: short * 2.7, h: short * 2.0, color: pal.glow, alpha: 0.13, canvasOnly: true });
+      }
+
+      /* 채널 간판 몸체 — 알루미늄·아크릴 테두리 (제작용 PDF에도 남는 선) */
+      scene.shapes.push({ t: 'rect', x: insL, y: insL, w: W - insL * 2, h: H - insL * 2, fill: null, stroke: pal.accent, sw: fwL, alpha: ledNight ? 0.92 : 1 });
+      if (pal.led === 'A' || pal.led === 'C') {
+        var ins2 = insL + Math.max(0.22, short * 0.018);
+        scene.shapes.push({ t: 'rect', x: ins2, y: ins2, w: W - ins2 * 2, h: H - ins2 * 2, fill: null, stroke: pal.accent, sw: fwL * 0.45, alpha: ledNight ? 0.45 : 0.75 });
+      }
+
+      /* 글자 뒤로 퍼지는 빛무리 */
+      if (ledNight) {
+        var ledHalo = function (rect, size, al) {
+          if (!rect) return;
+          var ex = Math.max(rect.w, size * 2) * 0.62, ey = Math.max(rect.h, size * 1.6) * 1.15;
+          scene.shapes.push({ t: 'glow', x: rect.x + rect.w / 2 - ex, y: rect.y + rect.h / 2 - ey, w: ex * 2, h: ey * 2, color: pal.glow, alpha: al, canvasOnly: true });
+        };
+        if (pal.led === 'B') {
+          ledHalo(tb, tRes ? tRes.fit.size : short * 0.2, 0.34);
+          ledHalo(pb, pRes ? pRes.fit.size : short * 0.1, 0.20);
+          ledHalo(sRes[0] ? sRes[0].rect : null, sRes[0] ? sRes[0].fit.size : short * 0.1, 0.18);
+        } else {
+          ledHalo(tb, tRes ? tRes.fit.size : short * 0.2, 0.22);
+          ledHalo(pb, pRes ? pRes.fit.size : short * 0.1, 0.14);
+          ledHalo(sRes[0] ? sRes[0].rect : null, sRes[0] ? sRes[0].fit.size : short * 0.1, 0.13);
+        }
+      }
+
+      /* 글자 색 */
+      if (!ledNight) {
+        tColor = pal.accent; pColor = pal.ink; s1Colors = [pal.ink, pal.accent]; s2Color = pal.soft; s3Color = pal.soft;
+      } else if (pal.led === 'A') {
+        tColor = '#ffffff'; pColor = '#f6dda8'; s1Colors = ['#ffffff', '#f6dda8']; s2Color = '#efe6d2'; s3Color = '#efe6d2';
+      } else if (pal.led === 'B') {
+        tColor = '#fff2dc'; pColor = '#ffc06b'; s1Colors = ['#fff5e2', '#ffc06b']; s2Color = '#ffd8a2'; s3Color = '#ffd8a2';
+      } else {
+        tColor = '#ffffff'; pColor = pal.accent; s1Colors = ['#ffffff', '#ffffff']; s2Color = pal.neon2 || '#dcc9ff'; s3Color = pal.neon2 || '#dcc9ff';
+      }
+
+      scene.ledGlow = ledNight ? pal.glow : null;
+      scene.ledDepth = !!(ledNight && pal.led === 'A');
+      scene.led = { variant: pal.led, night: ledNight };
+    }
+
     /* ---------------- 시안 A : 모던 · 고급 (딥 차콜 + 얇은 골드 프레임) ---------------- */
-    if (styleIdx === 0) {
+    if (!isLed && styleIdx === 0) {
       scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
       var glow = scene.photo ? 0.05 : 0.07;
       scene.shapes.push({ t: 'circle', cx: onLeft ? W * 0.88 : W * 0.12, cy: onTop ? H * 0.92 : H * 0.08, r: short * 0.62, fill: '#ffffff', alpha: glow });
@@ -3379,7 +3969,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     /* ---------------- 시안 B : 깔끔 · 내추럴 (아이보리 편집 디자인 + 컬러 배지) ---------------- */
-    if (styleIdx === 1) {
+    if (!isLed && styleIdx === 1) {
       scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
       if (card) {
         scene.shapes.push({ t: 'rect', x: card.x, y: card.y, w: card.w, h: card.h, fill: '#fffdf9', alpha: 0.97 });
@@ -3414,7 +4004,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     /* ---------------- 시안 C : 강렬 · 프로모션 (비비드 그라데이션 + 흰 배지) ---------------- */
-    if (styleIdx === 2) {
+    if (!isLed && styleIdx === 2) {
       scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
       scene.shapes.push({ t: 'circle', cx: W * 0.10, cy: H * 0.14, r: short * 0.72, fill: '#ffffff', alpha: 0.10 });
       scene.shapes.push({ t: 'circle', cx: W * 0.93, cy: H * 0.96, r: short * 0.60, fill: '#000000', alpha: 0.12 });
@@ -3558,16 +4148,49 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       } else if (s.t === 'line') {
         g.beginPath(); g.moveTo(s.x1 * k, s.y1 * k); g.lineTo(s.x2 * k, s.y2 * k);
         g.strokeStyle = s.color; g.lineWidth = Math.max(0.6, s.w * k); g.stroke();
+      } else if (s.t === 'glow') {
+        /* 빛무리 — 화면·PNG·JPG 전용 (제작용 PDF에는 안 들어감) */
+        var gcx = (s.x + s.w / 2) * k, gcy = (s.y + s.h / 2) * k;
+        var rw = Math.max(1, s.w * k * 0.5), rh = Math.max(1, s.h * k * 0.5);
+        var al = (s.alpha == null ? 0.4 : s.alpha);
+        g.globalAlpha = 1;
+        g.globalCompositeOperation = 'lighter';
+        var rg = g.createRadialGradient(0, 0, 0, 0, 0, rw);
+        rg.addColorStop(0, araRGBA(s.color, al));
+        rg.addColorStop(0.45, araRGBA(s.color, al * 0.42));
+        rg.addColorStop(1, araRGBA(s.color, 0));
+        g.save();
+        g.translate(gcx, gcy); g.scale(1, rh / rw);
+        g.fillStyle = rg;
+        g.beginPath(); g.arc(0, 0, rw, 0, Math.PI * 2); g.fill();
+        g.restore();
       }
       g.restore();
     }
     g.textBaseline = 'alphabetic';
     g.textAlign = 'left';
+    var ledGlow = scene.ledGlow || null;
     for (i = 0; i < scene.texts.length; i++) {
       var t = scene.texts[i];
       g.save();
       if (t.alpha != null) g.globalAlpha = t.alpha;
-      g.font = Math.max(1, t.size * k) + 'px ' + fontStack(t.f || araFontFor(scene.style || 0));
+      var pxT = Math.max(1, t.size * k);
+      g.font = pxT + 'px ' + fontStack(t.f || araFontFor(scene.style || 0));
+      /* 채널 글자 두께(입체감) — A 시안 */
+      if (scene.ledDepth) {
+        g.fillStyle = 'rgba(0,0,0,0.55)';
+        g.fillText(t.text, t.x * k, t.y * k + pxT * 0.055);
+      }
+      /* 발광 — 글자 둘레로 빛이 번지는 느낌 */
+      if (ledGlow) {
+        g.shadowColor = ledGlow;
+        g.fillStyle = t.color;
+        g.shadowBlur = pxT * 0.34;
+        g.fillText(t.text, t.x * k, t.y * k);
+        g.shadowBlur = pxT * 0.12;
+        g.fillText(t.text, t.x * k, t.y * k);
+        g.shadowBlur = 0;
+      }
       g.fillStyle = t.color;
       g.fillText(t.text, t.x * k, t.y * k);
       g.restore();
@@ -3730,6 +4353,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* 도형 */
     for (var i = 0; i < scene.shapes.length; i++) {
       var s = scene.shapes[i];
+      if (s.canvasOnly) continue;   /* 빛무리·발광은 화면용 — 제작용 벡터에는 넣지 않음 */
       var gs = (s.alpha != null && s.alpha < 0.999) ? ('/' + alphaName(s.alpha) + ' gs ') : '';
       if (s.t === 'rect') {
         var p = s.r ? rrect(s.x, s.y, s.w, s.h, s.r)
@@ -3838,6 +4462,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     theme: $('#araTheme'), color: $('#araColor'), colorH: $('#araColorH'),
     make: $('#araMake'), makeNote: $('#araMakeNote'),
     live: $('#araLive'), liveCanvas: $('#araLiveCanvas'), liveCard: $('#araLiveCard'),
+    ledCard: $('#araLedCard'), ledNight: $('#araLedNight'),
     viewName: $('#araViewName'), liveDim: $('#araLiveDim'), liveAspect: $('#araLiveAspect'),
     samples: $('#araSamples'),
     printCard: $('#araPrintCard'), printStage: $('#araPrintStage'), printCanvas: $('#araPrintCanvas'),
@@ -3877,6 +4502,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     araEl.catInfo.textContent = ARA_CATS[ARA.cat] ? ARA_CATS[ARA.cat].name : '직접 입력';
     araEl.sizeInfo.textContent = Math.round(ARA.wM * 100) + ' × ' + Math.round(ARA.hM * 100) + ' cm';
     $$('#araCat button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-cat') === ARA.cat); });
+    if (araEl.ledCard) araEl.ledCard.hidden = (ARA.cat !== 'led');
+    if (araEl.ledNight) araEl.ledNight.checked = (ARA.ledNight !== false);
     $$('#araQuick button').forEach(function (b) {
       b.classList.toggle('on', Math.abs(parseFloat(b.getAttribute('data-w')) - ARA.wM) < 0.001 &&
         Math.abs(parseFloat(b.getAttribute('data-h')) - ARA.hM) < 0.001);
@@ -3955,7 +4582,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* 큰 미리보기 */
     var sc = araScene(ARA.view, pals[ARA.view], araMeasCanvas);
     araDrawCanvas(araEl.liveCanvas, sc, 420);
-    araEl.viewName.textContent = '시안 ' + 'ABC'.charAt(ARA.view) + ' · ' + ARA_STYLE_NAMES[ARA.view].slice(4);
+    araEl.viewName.textContent = '시안 ' + 'ABC'.charAt(ARA.view) + ' · ' + araStyleNames()[ARA.view].slice(4);
     araEl.liveDim.textContent = ARA.wM.toFixed(2) + ' m × ' + ARA.hM.toFixed(2) + ' m (' + Math.round(ARA.wM * 100) + ' cm × ' + Math.round(ARA.hM * 100) + ' cm)';
     araEl.liveAspect.textContent = '비율 ' + (sc.W / sc.H).toFixed(2) + ' : 1';
 
@@ -3966,7 +4593,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       araDrawCanvas(card.canvas, s2, (s2.W / s2.H) < 1 ? 300 : 210);
       card.wrap.classList.toggle('on', i === ARA.view);
       card.sw.style.background = pals[i].accent;
-      card.tag.textContent = (ARA.confirmed === i) ? '✓ 확정' : ARA_STYLE_NAMES[i].slice(4);
+      card.tag.textContent = (ARA.confirmed === i) ? '✓ 확정' : araStyleNames()[i].slice(4);
       card.btn.textContent = (ARA.confirmed === i) ? '✓ 확정된 시안' : '✓ 이 시안 확정하기';
       card.btn.classList.toggle('primary', ARA.confirmed === i);
       card.btn.classList.toggle('ghost', ARA.confirmed !== i);
@@ -4027,7 +4654,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
   /* ---------- 내보내기 ---------- */
   function araFileName(ext) {
-    var cat = (ARA_CATS[ARA.cat] || { name: '디자인' }).name.replace(/[()]/g, '');
+    var cat = (ARA_CATS[ARA.cat] || { name: '디자인' }).name.replace(/[\s()]/g, '');
     return '아라광고_' + cat + '_' + Math.round(ARA.wM * 100) + 'x' + Math.round(ARA.hM * 100) + 'cm.' + ext;
   }
 
@@ -4162,7 +4789,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
     /* 카테고리 */
     var catHit = null;
-    if (/시트지|유리창|유리/.test(low)) catHit = 'window';
+    if (/(led|엘리디|채널\s*간판|네온|발광|후광|조명\s*간판|라이트\s*박스|라이트박스|light\s*box)/i.test(low)) catHit = 'led';
+    else if (/시트지|유리창|유리/.test(low)) catHit = 'window';
     else if (/간판|사인물|사인/.test(low)) catHit = 'sign';
     else if (/배너|세로형|엑스배너|x배너/.test(low)) catHit = 'vertical';
     else if (/현수막|플래카드/.test(low)) catHit = 'banner';
@@ -4334,6 +4962,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       ARA.wM = parseFloat(b.getAttribute('data-w'));
       ARA.hM = parseFloat(b.getAttribute('data-h'));
       araSyncInputs(); araSoon(60);
+    });
+    if (araEl.ledNight) araEl.ledNight.addEventListener('change', function () {
+      ARA.ledNight = !!this.checked;
+      araSyncInputs(); araSoon(40);
     });
     ['W', 'H'].forEach(function (k) {
       araEl[k].addEventListener('input', function () {
@@ -4976,11 +5608,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   // 테스트용 노출
   window.__app = {
     state: state, run: run, setImage: setImage, saveAI: saveAI, savePDF: savePDF, saveSVG: saveSVG, savePNG: savePNG,
+    detectSkew: detectSkew, setAngle: setAngle, rotatedSource: rotatedSource, autoDeskew: autoDeskew,
     sampleText: sampleText, sampleShape: sampleShape,
     switchTab: switchTab, tv: tv, tvBuild: tvBuild, tvExport: tvExport, st: st, stDraw: stDraw, stExport: stExport, stToCut: stToCut,
     stApplySize: stApplySize, FONTS: FONTS,
     ara: ARA, araRenderAll: araRenderAll, araExport: araExport, araScene: araScene,
-    araApplyRequest: araApplyRequest, araParseRequest: araParseRequest, araPalettes: araPalettes
+    araApplyRequest: araApplyRequest, araParseRequest: araParseRequest, araPalettes: araPalettes, araCatDefs: ARA_CATS,
+    unionPaths: unionPaths, textToPaths: textToPaths
   };
 
   /* ============================================================
@@ -5133,6 +5767,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   'use strict';
 
   var HELP = {
+    /* ---------- 새로 추가 (LED 간판 · 수평 맞춤) ---------- */
+    deskew: '<b class="ht">사진 반듯하게 (수평 맞춤)</b>휴대폰으로 간판·글자를 찍으면 사진이 조금 삐딱하게 나오기 쉽습니다. <b>자동 수평 맞추기</b>를 누르면 사진 속 글자 줄을 찾아서, 글자가 가로로 반듯해지도록 사진을 돌려 줍니다.<br>돌린 뒤 생기는 빈 자리는 흰색으로 메워지고, 커팅선은 돌려진 사진을 기준으로 다시 따집니다.<br>· 글자가 너무 작거나 사진이 흐리면 잘 찾지 못할 수 있어요. 그때는 아래 <b>각도 미세 조절</b>로 직접 맞추세요.<br>· 이미 반듯한 사진이면 0°로 그대로 둡니다.',
+    deskewFine: '<b class="ht">각도 미세 조절</b>사진을 왼쪽(-)이나 오른쪽(+)으로 조금씩 돌려 보는 막대입니다. 움직이면 <b>커팅선이 바로 다시 그려져서</b> 맞는 각도를 눈으로 보며 정할 수 있어요.<br>0.5°씩 움직이고, 범위는 -15° ~ +15° 입니다. <b>원래대로 (0°)</b>를 누르면 처음 사진으로 돌아갑니다.',
+    araLed: '<b class="ht">✨ LED 간판</b>밤에 불을 켠 <b>채널 LED 간판</b> 시안을 만듭니다. 크기는 기본 4 × 1 m 이고 아래에서 고칠 수 있어요.<br>· <b>시안 A · 전광 화이트·골드</b> — 짙은 판에 금색 테두리, 글자가 선명하게 빛나는 기본형<br>· <b>시안 B · 후광 웜화이트</b> — 글자 뒤로 따뜻한 빛이 퍼지는 후광(역광)형<br>· <b>시안 C · 컬러 네온</b> — 고른 색으로 네온처럼 빛나는 아크릴 채널형<br>화면·PNG·JPG에는 발광이 그대로 보이고, <b>PDF·AI로 저장하면 발광 번짐 없이 깨끗한 벡터 외곽선</b>만 담겨서 채널간판 제작소에서 바로 쓸 수 있습니다.',
+    araLedNight: '<b class="ht">야간(불 켠 모습) 미리보기</b>켜 두면 밤에 간판에 불이 들어온 모습으로 보여 줍니다. 끄면 <b>낮에 본 간판</b>(밝은 판)으로 보여 줍니다.<br>손님에게 보여 줄 때는 야간, 제작소에 색을 확인시킬 때는 낮 모습이 편합니다.',
     /* ---------- 탭 1 : 커팅 외곽선 ---------- */
     photo: '이 칸을 누르면 내 컴퓨터·휴대폰에 있는 사진을 고를 수 있어요. 사진 파일을 이 칸으로 끌어다 놓아도 됩니다.<br>글자나 그림이 또렷하고 배경이 단순한 사진일수록 선이 깔끔하게 나와요. 배경이 투명한 PNG 로고 파일이면 가장 좋습니다.',
     samples: '<b class="ht">예시로 먼저 해보기</b>사진이 없어도 연습할 수 있어요. <b>글자 예시</b>는 글자를 자르는 경우, <b>그림 예시</b>는 그림(모양)의 윤곽을 따는 경우를 보여줍니다.',
@@ -5175,13 +5814,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     tvTr: '<b class="ht">자간</b>글자와 글자 사이 간격이에요. 키우면 글자가 서로 떨어지고, 줄이면 서로 붙어요.',
     tvAlign: '<b class="ht">정렬</b>여러 줄일 때 줄을 왼쪽·가운데·오른쪽 어디에 맞출지 정해요.',
     tvPaint: '<b class="ht">모양 (외곽선 · 면)</b><b>외곽선만</b> — 글자 테두리 선만 있어요. 커팅기로 자를 때 이걸 씁니다.<br><b>면 채우기</b> — 글자 속을 꽉 채운 모양. 시안을 보거나 출력할 때 좋아요.',
+    tvWeight: '<b class="ht">글자 굵기 (살찌우기)</b>글자의 <b>진짜 외곽선을 밖으로 밀어서</b> 획을 두껍게(또는 얇게) 만듭니다. 폰트를 바꾸지 않아도 됩니다.<br>· <b>+</b> — 글자가 살쪄서 얇은 손글씨도 시트지 커팅이 쉬워집니다.<br>· <b>-</b> — 글자가 야위어요. 너무 줄이면 얇은 획이 사라질 수 있습니다.<br>· 0 이면 원래 폰트 그대로입니다.<br>겹친 획은 이때 <b>하나로 합쳐져</b> 안쪽에 엇갈린 선이 남지 않습니다. 미리보기·AI·PDF·SVG 모두 같은 모양으로 저장됩니다.',
     tvStroke: '<b class="ht">선 굵기</b>외곽선의 두께예요. 실제로 자를 거면 <b>0.25pt나 0.5pt</b>가 좋아요.',
     tvColor: '<b class="ht">색</b>글자 색이에요. 커팅용으로 보낼 때는 보통 <b>검정</b>을 씁니다.',
     tvSave: '글자를 진짜 선(벡터)으로 뽑아 저장해요.<br>· <b>AI</b> — 일러스트레이터 커팅용 (가장 많이 씀)<br>· <b>PDF</b> — 인쇄·확인용<br>· <b>SVG</b> — 다른 프로그램에서도 사용<br>· <b>PNG</b> — 배경 없는 그림 파일',
 
     /* ---------- 탭 4 : 디자인 (아라광고) ---------- */
     araAsk: '<b class="ht">글로 시키기</b>하고 싶은 것을 우리말로 그냥 적으세요. 그러면 아래 칸들이 알아서 채워집니다.<br>예) “가로 4미터 세로 1미터, 시원한 파란색, 중앙에 봄맞이 대할인”<br>예) “고급 검정·금색 느낌, 우측 하단에 상호·전화 크게”<br>크기(m)·색(파랑/빨강/검정·금색/초록/노랑/깔끔)·위치(좌측 상단 등)·크게/작게·전화번호를 알아듣습니다. 아래 예시 단추를 눌러 그대로 해보셔도 됩니다.',
-    araCat: '<b class="ht">무엇을 만들까요</b>만들 물건 종류를 고르면 <b>알맞은 크기</b>가 저절로 채워집니다. 크기는 아래 <b>실제 크기</b>에서 직접 고쳐도 됩니다.<br>· <b>현수막</b> — 가게 앞에 거는 큰 천 (3 × 0.9 m)<br>· <b>배너 (세로형)</b> — 사람 키만 한 세로 배너 (0.6 × 1.8 m)<br>· <b>간판</b> — 가게 위에 다는 간판 (4 × 1 m)<br>· <b>유리창 시트지</b> — 가게 유리창에 붙이는 시트지 (1.2 × 0.6 m)',
+    araCat: '<b class="ht">무엇을 만들까요</b>만들 물건 종류를 고르면 <b>알맞은 크기</b>가 저절로 채워집니다. 크기는 아래 <b>실제 크기</b>에서 직접 고쳐도 됩니다.<br>· <b>현수막</b> — 가게 앞에 거는 큰 천 (3 × 0.9 m)<br>· <b>배너 (세로형)</b> — 사람 키만 한 세로 배너 (0.6 × 1.8 m)<br>· <b>간판</b> — 가게 위에 다는 간판 (4 × 1 m)<br>· <b>유리창 시트지</b> — 가게 유리창에 붙이는 시트지 (1.2 × 0.6 m)<br>· <b>✨ LED 간판</b> — 불 켜는 채널 LED 간판 (4 × 1 m, 시안 3가지 모두 야간 발광)',
     araSize: '<b class="ht">실제 크기 (미터)</b>출력했을 때의 진짜 크기를 <b>미터(m)</b>로 적으세요. 가로 3, 세로 0.9 라면 <b>3 m × 0.9 m</b>입니다.<br>1 m = 100 cm 입니다. 90 cm 라면 <b>0.9</b>로 적으세요.<br>아래 빠른 단추(3×0.9, 4×1.0 …)를 누르면 바로 채워집니다.',
     araTitle: '<b class="ht">상호(가게 이름)와 전화번호</b>가게 이름과 전화번호를 적으세요.<br><b>상호 폰트</b>와 <b>전화번호 폰트</b>를 따로 고를 수 있어서, 상호는 힘찬 글씨·전화번호는 읽기 쉬운 글씨처럼 섞어 쓸 수 있습니다.<br>전화번호는 “010-0000-0000”처럼 하이픈을 넣어 적으면 보기 좋습니다.',
     araTitlePos: '<b class="ht">상호 위치</b>가게 이름을 놓을 자리예요. <b>좌측 상단 / 상단 중앙 / 우측 상단 / 좌측 하단 / 우측 하단</b> 중에서 고르세요.<br>아래 <b>문구</b>와 겹치면 글자가 서로 비켜서 자리를 잡습니다.',
