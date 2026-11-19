@@ -384,6 +384,17 @@
   .ara-s .act .btn{width:100%}
   .ara-live{padding:12px;background:#e9edf4;border-radius:14px;display:grid;place-items:center;min-height:120px;overflow:hidden}
   .ara-live canvas{display:block;max-width:100%;height:auto;box-shadow:0 10px 26px -16px rgba(16,24,40,.6)}
+  /* ---------- 📷 사진 넣기 ---------- */
+  .ara-drop{padding:16px 12px;border-style:dashed;background:#fbfcfe}
+  .ara-drop .ico{font-size:26px}
+  .ara-thumb{margin:10px auto 0;max-width:100%;border-radius:11px;overflow:hidden;background:#0b1220;line-height:0;display:none;box-shadow:0 6px 16px -12px rgba(16,24,40,.6)}
+  .ara-thumb.on{display:block}
+  .ara-thumb img{width:100%;height:auto;max-height:140px;object-fit:cover;display:block}
+  .ara-seg.three{grid-template-columns:repeat(3,1fr)}
+  .ara-seg.three button{font-size:12px;padding:9px 2px}
+  .ara-dlrow{display:flex;gap:8px;margin-top:10px}
+  .ara-dlrow .btn{flex:1}
+  .ara-fname{margin:8px 0 0;font-size:11.8px;color:var(--muted);text-align:center;word-break:break-all}
 
   /* ================= 상단 배너 (아라광고) ================= */
   .top{
@@ -893,6 +904,30 @@
           <button class="btn primary" id="araMake" type="button" style="width:100%;margin-top:12px">✨ 샘플 3개 만들기</button>
           <p class="mini" id="araMakeNote">위 내용을 고치면 미리보기가 바로 바뀝니다.</p>
         </section>
+
+        <section class="card" id="araPhotoCard">
+          <div class="head"><span class="num">📷</span><h2>배경·음식 사진 넣기</h2><button class="q" type="button" data-h="araPhoto" aria-expanded="false" aria-label="사진 넣기 설명 보기">?</button><span class="sub" id="araPhotoName">사진 없음</span></div>
+          <div class="drop ara-drop" id="araDrop" role="button" tabindex="0" aria-label="배경 사진 넣기">
+            <input type="file" id="araPhotoFile" accept="image/*" hidden>
+            <div class="ico">🖼️</div>
+            <p class="m" id="araDropMain">사진을 끌어다 놓거나 눌러서 고르기</p>
+            <p class="s">가게·음식·시술 사진을 배경으로 넣으면 실제 인쇄물처럼 보여요</p>
+            <div class="ara-thumb" id="araThumb"><img id="araThumbImg" alt="넣은 사진 미리보기"></div>
+          </div>
+          <div class="ara-dlrow">
+            <button class="btn ghost" id="araPhotoPick" type="button">🖼️ 사진 고르기</button>
+            <button class="btn ghost" id="araPhotoClear" type="button" disabled>✕ 사진 지우기</button>
+          </div>
+          <p class="ara-fname" id="araPhotoFileInfo" hidden></p>
+          <div class="field" style="margin-top:14px"><div class="lblrow"><span class="lbl2">사진 놓는 자리</span><button class="q" type="button" data-h="araPlace" aria-expanded="false" aria-label="사진 자리 설명 보기">?</button></div>
+            <div class="ara-seg three" id="araPlace">
+              <button type="button" data-p="full" class="on">전체 배경</button>
+              <button type="button" data-p="left">왼쪽 배치</button>
+              <button type="button" data-p="right">오른쪽 배치</button>
+            </div></div>
+          <div class="slider"><div class="row"><span>배경 어둡게 <button class="q" type="button" data-h="araDarken" aria-expanded="false" aria-label="배경 어둡게 설명 보기">?</button></span><span class="val" id="araDarkenV">25%</span></div><input type="range" id="araDarken" min="0" max="80" step="5" value="25"></div>
+          <p class="mini">사진은 이 기기 안에서만 처리되고 어디로도 보내지 않아요. 확정한 시안은 사진까지 담긴 <b>실제 크기 인쇄용 PDF</b>로 나옵니다.</p>
+        </section>
       </div>
 
       <div class="colb">
@@ -940,7 +975,7 @@
     </div>
     <div class="modal-body">
       <p class="g-lead">이 화면은 <b>네 가지 일</b>을 합니다. 위쪽 탭에서 골라 쓰세요.<br>어려운 칸이 나오면 옆에 있는 <b>?</b> 단추를 누르면 그 자리에서 설명이 열려요.</p>
-      <div class="g-tab"><span class="g-badge">1</span><div><b>📐 디자인</b><p>현수막·간판 <b>시안 3개</b> 만들고, 확정하면 <b>실제 크기 출력용 PDF·AI</b>로 — 글로 시켜도 됩니다</p></div></div>
+      <div class="g-tab"><span class="g-badge">1</span><div><b>📐 디자인</b><p>현수막·간판 <b>시안 3개</b> 만들고, 사진을 넣어 <b>실제 크기 인쇄용 PDF·AI</b>로 — 글로 시켜도 됩니다</p></div></div>
       <div class="g-tab"><span class="g-badge">2</span><div><b>✂️ 커팅 외곽선</b><p>사진에서 <b>커팅선(자를 선)</b> 따기 — 스티커·현수막을 자를 때</p></div></div>
       <div class="g-tab"><span class="g-badge">3</span><div><b>🎨 이미지 만들기</b><p>고화질 <b>현수막·광고 이미지</b> 만들기 — 글자·배경·로고를 넣고 저장</p></div></div>
       <div class="g-tab"><span class="g-badge">4</span><div><b>✍️ 글자 직접 입력</b><p>글자를 직접 쳐서 반듯한 <b>.ai 벡터</b> 뽑기 — 글자만 있는 간판은 이게 가장 깔끔</p></div></div>
@@ -2876,16 +2911,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     sign:     { name: '간판',         w: 4.0, h: 1.0 },
     window:   { name: '유리창 시트지', w: 1.2, h: 0.6 }
   };
-  var ARA_STYLE_NAMES = ['A · 다크 · 골드', 'B · 화이트 · 컬러 배지', 'C · 브랜드 그라데이션'];
+  var ARA_STYLE_NAMES = ['A · 모던 · 고급', 'B · 깔끔 · 내추럴', 'C · 강렬 · 프로모션'];
   var ARA = {
     cat: 'banner', wM: 3.0, hM: 0.9,
     title: '아라광고', phone: '010-0000-0000',
     corner: 'tl', titleScale: 1,
     main: '현수막 · 간판 · 시트지\n아라광고 디자인', sub: '맞춤 제작 · 빠른 납기',
     zone: 'center', mainScale: 1,
-    font: 'black-han-sans', theme: 'auto', themeColor: '#0f766e',
-    view: 0, confirmed: -1, made: false, _t: null, _mctx: null, cards: []
+    font: 'auto', theme: 'auto', themeColor: '#0f766e',
+    photo: null, place: 'full', darken: 25,
+    view: 0, confirmed: -1, made: false, _t: null, _mctx: null, _measIdx: 0, cards: []
   };
+
+  /* 시안별 자동 폰트 — 업종에 상관없이 세 가지 느낌을 확실히 다르게 */
+  var ARA_STYLE_FONTS = ['gothic-a1-bold', 'gowun-dodum', 'gasoek-one'];
+  function araFontFor(idx) {
+    if (ARA.font && ARA.font !== 'auto') return ARA.font;
+    return ARA_STYLE_FONTS[idx] || 'black-han-sans';
+  }
 
   /* ---------- 색 도우미 ---------- */
   function araHex(c) {
@@ -2907,17 +2950,20 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   function araPalettes() {
     if (!ARA.theme || ARA.theme === 'auto') {
       return [
-        { bg1: '#0c1420', bg2: '#182840', accent: '#c9a227', ink: '#ffffff', soft: '#e8d6a4' },
-        { bg1: '#ffffff', bg2: '#eef3f6', accent: '#0f766e', ink: '#101a2b', soft: '#5b6779' },
-        { bg1: '#1e3a8a', bg2: '#a21caf', accent: '#ffffff', ink: '#ffffff', soft: '#e7ecff' }
+        /* A · 모던 · 고급 — 딥 차콜 + 샴페인 골드 */
+        { bg1: '#0d1117', bg2: '#1f2a37', accent: '#d8b46a', ink: '#ffffff', soft: '#dbe3ee', tone: 'dark' },
+        /* B · 깔끔 · 내추럴 — 아이보리 + 딥 틸 배지 */
+        { bg1: '#fffdf8', bg2: '#f3ecdf', accent: '#0f766e', ink: '#16202b', soft: '#6b7280', tone: 'light' },
+        /* C · 강렬 · 프로모션 — 비비드 그라데이션 + 노란 배지 */
+        { bg1: '#e11d2e', bg2: '#7b1fa2', accent: '#ffd54a', ink: '#ffffff', soft: '#fff0d0', tone: 'vivid' }
       ];
     }
     var b = ARA.themeColor || ARA.theme;
-    var dark = araDarken(b, 0.82);
+    var dark = araDarken(b, 0.86);
     return [
-      { bg1: dark, bg2: araLighten(dark, 0.13), accent: araLighten(b, 0.38), ink: '#ffffff', soft: araLighten(b, 0.66) },
-      { bg1: '#ffffff', bg2: araLighten(b, 0.93), accent: b, ink: araDarken(b, 0.82), soft: '#5b6779' },
-      { bg1: b, bg2: araDarken(b, 0.55), accent: '#ffffff', ink: '#ffffff', soft: '#ffffff' }
+      { bg1: dark, bg2: araLighten(dark, 0.15), accent: araLighten(b, 0.46), ink: '#ffffff', soft: araLighten(b, 0.72), tone: 'dark' },
+      { bg1: '#fffdf8', bg2: araLighten(b, 0.90), accent: b, ink: araDarken(b, 0.80), soft: '#5b6779', tone: 'light' },
+      { bg1: b, bg2: araDarken(b, 0.58), accent: araLighten(b, 0.78), ink: '#ffffff', soft: '#ffffff', tone: 'vivid' }
     ];
   }
 
@@ -2925,7 +2971,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   function araMeasCanvas(text, sizeCm) {
     if (!ARA._mctx) ARA._mctx = document.createElement('canvas').getContext('2d');
     if (!ARA._mctx) return String(text || '').length * sizeCm * 0.9;
-    ARA._mctx.font = Math.max(1, sizeCm * 10) + 'px ' + fontStack(ARA.font);
+    ARA._mctx.font = Math.max(1, sizeCm * 10) + 'px ' + fontStack(araFontFor(ARA._measIdx || 0));
     return ARA._mctx.measureText(String(text || ' ') || ' ').width / 10;
   }
 
@@ -2943,19 +2989,43 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     return { size: size, w: w, h: h, pitch: pitch, lines: lines };
   }
 
+  /* ---------- 사진(배경) 도우미 ---------- */
+  /* 사진이 밝을수록 글자가 묻히므로, 필요한 만큼만 자동으로 어둡게(스크림) 덮는다 */
+  function araScrim(styleIdx, ph, place) {
+    var base = Math.max(0, Math.min(80, ARA.darken == null ? 25 : ARA.darken)) / 100;
+    var lum = (ph && typeof ph.lum === 'number') ? ph.lum : 0.55;
+    if (styleIdx === 1) {
+      /* B는 사진 위에 흰 카드를 얹거나 사진을 옆에 두므로 사진을 살린다 */
+      return Math.min(0.5, base * 0.45);
+    }
+    if (styleIdx === 2) {
+      return Math.min(0.72, Math.max(base, lum > 0.6 ? 0.38 : 0.30));
+    }
+    /* A · 모던 다크: 사진이 밝으면 더 어둡게 */
+    var need = place === 'full'
+      ? (lum > 0.72 ? 0.44 : lum > 0.55 ? 0.34 : lum > 0.38 ? 0.24 : 0.14)
+      : (lum > 0.7 ? 0.16 : 0.08);
+    return Math.min(0.82, Math.max(base, need));
+  }
+
+  function araPhotoInfo() {
+    var ph = ARA.photo;
+    if (!ph || !ph.img) return null;
+    var place = ARA.place || 'full';
+    return { img: ph.img, name: ph.name || '사진', lum: ph.lum, place: place };
+  }
+
   /* ---------- 시안 그리기(장면 만들기) ---------- */
   function araScene(styleIdx, pal, meas) {
+    ARA._measIdx = styleIdx;
     var W = ARA.wM * 100, H = ARA.hM * 100;
     var short = Math.min(W, H);
     var mg = short * 0.075;
+    var fontId = araFontFor(styleIdx);
+
     var onLeft = (ARA.corner === 'tl' || ARA.corner === 'bl');
     var onTop = (ARA.corner === 'tl' || ARA.corner === 'tr');
     var alignR = !onLeft;
-
-    var tSize = Math.min(H * 0.115, W * 0.14) * ARA.titleScale;
-    var mSize = Math.min(H * 0.27, W * 0.33) * ARA.mainScale;
-    var pSize = tSize * 0.56;
-    var sSize = mSize * 0.30;
 
     var title = String(ARA.title || '').replace(/\s+/g, ' ').trim();
     var phone = String(ARA.phone || '').trim();
@@ -2964,32 +3034,72 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (!mainLines.length) mainLines = [title || ' '];
     var sub = String(ARA.sub || '').replace(/\s+/g, ' ').trim();
 
-    var scene = { W: W, H: H, bg: null, shapes: [], texts: [], style: styleIdx };
+    var scene = { W: W, H: H, bg: null, shapes: [], texts: [], style: styleIdx, photo: null };
 
-    /* --- 제목 · 전화번호 자리 --- */
-    var cIn = mg * (styleIdx === 0 ? 1.10 : 1) + (styleIdx === 1 ? tSize * 0.42 : 0);
-    var maxCW = (W < H ? Math.max(W * 0.5, W - cIn * 2) : W * 0.62);
+    /* ---------- 사진 자리 ---------- */
+    var ph = araPhotoInfo();
+    var place = ph ? ph.place : 'full';
+    var C0 = 0, C1 = W;           /* 글자가 놓일 가로 범위 */
+    var card = null;              /* 시안 B · 사진 위에 얹는 흰 카드 */
+    var photo = null;             /* 사진이 들어갈 사각형 */
+    if (ph) {
+      if (place === 'left' || place === 'right') {
+        var pw = Math.min(W * 0.46, H * 1.02);
+        var gapP = short * 0.055;
+        if (place === 'left') { photo = { x: 0, y: 0, w: pw, h: H }; C0 = pw + gapP; }
+        else { photo = { x: W - pw, y: 0, w: pw, h: H }; C1 = W - pw - gapP; }
+      } else {
+        photo = { x: 0, y: 0, w: W, h: H };
+        if (styleIdx === 1) {
+          var cwCard = Math.min(W * 0.62, Math.max(W * 0.44, H * 4.2));
+          var cardX = onLeft ? 0 : W - cwCard;
+          card = { x: cardX, y: 0, w: cwCard, h: H };
+          C0 = cardX; C1 = cardX + cwCard;
+        }
+      }
+      scene.photo = {
+        img: ph.img, x: photo.x, y: photo.y, w: photo.w, h: photo.h,
+        mode: (styleIdx === 2 ? 'color' : 'dark'),
+        accent: pal.bg1,
+        alpha: araScrim(styleIdx, ph, place)
+      };
+    }
+
+    var mgx = Math.min(mg, (C1 - C0) * 0.10);
+    var Lx = C0 + mgx, Rx = C1 - mgx, CW = Math.max(W * 0.25, Rx - Lx);
+
+    /* ---------- 제목 · 전화번호 자리 ---------- */
+    var tSize = Math.min(H * 0.115, CW * 0.52, W * 0.14) * ARA.titleScale;
+    var mSize = Math.min(H * 0.27, CW * 0.34) * ARA.mainScale;
+    var pSize = tSize * 0.56;
+    var sSize = mSize * 0.30;
+
+    var insetX = mgx * 0.9
+      + (styleIdx === 0 ? mg * 0.18 : 0)
+      + (styleIdx === 1 ? tSize * 0.40 : 0)
+      + (styleIdx === 2 ? tSize * 0.30 : 0);
+    var maxCW = (CW < H * 1.6) ? Math.max(CW * 0.62, CW - insetX * 1.2) : CW * 0.66;
     var tB = araFit(meas, [title || ' '], tSize, maxCW, H * 0.40);
     var pB = araFit(meas, [phone || ' '], pSize, maxCW, H * 0.28);
-    var gapTP = tSize * 0.36;
+    var gapTP = tSize * 0.34;
     var cbW = Math.max(tB.w, pB.w);
     var cbH = tB.h + gapTP + pB.h;
-    var cb = { x: onLeft ? cIn : W - cIn - cbW, y: onTop ? cIn : H - cIn - cbH, w: cbW, h: cbH };
+    var cb = { x: onLeft ? Lx + insetX : Rx - insetX - cbW, y: onTop ? mg : H - mg - cbH, w: cbW, h: cbH };
 
-    /* --- 메인 문구 자리 (보조 문구까지 한 덩어리로 배치) --- */
+    /* ---------- 메인 문구 자리 ---------- */
     var pad = short * 0.035;
     var zone = ARA.zone;
     var mw, mh;
-    if (zone === 'center') { mw = W - mg * 2; mh = H * 0.62; }
-    else if (zone === 'top' || zone === 'bottom') { mw = W - mg * 2; mh = H * 0.40; }
-    else { mw = W * 0.58; mh = H - mg * 2; }
+    if (zone === 'center') { mw = CW; mh = H * 0.62; }
+    else if (zone === 'top' || zone === 'bottom') { mw = CW; mh = H * 0.40; }
+    else { mw = Math.min(CW * 0.70, CW); mh = H - mg * 2; mw = Math.max(mw, CW * 0.55); }
 
     var mb, sb = null, groupH = 0, gapMS = 0, gScale = 1;
     function buildGroup(sc) {
       mb = araFit(meas, mainLines, mSize * sc, mw, mh * (sub ? 0.74 : 1));
       sb = null;
       if (sub) {
-        sb = araFit(meas, [sub], mSize * 0.30 * sc, Math.max(mb.w * 1.2, W * 0.25), mh * 0.26);
+        sb = araFit(meas, [sub], mSize * 0.30 * sc, Math.max(mb.w * 1.2, CW * 0.25), mh * 0.26);
         gapMS = mb.size * 0.34;
       }
       groupH = mb.h + (sb ? gapMS + sb.h : 0);
@@ -2998,11 +3108,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
     var bx = 0, by = 0;
     function placeMain() {
-      if (zone === 'center') { bx = (W - mb.w) / 2; by = (H - groupH) / 2; }
-      else if (zone === 'top') { bx = (W - mb.w) / 2; by = mg; }
-      else if (zone === 'bottom') { bx = (W - mb.w) / 2; by = H - mg - groupH; }
-      else if (zone === 'left') { bx = mg; by = (H - groupH) / 2; }
-      else { bx = W - mg - mb.w; by = (H - groupH) / 2; }
+      if (zone === 'center') { bx = Lx + (CW - mb.w) / 2; by = (H - groupH) / 2; }
+      else if (zone === 'top') { bx = Lx + (CW - mb.w) / 2; by = mg; }
+      else if (zone === 'bottom') { bx = Lx + (CW - mb.w) / 2; by = H - mg - groupH; }
+      else if (zone === 'left') { bx = Lx; by = (H - groupH) / 2; }
+      else { bx = Rx - mb.w; by = (H - groupH) / 2; }
     }
     function hit() {
       return !(bx + mb.w + pad <= cb.x || cb.x + cb.w + pad <= bx || by + groupH + pad <= cb.y || cb.y + cb.h + pad <= by);
@@ -3021,10 +3131,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         }
       } else if (zone === 'left') {
         nx = cb.x + cb.w + pad;
-        if (nx + mb.w <= W - mg) { bx = nx; moved = true; }
+        if (nx + mb.w <= Rx) { bx = nx; moved = true; }
       } else {
         nx = cb.x - pad - mb.w;
-        if (nx >= mg) { bx = nx; moved = true; }
+        if (nx >= Lx) { bx = nx; moved = true; }
       }
       if (!moved || hit()) {
         gScale *= 0.87;
@@ -3038,69 +3148,94 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     var tColor = pal.accent, pColor = pal.soft, mColor = pal.ink, sColor = pal.soft;
+    var lineColors = [pal.ink];
     var phoneLeft = alignR ? cb.x + cbW - pB.w : cb.x;
+    var ringAlpha = 0.5;
 
-    /* ---------------- 시안 A : 다크 · 골드 ---------------- */
+    /* ---------------- 시안 A : 모던 · 고급 (딥 차콜 + 얇은 골드 프레임) ---------------- */
     if (styleIdx === 0) {
       scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
-      var fw = Math.max(0.16, short * 0.007);
-      var inset = mg * 0.62;
-      scene.shapes.push({ t: 'rect', x: inset, y: inset, w: W - inset * 2, h: H - inset * 2, fill: null, stroke: pal.accent, sw: fw });
-      var bLen = short * 0.30, bTh = Math.max(0.3, short * 0.02);
-      var gap2 = short * 0.035;
-      var ax = onLeft ? W - inset - gap2 : inset + gap2;
-      var ay = onTop ? H - inset - gap2 : inset + gap2;
-      scene.shapes.push({ t: 'rect', x: onLeft ? ax - bLen : ax, y: onTop ? ay - bTh : ay, w: bLen, h: bTh, fill: pal.accent });
-      scene.shapes.push({ t: 'rect', x: onLeft ? ax - bTh : ax, y: onTop ? ay - bLen : ay, w: bTh, h: bLen, fill: pal.accent });
-      scene.shapes.push({ t: 'circle', cx: onLeft ? W * 0.88 : W * 0.12, cy: onTop ? H * 0.9 : H * 0.1, r: short * 0.5, fill: '#ffffff', alpha: 0.045 });
-      var ruleW = Math.min(cbW * 0.75, W * 0.2);
+      var glow = scene.photo ? 0.05 : 0.07;
+      scene.shapes.push({ t: 'circle', cx: onLeft ? W * 0.88 : W * 0.12, cy: onTop ? H * 0.92 : H * 0.08, r: short * 0.62, fill: '#ffffff', alpha: glow });
+      scene.shapes.push({ t: 'circle', cx: onLeft ? W * 0.04 : W * 0.96, cy: onTop ? H * 0.06 : H * 0.94, r: short * 0.38, fill: pal.accent, alpha: 0.07 });
+      if (!scene.photo || place !== 'full') {
+        var fw = Math.max(0.14, short * 0.0055);
+        var in1 = Math.min(mg * 0.52, short * 0.05);
+        var fx = C0 + in1, fw2 = (C1 - C0) - in1 * 2, fy = in1, fh2 = H - in1 * 2;
+        scene.shapes.push({ t: 'rect', x: fx, y: fy, w: fw2, h: fh2, fill: null, stroke: pal.accent, sw: fw, alpha: 0.8 });
+        var in2 = in1 + Math.max(0.25, short * 0.017);
+        scene.shapes.push({ t: 'rect', x: fx + in2, y: fy + in2, w: fw2 - in2 * 2, h: fh2 - in2 * 2, fill: null, stroke: pal.accent, sw: fw * 0.55, alpha: 0.42 });
+        var barW = Math.min((C1 - C0) * 0.26, short * 0.9), barH = Math.max(0.26, short * 0.014);
+        scene.shapes.push({ t: 'rect', x: onLeft ? fx : C1 - in1 - barW, y: fy, w: barW, h: barH, fill: pal.accent });
+      }
+      var ruleW = Math.min(Math.max(cbW * 0.7, (C1 - C0) * 0.10), (C1 - C0) * 0.24);
       scene.shapes.push({
-        t: 'rect', x: alignR ? cb.x + cbW - ruleW : cb.x, y: cb.y + tB.h + gapTP * 0.30,
-        w: ruleW, h: Math.max(0.12, short * 0.007), fill: pal.accent
+        t: 'rect', x: alignR ? cb.x + cbW - ruleW : cb.x, y: cb.y + tB.h + gapTP * 0.20,
+        w: ruleW, h: Math.max(0.12, short * 0.0062), fill: pal.accent
       });
-      tColor = pal.accent; pColor = pal.soft; mColor = pal.ink; sColor = pal.accent;
+      tColor = pal.accent; pColor = pal.soft; mColor = pal.ink; sColor = pal.soft;
+      lineColors = [pal.accent, pal.ink];
     }
 
-    /* ---------------- 시안 B : 화이트 · 컬러 배지 ---------------- */
+    /* ---------------- 시안 B : 깔끔 · 내추럴 (아이보리 편집 디자인 + 컬러 배지) ---------------- */
     if (styleIdx === 1) {
-      scene.bg = { t: 'grad', from: '#ffffff', to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
-      var barH = Math.max(0.35, short * 0.038);
-      scene.shapes.push({ t: 'rect', x: 0, y: H - barH, w: W, h: barH, fill: pal.accent });
-      scene.shapes.push({ t: 'rect', x: 0, y: 0, w: W, h: Math.max(0.2, short * 0.016), fill: pal.accent });
+      scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
+      if (card) {
+        scene.shapes.push({ t: 'rect', x: card.x, y: card.y, w: card.w, h: card.h, fill: '#fffdf9', alpha: 0.97 });
+        var edgeW = Math.max(0.3, short * 0.022);
+        scene.shapes.push({ t: 'rect', x: onLeft ? card.x + card.w - edgeW : card.x, y: 0, w: edgeW, h: H, fill: pal.accent });
+      }
+      var topH = Math.max(0.2, short * 0.016);
+      scene.shapes.push({ t: 'rect', x: C0, y: 0, w: C1 - C0, h: topH, fill: pal.accent, alpha: card ? 0 : 1 });
+      if (!card) {
+        var botBarH = Math.max(0.4, short * 0.030);
+        scene.shapes.push({ t: 'rect', x: C0, y: H - botBarH, w: C1 - C0, h: botBarH, fill: pal.accent });
+        var botBarH2 = Math.max(0.16, short * 0.010);
+        scene.shapes.push({ t: 'rect', x: C0, y: H - botBarH - botBarH2 * 2.4, w: C1 - C0, h: botBarH2, fill: pal.accent, alpha: 0.35 });
+      }
       var padB = tSize * 0.40;
       scene.shapes.push({
         t: 'rect', x: cb.x - padB, y: cb.y - padB * 0.72, w: cbW + padB * 2, h: tB.h + padB * 1.44,
         r: Math.min(padB, tSize * 0.45), fill: pal.accent
       });
       tColor = '#ffffff'; pColor = pal.accent; mColor = pal.ink; sColor = pal.soft;
-      var ubW = Math.min(mb.w * 0.42, W * 0.2), ubH = Math.max(0.18, short * 0.014);
-      var ubY = by + mb.h + (sub ? gapMS * 0.16 : mb.size * 0.12);
+      lineColors = [pal.ink, pal.accent];
       if (!sub && zone !== 'bottom') {
-        scene.shapes.push({ t: 'rect', x: bx + (mb.w - ubW) / 2, y: ubY, w: ubW, h: ubH, fill: pal.accent });
+        var ubW = Math.min(mb.w * 0.42, CW * 0.2), ubH = Math.max(0.18, short * 0.014);
+        scene.shapes.push({ t: 'rect', x: bx + (mb.w - ubW) / 2, y: by + mb.h + mb.size * 0.12, w: ubW, h: ubH, fill: pal.accent });
       }
     }
 
-    /* ---------------- 시안 C : 브랜드 그라데이션 ---------------- */
+    /* ---------------- 시안 C : 강렬 · 프로모션 (비비드 그라데이션 + 흰 배지) ---------------- */
     if (styleIdx === 2) {
       scene.bg = { t: 'grad', from: pal.bg1, to: pal.bg2, x1: 0, y1: 0, x2: W, y2: H };
-      if (araLum(pal.bg1) > 0.55) scene.shapes.push({ t: 'rect', x: 0, y: 0, w: W, h: H, fill: '#000000', alpha: 0.18 });
-      scene.shapes.push({ t: 'circle', cx: W * 0.12, cy: H * 0.16, r: short * 0.62, fill: '#ffffff', alpha: 0.10 });
-      scene.shapes.push({ t: 'circle', cx: W * 0.9, cy: H * 0.92, r: short * 0.5, fill: '#ffffff', alpha: 0.07 });
-      var pillInk = araLum(pal.bg1) > 0.62 ? araDarken(pal.bg1, 0.45) : pal.bg1;
-      var pl = pSize * 0.45;
+      scene.shapes.push({ t: 'circle', cx: W * 0.10, cy: H * 0.14, r: short * 0.72, fill: '#ffffff', alpha: 0.10 });
+      scene.shapes.push({ t: 'circle', cx: W * 0.93, cy: H * 0.96, r: short * 0.60, fill: '#000000', alpha: 0.12 });
+      var stripeW = Math.max(0.35, short * 0.030), stripeGap = short * 0.10;
+      if (!scene.photo || place !== 'full') {
+        for (var si = 0; si < 3; si++) {
+          scene.shapes.push({ t: 'rect', x: C0 + mgx * 0.5 + si * stripeGap, y: 0, w: stripeW, h: H * 0.30, fill: pal.accent, alpha: 0.22 });
+        }
+      }
+      var padC = tSize * 0.30, pl = pSize * 0.46;
+      scene.shapes.push({
+        t: 'rect', x: cb.x - padC, y: cb.y - padC * 0.52, w: cbW + padC * 2, h: tB.h + padC * 1.05,
+        r: Math.min(padC, tSize * 0.32), fill: '#ffffff', alpha: 0.97
+      });
       scene.shapes.push({
         t: 'rect', x: alignR ? cb.x + cbW - pB.w - pl * 2 : cb.x,
         y: cb.y + tB.h + gapTP - pB.size * 0.18, w: pB.w + pl * 2, h: pB.size * 1.46,
-        r: pB.size * 0.73, fill: '#ffffff'
+        r: pB.size * 0.73, fill: pal.accent
       });
       phoneLeft = alignR ? cb.x + cbW - pl - pB.w : cb.x + pl;
-      tColor = '#ffffff'; pColor = pillInk; mColor = pal.ink; sColor = '#ffffff';
+      tColor = pal.bg1; pColor = pal.bg1; mColor = '#ffffff'; sColor = pal.soft;
+      lineColors = ['#ffffff', pal.accent];
     }
 
     /* ---------------- 글자 ---------------- */
     function pushText(text, leftX, baseY, size, color) {
       if (!text) return;
-      scene.texts.push({ text: text, x: leftX, y: baseY, size: size, color: color });
+      scene.texts.push({ text: text, x: leftX, y: baseY, size: size, color: color, f: fontId });
     }
     pushText(title, alignR ? cb.x + cbW - tB.w : cb.x, cb.y + tB.size * 0.82, tB.size, tColor);
     pushText(phone, phoneLeft, cb.y + tB.h + gapTP + pB.size * 0.82, pB.size, pColor);
@@ -3110,7 +3245,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       var lx = bx + (mb.w - lw) / 2;
       if (zone === 'left') lx = bx;
       if (zone === 'right') lx = bx + mb.w - lw;
-      pushText(line, lx, by + mb.size * 0.82 + i * mb.size * mb.pitch, mb.size, mColor);
+      pushText(line, lx, by + mb.size * 0.82 + i * mb.size * mb.pitch, mb.size, lineColors[i % lineColors.length] || mColor);
     }
     if (sb && sub) pushText(sub, sb.x, sb.y + sb.size * 0.82, sb.size, sColor);
 
@@ -3134,6 +3269,41 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     g.closePath();
   }
 
+  /* 사진을 사각형에 꽉 차게(비율 유지, 넘치는 부분은 잘라서) 그리기 */
+  function araPhotoCover(g, img, x, y, w, h) {
+    var iw = img.naturalWidth || img.width || 1, ih = img.naturalHeight || img.height || 1;
+    var s = Math.max(w / iw, h / ih);
+    var dw = iw * s, dh = ih * s;
+    try { g.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh); } catch (e) {}
+  }
+
+  /* 사진 위에 덮는 어둡게(또는 브랜드 색) 막 — 미리보기와 인쇄용 PDF가 똑같이 보이도록 한 곳에서 그림 */
+  function araPaintScrim(g, x, y, w, h, mode, alpha, accent) {
+    if (!alpha || alpha <= 0.001) return;
+    g.save();
+    if (mode === 'color') {
+      g.globalAlpha = Math.min(1, alpha);
+      g.fillStyle = accent || '#c81e3a';
+      g.fillRect(x, y, w, h);
+    } else {
+      var lg = g.createLinearGradient(x, y, x, y + h);
+      var a0 = Math.min(1, alpha * 0.88), a1 = Math.min(1, alpha);
+      lg.addColorStop(0, 'rgba(3,7,13,' + a0.toFixed(3) + ')');
+      lg.addColorStop(0.55, 'rgba(3,7,13,' + ((a0 + a1) / 2).toFixed(3) + ')');
+      lg.addColorStop(1, 'rgba(3,7,13,' + a1.toFixed(3) + ')');
+      g.fillStyle = lg;
+      g.fillRect(x, y, w, h);
+    }
+    g.restore();
+  }
+
+  function araDrawPhoto(g, ph, k) {
+    if (!ph || !ph.img) return;
+    var x = ph.x * k, y = ph.y * k, w = ph.w * k, h = ph.h * k;
+    araPhotoCover(g, ph.img, x, y, w, h);
+    araPaintScrim(g, x, y, w, h, ph.mode, ph.alpha, ph.accent);
+  }
+
   function araDrawScene(g, scene, k) {
     var W = scene.W * k, H = scene.H * k, i;
     var bg = scene.bg;
@@ -3145,6 +3315,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         g.fillStyle = lg; g.fillRect(0, 0, W, H);
       }
     }
+    if (scene.photo) araDrawPhoto(g, scene.photo, k);
     for (i = 0; i < scene.shapes.length; i++) {
       var s = scene.shapes[i];
       g.save();
@@ -3164,14 +3335,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       }
       g.restore();
     }
-    var fam = fontStack(ARA.font);
     g.textBaseline = 'alphabetic';
     g.textAlign = 'left';
     for (i = 0; i < scene.texts.length; i++) {
       var t = scene.texts[i];
       g.save();
       if (t.alpha != null) g.globalAlpha = t.alpha;
-      g.font = Math.max(1, t.size * k) + 'px ' + fam;
+      g.font = Math.max(1, t.size * k) + 'px ' + fontStack(t.f || araFontFor(scene.style || 0));
       g.fillStyle = t.color;
       g.fillText(t.text, t.x * k, t.y * k);
       g.restore();
@@ -3232,6 +3402,33 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     return total;
   }
 
+  /* 사진 → 인쇄용 JPEG(스크림까지 구워 넣어 미리보기와 똑같이) */
+  function araPhotoJpeg(p) {
+    try {
+      var img = p.img;
+      var iw = img.naturalWidth || img.width || 1, ih = img.naturalHeight || img.height || 1;
+      var dpi = 120;
+      var w = Math.max(16, Math.round(p.w / 2.54 * dpi));
+      var h = Math.max(16, Math.round(p.h / 2.54 * dpi));
+      var cap = 2600;
+      var long = Math.max(w, h);
+      if (long > cap) { var f0 = cap / long; w = Math.round(w * f0); h = Math.round(h * f0); }
+      var lim = Math.min(1, (iw * 1.6) / w, (ih * 1.6) / h);
+      w = Math.max(16, Math.round(w * lim)); h = Math.max(16, Math.round(h * lim));
+      var c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      var g = c.getContext('2d');
+      if (!g) return null;
+      g.fillStyle = '#000000'; g.fillRect(0, 0, w, h);
+      araPhotoCover(g, img, 0, 0, w, h);
+      araPaintScrim(g, 0, 0, w, h, p.mode, p.alpha, p.accent);
+      var data = c.toDataURL('image/jpeg', 0.86);
+      var b64 = String(data).split(',')[1] || '';
+      if (!b64) return null;
+      return { bin: atob(b64), w: w, h: h };
+    } catch (e) { return null; }
+  }
+
   function araPdfBytes(scene, font) {
     var chain = (font && font.length) ? font : [font];
     var W = scene.W, H = scene.H;
@@ -3290,6 +3487,17 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       }
     }
 
+    /* 사진 — JPEG 한 장으로 넣고, 글자는 그 위에 벡터 윤곽선으로 */
+    var imgObj = null;
+    if (scene.photo && scene.photo.img) {
+      var pj = araPhotoJpeg(scene.photo);
+      if (pj) {
+        imgObj = { bin: pj.bin, w: pj.w, h: pj.h };
+        ops.push('q ' + n(scene.photo.w * k) + ' 0 0 ' + n(scene.photo.h * k) + ' ' +
+          n(scene.photo.x * k) + ' ' + n(ph - (scene.photo.y + scene.photo.h) * k) + ' cm /Im0 Do Q');
+      }
+    }
+
     /* 도형 */
     for (var i = 0; i < scene.shapes.length; i++) {
       var s = scene.shapes[i];
@@ -3340,7 +3548,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     var content = ops.join('\n') + '\n';
-    var res = '<< /ProcSet [/PDF]';
+    var res = '<< /ProcSet [/PDF /ImageC]';
+    if (imgObj) res += ' /XObject << /Im0 6 0 R >>';
     if (shading) res += ' /Shading << /Sh0 ' + shading + ' >>';
     var gsKeys = Object.keys(alphas);
     if (gsKeys.length) {
@@ -3361,6 +3570,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       '<< /Length ' + content.length + ' >>\nstream\n' + content + 'endstream',
       '<< /Producer (ARA DESIGN Web App) /Creator (ARA DESIGN Web App) /Title (ARA DESIGN Banner) >>'
     ];
+    if (imgObj) {
+      objs.push('<< /Type /XObject /Subtype /Image /Width ' + imgObj.w + ' /Height ' + imgObj.h +
+        ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + imgObj.bin.length + ' >>\nstream\n' +
+        imgObj.bin + '\nendstream');
+    }
 
     var out = (uu > 1 ? '%PDF-1.6' : '%PDF-1.4') + '\n%\u00e2\u00e3\u00cf\u00d3\n';
     var offsets = [];
@@ -3393,10 +3607,21 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     printCard: $('#araPrintCard'), printStage: $('#araPrintStage'), printCanvas: $('#araPrintCanvas'),
     dim: $('#araDim'), pdfInfo: $('#araPdfInfo'), pxInfo: $('#araPxInfo'), note: $('#araPrintNote'),
     save: $('#araSave'), back: $('#araBack'),
-    ask: $('#araAsk'), askGo: $('#araAskGo'), askSum: $('#araAskSum'), askChips: $('#araAskChips')
+    ask: $('#araAsk'), askGo: $('#araAskGo'), askSum: $('#araAskSum'), askChips: $('#araAskChips'),
+    photoCard: $('#araPhotoCard'), drop: $('#araDrop'), photoFile: $('#araPhotoFile'),
+    photoPick: $('#araPhotoPick'), photoClear: $('#araPhotoClear'), photoName: $('#araPhotoName'),
+    thumb: $('#araThumb'), thumbImg: $('#araThumbImg'), photoInfo: $('#araPhotoFileInfo'),
+    place: $('#araPlace'), darken: $('#araDarken'), darkenV: $('#araDarkenV'), dropMain: $('#araDropMain')
   };
-  fillFontSelect(araEl.font, ARA.font);
-  araEl.fontLic.textContent = fontById(ARA.font).lic;
+  fillFontSelect(araEl.font, ARA.font !== 'auto' ? ARA.font : '__auto');
+  if (araEl.font) {
+    var autoOpt = document.createElement('option');
+    autoOpt.value = 'auto';
+    autoOpt.textContent = '✧ 시안별 자동 (A 고딕 · B 돋움 · C 힘찬 제목)';
+    araEl.font.insertBefore(autoOpt, araEl.font.firstChild);
+    araEl.font.value = ARA.font;
+  }
+  araEl.fontLic.textContent = (ARA.font === 'auto') ? '시안마다 다른 폰트 · 모두 상업용 무료' : fontById(ARA.font).lic;
 
   function araSoon(d) { clearTimeout(ARA._t); ARA._t = setTimeout(araRenderAll, d || 100); }
 
@@ -3417,10 +3642,42 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       b.classList.toggle('on', b.getAttribute('data-t') === ARA.theme);
     });
     araEl.mainSizeV.textContent = (ARA.mainScale >= 1.25 ? '크게 ' : ARA.mainScale <= 0.8 ? '작게 ' : '보통 ') + Math.round(ARA.mainScale * 100) + '%';
+
+    /* 📷 사진 칸 */
+    var hasPhoto = !!(ARA.photo && ARA.photo.img);
+    $$('#araPlace button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === (ARA.place || 'full')); });
+    if (araEl.darken) araEl.darken.value = ARA.darken;
+    if (araEl.darkenV) araEl.darkenV.textContent = ARA.darken + '%';
+    if (araEl.photoClear) araEl.photoClear.disabled = !hasPhoto;
+    if (araEl.thumb) {
+      araEl.thumb.classList.toggle('on', hasPhoto);
+      if (hasPhoto && araEl.thumbImg && ARA.photo.img.src) araEl.thumbImg.src = ARA.photo.img.src;
+    }
+    if (araEl.photoName) araEl.photoName.textContent = hasPhoto ? '사진 넣음' : '사진 없음';
+    if (araEl.photoInfo) {
+      araEl.photoInfo.hidden = !hasPhoto;
+      if (hasPhoto) araEl.photoInfo.textContent = (ARA.photo.name || '사진') + ' · ' + (ARA.photo.w || 0) + ' × ' + (ARA.photo.h || 0) + ' px';
+    }
+    if (araEl.dropMain) araEl.dropMain.textContent = hasPhoto ? '눌러서 다른 사진으로 바꾸기' : '사진을 끌어다 놓거나 눌러서 고르기';
+    [araEl.place, araEl.darken].forEach(function (el) { if (el) el.style.opacity = hasPhoto ? '' : '.45'; });
+  }
+
+  var araFontLoading = {};
+  function araEnsureFonts() {
+    for (var i = 0; i < 3; i++) {
+      var f = araFontFor(i);
+      if (faceCache[f] || araFontLoading[f]) continue;
+      araFontLoading[f] = true;
+      (function (id) {
+        loadFace(id).then(function () { araFontLoading[id] = false; araSoon(30); })
+          .catch(function () { araFontLoading[id] = false; });
+      })(f);
+    }
   }
 
   function araRenderAll() {
     if (!araEl.live || !araEl.live.parentNode) return;
+    araEnsureFonts();
     var pals = araPalettes();
     if (ARA.view < 0 || ARA.view > 2) ARA.view = 0;
 
@@ -3506,11 +3763,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   function araExport(kind) {
     if (ARA.confirmed < 0) return;
     var pals = araPalettes(), idx = ARA.confirmed;
+    var fid = araFontFor(idx);
     if (kind === 'pdf' || kind === 'ai') {
       busy(true);
-      Promise.all([loadOT(ARA.font), loadOT('nanum-gothic').catch(function () { return null; })]).then(function (list) {
+      Promise.all([loadOT(fid), loadOT('nanum-gothic').catch(function () { return null; }), loadOT('black-han-sans').catch(function () { return null; })]).then(function (list) {
         var chain = [list[0]];
         if (list[1] && list[1] !== list[0]) chain.push(list[1]);
+        if (list[2] && list[2] !== list[0] && list[2] !== list[1]) chain.push(list[2]);
         var meas = function (text, size) { return araTextWidthCm(chain, String(text == null ? ' ' : text), size); };
         var scene = araScene(idx, pals[idx], meas);
         var bytes = araPdfBytes(scene, chain);
@@ -3526,6 +3785,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       return;
     }
     busy(true);
+    loadFace(fid).catch(function () { return null; }).then(function () {
     setTimeout(function () {
       try {
         var scene = araScene(idx, pals[idx], araMeasCanvas);
@@ -3546,6 +3806,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         toast('이미지를 만들지 못했어요 — 크기를 조금 줄여 보세요');
       }
     }, 40);
+    });
   }
 
   /* ============================================================
@@ -3580,12 +3841,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
     /* 크기 */
     var wM = null, hM = null, mm;
-    mm = low.match(new RegExp('가로\\s*(?:폭|길이|사이즈)?\\s*[:：]?\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센치)?', 'i'));
+    var UNIT = '(cm|센티미터|센티|센치|미터|메타|m)';
+    mm = low.match(new RegExp('가로\\s*(?:폭|길이|사이즈)?\\s*[:：]?\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센티|센치)?', 'i'));
     if (mm) { wM = araUnitToM(araNum(mm[1]) || 0, mm[2]); }
-    mm = low.match(new RegExp('세로\\s*(?:폭|길이|높이|사이즈)?\\s*[:：]?\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센치)?', 'i'));
+    mm = low.match(new RegExp('세로\\s*(?:폭|길이|높이|사이즈)?\\s*[:：]?\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센티|센치)?', 'i'));
     if (mm) { hM = araUnitToM(araNum(mm[1]) || 0, mm[2]); }
     if (wM == null || hM == null) {
-      mm = low.match(new RegExp(num + '\\s*(?:m|미터|메타|cm|센티미터|센치)?\\s*[×xX*]\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센치)?'));
+      mm = low.match(new RegExp(num + '\\s*(?:m|미터|메타|cm|센티미터|센티|센치)?\\s*[×xX*]\\s*' + num + '\\s*(m|미터|메타|cm|센티미터|센티|센치)?'));
       if (mm) {
         var a = araUnitToM(araNum(mm[1]) || 0, mm[3]);
         var b = araUnitToM(araNum(mm[2]) || 0, mm[3]);
@@ -3593,13 +3855,22 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         if (hM == null) hM = b;
       }
     }
-    /* "5미터 1미터", "5m 1m" 처럼 × 없이 숫자+단위가 연달아 나오는 경우 */
+    /* "5미터에 1미터", "5m 1m", "5미터하고 1미터" 처럼 × 없이 숫자+단위가 잇따르는 경우 */
     if (wM == null && hM == null) {
-      var unit = '(cm|센티미터|센치|미터|메타|m)';
-      mm = low.match(new RegExp(num + '\\s*' + unit + '\\s*(?:[,·/]|그리고|와|과|\\s)*' + num + '\\s*' + unit));
+      mm = low.match(new RegExp(num + '\\s*' + UNIT + '\\s*(?:[,·/]|에|의|에서|씩|그리고|와|과|하고|\\s)*' + num + '\\s*' + UNIT));
       if (mm) {
         wM = araUnitToM(araNum(mm[1]) || 0, mm[2]);
         hM = araUnitToM(araNum(mm[3]) || 0, mm[4]);
+      }
+    }
+    /* 숫자 둘만 있고 단위가 없으면: 5 × 1, 5에 1 */
+    if (wM == null && hM == null) {
+      mm = low.match(new RegExp(num + '\\s*(?:×|x|X|\\*)' + num));
+      if (mm) {
+        var a2 = araNum(mm[1]), b2 = araNum(mm[2]);
+        if (a2 != null && b2 != null && a2 >= 0.2 && a2 <= 30 && b2 >= 0.2 && b2 <= 30) {
+          wM = araUnitToM(a2, null); hM = araUnitToM(b2, null);
+        }
       }
     }
     if (wM && wM >= 0.2 && wM <= 30) { ARA.wM = Math.round(wM * 100) / 100; out.hits.push('가로 ' + ARA.wM + ' m'); }
@@ -3674,11 +3945,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (tmm) {
       var tv = String(tmm[1])
         .split(/\s*(?:전화|번호|연락|휴대|문구|글씨|크기|사이즈|위치|색깔|색상|배경|폰트|간판|현수막|배너|시트지|상호|제목|크게|작게|넣어|써줘|해줘)/)[0]
-        .replace(/(이고요|이고|이며|이에요|입니다|인데|으로|로)\s*$/, '')
+        /* 한국어 서술형 어미(이야 · 예요 · 입니다 …)를 떼어내 이름만 남긴다 */
+        .replace(/\s*(?:이랍니다|이에요|예요|입니다|이니까|이라서|이라고|이라는|인데요|이지만|이지요|이야|이고|이며|이지|인데|이오|이여|라고|라는|야|요)\s*$/, '')
+        .replace(/\s*(?:으로|로)\s*$/, '')
         .replace(/^["'“”‘’\s]+|["'“”‘’\s]+$/g, '')
         .trim();
       tv = tv.split(/\s+/).filter(Boolean).slice(0, 3).join(' ').trim();
-      if (tv && tv.length >= 1 && !/^(크게|작게|중앙|상단|하단|좌측|우측|보통)$/.test(tv)) {
+      tv = tv.replace(/^[·ㆍ\-–—:]+|[·ㆍ\-–—:]+$/g, '').trim();
+      if (tv && tv.length >= 1 && /[가-힣A-Za-z0-9]/.test(tv) && !/^(크게|작게|중앙|상단|하단|좌측|우측|보통|전화|상호|번호)$/.test(tv)) {
         titleHit = tv;
         ARA.title = tv;
         out.hits.push('상호 “' + tv + '”');
@@ -3709,7 +3983,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       if (pm) main = main.replace(pm[1], ' ');
       main = main.replace(/(넣어줘|넣어|넣고|써줘|해줘|해|로|으로|라고|크게|작게|느낌|스타일|배치|배경)$/g, '').trim();
       main = main.replace(/^[~·,.\s]+/, '').trim();
-      if (main && !/^(파랑|빨강|검정|초록|노랑|보라|깔끔|고급|화이트)$/.test(main)) {
+      if (main && /[가-힣A-Za-z0-9]/.test(main) && !/^(파랑|빨강|검정|초록|노랑|보라|깔끔|고급|화이트)$/.test(main)) {
         ARA.main = main;
         out.hits.push('문구 “' + main + '”');
       }
@@ -3808,6 +4082,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     });
     araEl.font.addEventListener('change', function () {
       ARA.font = this.value;
+      if (ARA.font === 'auto') {
+        araEl.fontLic.textContent = '시안마다 다른 폰트 · 모두 상업용 무료';
+        araEnsureFonts();
+        araSoon(20);
+        return;
+      }
       var meta = fontById(ARA.font);
       araEl.fontLic.textContent = meta.lic;
       loadFace(ARA.font).then(function () { araSoon(20); }).catch(function () { araSoon(20); });
@@ -3850,6 +4130,70 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       araEl.printCard.hidden = true;
       araRenderAll();
     });
+    /* ---------- 📷 배경·음식 사진 넣기 ---------- */
+    function araPhotoLum(img) {
+      try {
+        var c = document.createElement('canvas'); c.width = 24; c.height = 24;
+        var g = c.getContext('2d'); if (!g) return 0.55;
+        g.drawImage(img, 0, 0, 24, 24);
+        var d = g.getImageData(0, 0, 24, 24).data, sum = 0, n = 0;
+        for (var i = 0; i < d.length; i += 4) { sum += (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255; n++; }
+        return n ? sum / n : 0.55;
+      } catch (e) { return 0.55; }
+    }
+    function araSetPhoto(file) {
+      if (!file) return;
+      if (!/^image\//.test(file.type || '')) { toast('사진 파일(PNG·JPG·WEBP)만 넣을 수 있어요'); return; }
+      var url = URL.createObjectURL(file);
+      loadImage(url).then(function (img) {
+        if (ARA.photo && ARA.photo.url) { try { URL.revokeObjectURL(ARA.photo.url); } catch (e) {} }
+        ARA.photo = {
+          img: img, url: url, name: file.name || '사진', lum: araPhotoLum(img),
+          w: img.naturalWidth || img.width, h: img.naturalHeight || img.height
+        };
+        araSyncInputs(); araRenderAll();
+        toast('사진을 넣었어요 — 시안 3개에 바로 반영됩니다');
+      }).catch(function (e) { toast((e && e.message) || '사진을 읽지 못했어요'); });
+    }
+    function araClearPhoto() {
+      if (ARA.photo && ARA.photo.url) { try { URL.revokeObjectURL(ARA.photo.url); } catch (e) {} }
+      ARA.photo = null;
+      if (araEl.thumbImg) araEl.thumbImg.removeAttribute('src');
+      araSyncInputs(); araRenderAll();
+      toast('사진을 지웠어요');
+    }
+    if (araEl.drop) {
+      araEl.drop.addEventListener('click', function () { if (araEl.photoFile) araEl.photoFile.click(); });
+      araEl.drop.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (araEl.photoFile) araEl.photoFile.click(); }
+      });
+      ['dragenter', 'dragover'].forEach(function (k) {
+        araEl.drop.addEventListener(k, function (e) { e.preventDefault(); araEl.drop.classList.add('over'); });
+      });
+      ['dragleave', 'drop'].forEach(function (k) {
+        araEl.drop.addEventListener(k, function (e) { e.preventDefault(); araEl.drop.classList.remove('over'); });
+      });
+      araEl.drop.addEventListener('drop', function (e) {
+        var dt = e.dataTransfer;
+        if (dt && dt.files && dt.files.length) araSetPhoto(dt.files[0]);
+      });
+    }
+    if (araEl.photoFile) araEl.photoFile.addEventListener('change', function () {
+      araSetPhoto(this.files && this.files[0]); this.value = '';
+    });
+    if (araEl.photoPick) araEl.photoPick.addEventListener('click', function () { if (araEl.photoFile) araEl.photoFile.click(); });
+    if (araEl.photoClear) araEl.photoClear.addEventListener('click', araClearPhoto);
+    if (araEl.place) araEl.place.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      ARA.place = b.getAttribute('data-p');
+      araSyncInputs(); araSoon(60);
+    });
+    if (araEl.darken) araEl.darken.addEventListener('input', function () {
+      ARA.darken = parseInt(this.value, 10) || 0;
+      if (araEl.darkenV) araEl.darkenV.textContent = ARA.darken + '%';
+      araSoon(60);
+    });
+
     if (araEl.askGo) araEl.askGo.addEventListener('click', araApplyRequest);
     if (araEl.ask) araEl.ask.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); araApplyRequest(); }
@@ -3864,7 +4208,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   araBuildCards();
   araSyncInputs();
   araRenderAll();
-  loadFace(ARA.font).then(function () { araSoon(30); }).catch(function () {});
+  araEnsureFonts();
 
   /* ============================================================
      💬 글로 요청하기 (커팅·이미지·글자 탭) — 한국어 문장 → 설정 자동 적용
@@ -4525,7 +4869,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     araMainPos: '<b class="ht">문구 위치</b>큰 글자를 어디에 둘지 정해요.<br>· <b>중앙</b> — 가장 흔하고 보기 좋아요<br>· <b>상단 / 하단</b> — 위쪽·아래쪽에 붙임<br>· <b>좌측 / 우측</b> — 한쪽으로 몰아서 배치',
     araMainSize: '<b class="ht">문구 크기</b>글자를 얼마나 크게 할지 정해요. 오른쪽으로 갈수록 커집니다. 너무 크면 banner 밖으로 나가려는 것을 <b>알아서 줄여</b> 배치합니다.',
     araFont: '<b class="ht">폰트</b>글자 모양을 고르세요. 여기 있는 폰트는 모두 <b>상업용 무료</b>라 가게 간판·광고에 써도 됩니다. 고르면 미리보기와 시안 3개가 바로 바뀝니다.',
-    araTheme: '<b class="ht">색상 · 분위기</b><b>자동</b>을 고르면 서로 다른 느낌 3가지(다크·골드 / 화이트·컬러 / 그라데이션)로 만들어 줍니다. 색을 하나 고르면 그 색을 중심으로 3가지를 다시 만들어요. <b>고급</b>은 검정·금색 계열입니다.',
+    araTheme: '<b class="ht">색상 · 분위기</b><b>자동</b>을 고르면 서로 다른 느낌 3가지로 만들어 줍니다.<br>· <b>시안 A · 모던 고급</b> — 진한 차콜 + 금색 라인 (병원·기업·고급 매장)<br>· <b>시안 B · 깔끔 내추럴</b> — 아이보리 카드 + 컬러 배지 (카페·뷰티·전통·웰니스)<br>· <b>시안 C · 강렬 프로모션</b> — 비비드 그라데이션 + 흰 배지 (오픈·할인·학원·외부 광고)<br>색을 하나 고르면 그 색을 중심으로 3가지를 다시 만들어요.',
+    araPhoto: '<b class="ht">배경 · 음식 사진 넣기</b>가게·음식·공간 사진을 <b>배경으로</b> 넣으면 실제 인쇄물처럼 보입니다.<br>· 칸을 <b>누르거나 사진을 끌어다 놓으세요</b> (PNG · JPG)<br>· 넣은 사진은 <b>시안 A · B · C 모두</b>에 들어갑니다.<br>· 확정한 시안은 사진까지 담긴 <b>실제 크기 인쇄용 PDF</b>로 나옵니다.<br>사진은 이 기기 안에서만 쓰고 어디로도 보내지 않아요.',
+    araPlace: '<b class="ht">사진 놓는 자리</b><b>전체 배경</b> — 사진이 간판 전체를 덮습니다 (사진이 좋을 때 가장 강합니다)<br><b>왼쪽 · 오른쪽 배치</b> — 사진은 한쪽에, 글자는 반대쪽에 놓습니다 (글자가 가장 또렷합니다)',
+    araDarken: '<b class="ht">배경 어둡게</b>사진이 밝으면 흰 글자가 묻혀 보입니다. 이 막대를 오른쪽으로 옮기면 사진이 어두워져 <b>글자가 또렷</b>해집니다.<br>사진이 너무 밝으면 글자가 보이도록 <b>알아서 조금 더 어둡게</b> 해 둡니다. 사진을 살리고 싶으면 왼쪽으로 옮기세요.',
     araPreview: '지금 고친 내용이 <b>바로</b> 보이는 곳이에요. 카테고리·크기·제목·전화번호·문구·위치·폰트를 바꾸면 이 화면이 즉시 다시 그려집니다.<br>아래 <b>시안 3개</b> 중 하나를 누르면 그 디자인이 여기에 크게 나타납니다.',
     araSamples: '<b class="ht">시안 3개</b>같은 내용으로 <b>느낌만 다른 3가지</b>를 만들어 보여줍니다. 시안 그림을 누르면 위 <b>미리보기</b>에 크게 나오고, <b>✓ 이 시안 확정하기</b>를 누르면 출력용 파일을 만들 수 있습니다.',
     araPrint: '<b class="ht">확정 → 출력용 파일</b>마음에 드는 시안을 확정하면 아래에 출력용 칸이 열립니다.<br>· <b>PDF</b> — 실제 크기(m) 그대로의 <b>진짜 벡터</b> 파일. 인쇄소에 이걸 보내세요.<br>· <b>AI</b> — 일러스트레이터에서 열어 고칠 수 있는 같은 파일<br>· <b>PNG / JPG</b> — 눈으로 확인하거나 카톡으로 보낼 때<br>글자는 모두 <b>윤곽선(벡터)</b>으로 담기므로, 받는 곳에 폰트가 없어도 똑같이 보입니다. 5.08 m가 넘는 큰 현수막은 PDF가 1:2 등으로 축소 좌표에 실제 크기를 함께 기록합니다.',
