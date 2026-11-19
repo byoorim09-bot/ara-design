@@ -70,6 +70,23 @@
   .drop .ico{font-size:26px;line-height:1}
   .drop .m{margin:8px 0 2px;font-weight:800;font-size:14.5px}
   .drop .s{margin:0;font-size:12.5px;color:var(--muted)}
+  /* ---------- 사진 고르기 (휴대폰 갤러리) ---------- */
+  /* display:none 이면 안드로이드에서 label이 안 열리는 경우가 있어 화면 밖으로만 감춤 */
+  input[type="file"].ghost-file{
+    position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;
+    opacity:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);pointer-events:none
+  }
+  .pick-label{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);
+    font-weight:800;font-size:13.5px;padding:11px 14px;cursor:pointer;text-align:center;
+    box-shadow:0 1px 2px rgba(16,24,40,.05);-webkit-tap-highlight-color:transparent;
+    -webkit-user-select:none;user-select:none
+  }
+  .pick-label:hover{filter:brightness(.98)}
+  .pick-label:active{transform:translateY(1px)}
+  .pick-label.block{display:flex;width:100%}
+  .drop .pick-label{margin:10px auto 2px}
   .samples{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
   .samples .lbl{font-size:12px;color:var(--muted);margin-right:2px}
   .btn{
@@ -394,6 +411,7 @@
   .ara-seg.three button{font-size:12px;padding:9px 2px}
   .ara-dlrow{display:flex;gap:8px;margin-top:10px}
   .ara-dlrow .btn{flex:1}
+  .ara-dlrow .pick-label{flex:1;width:auto;min-width:0}
   .ara-fname{margin:8px 0 0;font-size:11.8px;color:var(--muted);text-align:center;word-break:break-all}
 
   /* ================= 상단 배너 (아라광고) ================= */
@@ -485,11 +503,12 @@
       <section class="card">
         <div class="head"><span class="num">1</span><h2>사진 넣기</h2><button class="q" type="button" data-h="photo" aria-expanded="false" aria-label="사진 넣기 설명 보기">?</button></div>
         <div id="drop" class="drop" tabindex="0" role="button" aria-label="사진 고르기">
+          <input type="file" id="file" class="ghost-file" accept="image/*" tabindex="-1" aria-hidden="true">
           <span class="ico">🖼️</span>
           <p class="m">여기를 눌러서 사진 고르기</p>
           <p class="s">또는 사진을 이 칸에 끌어다 놓으세요 · PNG · JPG · WEBP</p>
+          <label class="pick-label" for="file">🖼️ 갤러리에서 사진 고르기</label>
         </div>
-        <input type="file" id="file" accept="image/png,image/jpeg,image/webp,image/*" hidden>
         <div class="samples">
           <span class="lbl">사진이 없으면</span>
           <button class="btn ghost" id="sampleText" type="button">글자 예시</button>
@@ -672,8 +691,8 @@
             <div><label class="lbl2" for="stC2">색 2</label><div class="colrow"><input type="color" id="stC2" value="#0f766e"><div class="input"><input id="stC2h" value="#0f766e" style="font-size:13px"></div></div></div>
           </div>
           <div id="stPhotoBox" hidden style="margin-top:12px">
-            <button class="btn ghost" id="stPhotoBtn" type="button" style="width:100%">배경 사진 고르기</button>
-            <input type="file" id="stPhotoFile" accept="image/*" hidden>
+            <label class="pick-label block" id="stPhotoBtn" for="stPhotoFile">🖼️ 갤러리에서 사진 고르기</label>
+            <input type="file" id="stPhotoFile" class="ghost-file" accept="image/*" tabindex="-1" aria-hidden="true">
             <div class="slider" style="margin-top:10px"><div class="row"><span>어둡게</span><span class="val" id="stDarkV">35%</span></div><input type="range" id="stDark" min="0" max="90" value="35"></div>
             <div class="slider"><div class="row"><span>흐리게 <button class="q" type="button" data-h="stBgPhoto" aria-expanded="false" aria-label="배경 사진 어둡게·흐리게 설명 보기">?</button></span><span class="val" id="stBlurV">4</span></div><input type="range" id="stBlur" min="0" max="30" value="4"></div>
           </div>
@@ -693,8 +712,8 @@
 
         <section class="card">
           <div class="head"><span class="num">4</span><h2>로고 · 사진</h2><button class="q" type="button" data-h="stLogo" aria-expanded="false" aria-label="로고·사진 설명 보기">?</button><span class="sub">선택</span></div>
-          <button class="btn ghost" id="stLogoBtn" type="button" style="width:100%">로고·사진 고르기</button>
-          <input type="file" id="stLogoFile" accept="image/*" hidden>
+          <label class="pick-label block" id="stLogoBtn" for="stLogoFile">로고·사진 고르기</label>
+          <input type="file" id="stLogoFile" class="ghost-file" accept="image/*" tabindex="-1" aria-hidden="true">
           <div id="stLogoBox" hidden style="margin-top:12px">
             <div class="slider"><div class="row"><span>크기</span><span class="val" id="stLogoSizeV">22</span></div><input type="range" id="stLogoSize" min="5" max="70" value="22"></div>
             <div class="slider"><div class="row"><span>진하기 <button class="q" type="button" data-h="stLogoSize" aria-expanded="false" aria-label="로고 크기·진하기 설명 보기">?</button></span><span class="val" id="stLogoOpV">100</span></div><input type="range" id="stLogoOp" min="10" max="100" value="100"></div>
@@ -908,14 +927,15 @@
         <section class="card" id="araPhotoCard">
           <div class="head"><span class="num">📷</span><h2>배경·음식 사진 넣기</h2><button class="q" type="button" data-h="araPhoto" aria-expanded="false" aria-label="사진 넣기 설명 보기">?</button><span class="sub" id="araPhotoName">사진 없음</span></div>
           <div class="drop ara-drop" id="araDrop" role="button" tabindex="0" aria-label="배경 사진 넣기">
-            <input type="file" id="araPhotoFile" accept="image/*" hidden>
+            <input type="file" id="araPhotoFile" class="ghost-file" accept="image/*" tabindex="-1" aria-hidden="true">
             <div class="ico">🖼️</div>
             <p class="m" id="araDropMain">사진을 끌어다 놓거나 눌러서 고르기</p>
             <p class="s">가게·음식·시술 사진을 배경으로 넣으면 실제 인쇄물처럼 보여요</p>
+            <label class="pick-label" for="araPhotoFile">🖼️ 갤러리에서 사진 고르기</label>
             <div class="ara-thumb" id="araThumb"><img id="araThumbImg" alt="넣은 사진 미리보기"></div>
           </div>
           <div class="ara-dlrow">
-            <button class="btn ghost" id="araPhotoPick" type="button">🖼️ 사진 고르기</button>
+            <label class="pick-label block" id="araPhotoPick" for="araPhotoFile">🖼️ 사진 고르기</label>
             <button class="btn ghost" id="araPhotoClear" type="button" disabled>✕ 사진 지우기</button>
           </div>
           <p class="ara-fname" id="araPhotoFileInfo" hidden></p>
@@ -1788,7 +1808,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     loadImage(url).then(function (img) { setImage(img, file.name); }).catch(function (e) { toast(e.message); });
   }
 
-  el.drop.addEventListener('click', function () { el.file.click(); });
+  el.drop.addEventListener('click', function (e) {
+    /* 갤러리 단추(label)는 브라우저가 직접 열게 두고, 칸을 눌렀을 때만 대신 불러 준다 */
+    if (e.target && e.target.closest && e.target.closest('label')) return;
+    el.file.click();
+  });
   el.drop.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.file.click(); } });
   el.file.addEventListener('change', function () { handleFile(el.file.files[0]); el.file.value = ''; });
 
@@ -2814,7 +2838,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   bindColor('stC1', 'stC1h', 'c1');
   bindColor('stC2', 'stC2h', 'c2');
   bindColor('stColor', 'stColorH', 'color');
-  $('#stPhotoBtn').addEventListener('click', function () { $('#stPhotoFile').click(); });
   $('#stPhotoFile').addEventListener('change', function () {
     var f = this.files && this.files[0]; if (!f) return;
     loadImage(URL.createObjectURL(f)).then(function (img) { st.photo = img; stDraw(); });
@@ -2847,7 +2870,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     st.subSize = parseInt(this.value, 10) / 100;
     $('#stSubSizeV').textContent = this.value; stDraw();
   });
-  $('#stLogoBtn').addEventListener('click', function () { $('#stLogoFile').click(); });
   $('#stLogoFile').addEventListener('change', function () {
     var f = this.files && this.files[0]; if (!f) return;
     loadImage(URL.createObjectURL(f)).then(function (img) {
@@ -4172,7 +4194,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       toast('사진을 지웠어요');
     }
     if (araEl.drop) {
-      araEl.drop.addEventListener('click', function () { if (araEl.photoFile) araEl.photoFile.click(); });
+      araEl.drop.addEventListener('click', function (e) {
+        /* 갤러리 단추(label)는 브라우저가 직접 열게 두고, 칸을 눌렀을 때만 대신 불러 준다 */
+        if (e.target && e.target.closest && e.target.closest('label')) return;
+        if (araEl.photoFile) araEl.photoFile.click();
+      });
       araEl.drop.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (araEl.photoFile) araEl.photoFile.click(); }
       });
@@ -4190,7 +4216,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (araEl.photoFile) araEl.photoFile.addEventListener('change', function () {
       araSetPhoto(this.files && this.files[0]); this.value = '';
     });
-    if (araEl.photoPick) araEl.photoPick.addEventListener('click', function () { if (araEl.photoFile) araEl.photoFile.click(); });
     if (araEl.photoClear) araEl.photoClear.addEventListener('click', araClearPhoto);
     if (araEl.place) araEl.place.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
