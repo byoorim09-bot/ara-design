@@ -833,6 +833,21 @@
           <div class="slider"><div class="row"><span>글자 굵기 (살찌우기) <button class="q" type="button" data-h="tvWeight" aria-expanded="false" aria-label="글자 굵기 설명 보기">?</button></span><span class="val" id="tvWeightV">0.0 mm</span></div><input type="range" id="tvWeight" min="-0.5" max="2.5" step="0.1" value="0"><div class="ends"><span>-0.5 mm 얇게</span><span>0</span><span>+2.5 mm 두껍게</span></div></div>
           <div class="field"><div class="lblrow"><label class="lbl2" for="tvColor">색</label><button class="q" type="button" data-h="tvColor" aria-expanded="false" aria-label="색 설명 보기">?</button></div><div class="colrow"><input type="color" id="tvColor" value="#000000"><div class="input"><input id="tvColorH" value="#000000" style="font-size:13px"></div></div></div>
         </section>
+
+        <section class="card">
+          <div class="head"><span class="num">✂️</span><h2>바깥 테두리 (칼선)</h2><button class="q" type="button" data-h="tvBorder" aria-expanded="false" aria-label="바깥 테두리 설명 보기">?</button><span class="sub" id="tvBorderInfo">없음</span></div>
+          <p class="mini" style="margin:-6px 0 10px">글자 둘레로 <b>1~5cm 떨어진 칼선</b>을 만들어, 스티커처럼 오려 낼 수 있게 합니다.</p>
+          <div class="pills" id="tvBorderQuick">
+            <button type="button" data-b="0" class="on">없음</button>
+            <button type="button" data-b="1">1cm</button>
+            <button type="button" data-b="2">2cm</button>
+            <button type="button" data-b="3">3cm</button>
+            <button type="button" data-b="5">5cm</button>
+          </div>
+          <div class="slider" style="margin-top:10px"><div class="row"><span>테두리 간격</span><span class="val" id="tvBorderV">0.0 cm</span></div><input type="range" id="tvBorder" min="0" max="5" step="0.1" value="0"><div class="ends"><span>0</span><span>5 cm</span></div></div>
+          <div class="checks"><label class="check"><input type="checkbox" id="tvHideInner"> 안쪽 글씨 지우기 (바깥 테두리만 남기기)</label><button class="q" type="button" data-h="tvHideInner" aria-expanded="false" aria-label="안쪽 글씨 지우기 설명 보기">?</button></div>
+          <p class="mini" id="tvBorderNote">테두리를 넣으면 미리보기에서 <b style="color:#0f766e">초록색 선</b>으로 보여 드립니다. 저장 파일에는 같은 색으로 함께 들어갑니다.</p>
+        </section>
       </div>
       <div class="colb">
         <section class="card">
@@ -2683,12 +2698,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var sc = Math.min(o.boxW / page.w, o.boxH / page.h);
     var w2 = Math.max(20, page.w * sc), h2 = Math.max(10, page.h * sc);
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    cv.width = Math.round(w2 * dpr); cv.height = Math.round(h2 * dpr);
-    cv.style.width = Math.round(w2) + 'px'; cv.style.height = Math.round(h2) + 'px';
     var g = cv.getContext('2d');
-    g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.clearRect(0, 0, w2, h2);
-    if (o.bg) { g.fillStyle = o.bg; g.fillRect(0, 0, w2, h2); }
+    if (!o.keep) {
+      cv.width = Math.round(w2 * dpr); cv.height = Math.round(h2 * dpr);
+      cv.style.width = Math.round(w2) + 'px'; cv.style.height = Math.round(h2) + 'px';
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w2, h2);
+      if (o.bg) { g.fillStyle = o.bg; g.fillRect(0, 0, w2, h2); }
+    } else {
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     var k = sc * page.scale, bb = page.bbox;
     g.save();
     g.translate(-bb.x * k, -bb.y * k);
@@ -2715,14 +2734,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     text: '커팅 외곽선\n30cm', font: 'black-han-sans', widthCm: 30,
     lineHeight: 1.15, tracking: 0, align: 'center',
     paint: 'stroke', strokeW: 0.5, color: '#000000', view: 'cut',
-    weight: 0,
+    weight: 0, border: 0, hideInner: false,
     result: null, page: null, busy: false, pending: false, _t: null
   };
   var tvEl = {
     text: $('#tvText'), font: $('#tvFont'), w: $('#tvW'), h: $('#tvH'), lh: $('#tvLh'), tr: $('#tvTr'),
     lhV: $('#tvLhV'), trV: $('#tvTrV'), preview: $('#tvPreview'), lic: $('#tvLicense'), fstate: $('#tvFontState'),
     canvas: $('#tvCanvas'), empty: $('#tvEmpty'), dim: $('#tvDimText'), chip: $('#tvPathChip'), curve: $('#tvCurveChip'),
-    stage: $('#tvStage'), weight: $('#tvWeight'), weightV: $('#tvWeightV')
+    stage: $('#tvStage'), weight: $('#tvWeight'), weightV: $('#tvWeightV'),
+    border: $('#tvBorder'), borderV: $('#tvBorderV'), borderInfo: $('#tvBorderInfo'), borderQuick: $('#tvBorderQuick'), hideInner: $('#tvHideInner')
   };
   fillFontSelect(tvEl.font, tv.font);
   $('#stFont').innerHTML = tvEl.font.innerHTML;
@@ -2985,19 +3005,29 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       if (!paths.length) throw new Error('글자를 넣어 주세요');
       /* 1) 겹친 획을 먼저 하나로 합치기 — 안쪽에 엇갈린 선이 남지 않게 */
       paths = unionPaths(paths);
+      var bb0 = Core.bboxOfPaths(paths);
+      var unitsPerMm = bb0.w / Math.max(1, (tv.widthCm || 30) * 10);
       /* 2) 합친 윤곽선을 굵기만큼 실제 벡터로 밀어내기 */
       var weight = Number(tv.weight) || 0;
       if (Math.abs(weight) > 0.01) {
-        var bb0 = Core.bboxOfPaths(paths);
-        var unitsPerMm = bb0.w / Math.max(1, (tv.widthCm || 30) * 10);
         var off = offsetPaths(paths, (weight / 2) * unitsPerMm);
         if (off) paths = off;
         else toast('굵기 조절을 쓰려면 인터넷 연결이 필요해요 — 원래 굵기로 보여 드릴게요');
       }
+      /* 3) 바깥 테두리(칼선) — 글자에서 정확히 N cm 떨어진 한 줄 윤곽 */
+      var outer = null;
+      var borderCm = Number(tv.border) || 0;
+      if (borderCm > 0.01) {
+        outer = offsetPaths(paths, borderCm * 10 * unitsPerMm);
+        if (outer) {
+          if (tv.hideInner) paths = outer;
+          else paths = paths.concat(outer);
+        }
+      }
       var bbox = Core.bboxOfPaths(paths);
-      var pageW = Math.max(1, tv.widthCm) * CM_PT;
+      var pageW = (bbox.w / unitsPerMm / 10) * CM_PT;
       var scale = pageW / bbox.w;
-      tv.result = { paths: paths, bbox: bbox, stats: pathsStats(paths) };
+      tv.result = { paths: paths, bbox: bbox, stats: pathsStats(paths), outer: (outer && !tv.hideInner) ? outer : null };
       tv.page = { w: pageW, h: bbox.h * scale, scale: scale, bbox: bbox };
       tvEl.empty.style.display = 'none';
       tvDraw();
@@ -3023,6 +3053,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       paint: tv.view === 'fill' ? 'fill' : 'stroke',
       strokeW: tv.view === 'fill' ? 0 : 0.6, color: tv.color
     });
+    /* 바깥 테두리(칼선)는 눈에 띄게 다른 색으로 한 번 더 그린다 */
+    if (tv.result.outer) {
+      renderPathsToCanvas(tvEl.canvas, tv.result.outer, tv.page, {
+        boxW: boxW, boxH: boxH, keep: true, paint: 'stroke', strokeW: 0.6, color: '#0f766e'
+      });
+    }
   }
   function tvMeta() {
     if (!tv.page) return;
@@ -3096,6 +3132,28 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     tv.tracking = parseInt(tvEl.tr.value, 10);
     tvEl.trV.textContent = (tv.tracking > 0 ? '+' : '') + tv.tracking;
     tvSchedule();
+  });
+  function tvSetBorder(v) {
+    tv.border = Math.round(Math.max(0, Math.min(5, Number(v) || 0)) * 10) / 10;
+    if (tvEl.border) tvEl.border.value = tv.border;
+    if (tvEl.borderV) tvEl.borderV.textContent = tv.border.toFixed(1) + ' cm';
+    if (tvEl.borderInfo) tvEl.borderInfo.textContent = tv.border > 0.001 ? ('바깥 ' + tv.border.toFixed(1) + ' cm') : '없음';
+    if (tvEl.borderQuick) {
+      $$('#tvBorderQuick button').forEach(function (x) {
+        x.classList.toggle('on', Math.abs(parseFloat(x.getAttribute('data-b')) - tv.border) < 0.001);
+      });
+    }
+    if (tvEl.hideInner) tvEl.hideInner.disabled = !(tv.border > 0.001);
+    tvSchedule(150);
+  }
+  if (tvEl.borderQuick) tvEl.borderQuick.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    tvSetBorder(parseFloat(b.getAttribute('data-b')));
+  });
+  if (tvEl.border) tvEl.border.addEventListener('input', function () { tvSetBorder(this.value); });
+  if (tvEl.hideInner) tvEl.hideInner.addEventListener('change', function () {
+    tv.hideInner = !!this.checked;
+    tvSchedule(150);
   });
   if (tvEl.weight) tvEl.weight.addEventListener('input', function () {
     tv.weight = Math.round(parseFloat(this.value) * 10) / 10 || 0;
@@ -5815,6 +5873,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     tvTr: '<b class="ht">자간</b>글자와 글자 사이 간격이에요. 키우면 글자가 서로 떨어지고, 줄이면 서로 붙어요.',
     tvAlign: '<b class="ht">정렬</b>여러 줄일 때 줄을 왼쪽·가운데·오른쪽 어디에 맞출지 정해요.',
     tvPaint: '<b class="ht">모양 (외곽선 · 면)</b><b>외곽선만</b> — 글자 테두리 선만 있어요. 커팅기로 자를 때 이걸 씁니다.<br><b>면 채우기</b> — 글자 속을 꽉 채운 모양. 시안을 보거나 출력할 때 좋아요.',
+    tvBorder: '<b class="ht">바깥 테두리 (칼선)</b>글자에서 <b>1·2·3·5cm</b> 떨어진 바깥 선을 만들어 줍니다. 스티커·아크릴 판처럼 <b>글자보다 크게 오려야</b> 할 때 쓰세요.<br>· 단추를 누르거나 막대를 움직여 간격을 정합니다.<br>· 여러 글자가 가까이 있으면 <b>하나로 이어진 테두리</b>가 됩니다.<br>· 미리보기에서는 초록색으로 보이지만, 저장 파일에는 같은 색으로 함께 들어갑니다.',
+    tvHideInner: '<b class="ht">안쪽 글씨 지우기</b>켜면 <b>바깥 테두리만</b> 남기고 글자 선은 지웁니다. 스티커 바탕만 오려 낼 때 편합니다.<br>끄면 글자 선과 테두리 선이 <b>함께</b> 들어갑니다.',
     tvWeight: '<b class="ht">글자 굵기 (살찌우기)</b>글자의 <b>진짜 외곽선을 밖으로 밀어서</b> 획을 두껍게(또는 얇게) 만듭니다. 폰트를 바꾸지 않아도 됩니다.<br>· <b>+</b> — 글자가 살쪄서 얇은 손글씨도 시트지 커팅이 쉬워집니다.<br>· <b>-</b> — 글자가 야위어요. 너무 줄이면 얇은 획이 사라질 수 있습니다.<br>· 0 이면 원래 폰트 그대로입니다.<br>겹친 획은 이때 <b>하나로 합쳐져</b> 안쪽에 엇갈린 선이 남지 않습니다. 미리보기·AI·PDF·SVG 모두 같은 모양으로 저장됩니다.',
     tvStroke: '<b class="ht">선 굵기</b>외곽선의 두께예요. 실제로 자를 거면 <b>0.25pt나 0.5pt</b>가 좋아요.',
     tvColor: '<b class="ht">색</b>글자 색이에요. 커팅용으로 보낼 때는 보통 <b>검정</b>을 씁니다.',
