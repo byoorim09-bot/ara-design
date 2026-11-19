@@ -4057,7 +4057,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         fit = fitOf(lines, base * scale, reg, font, maxH);
         rect = rectOf(fit, reg);
       }
-      placed.push(rect);
+      placed.push(isLed ? { x: rect.x - ledDepth * 0.34, y: rect.y, w: rect.w + ledDepth * 0.34, h: rect.h + ledDepth } : rect);
       return { fit: fit, rect: rect, ax: reg.ax };
     }
 
@@ -4078,7 +4078,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       var gy = tReg.ay === 'top' ? tReg.y : tReg.ay === 'bottom' ? tReg.y + tReg.h - gh : tReg.y + (tReg.h - gh) / 2;
       gx = clampX(gx, gw); gy = clampY(gy, gh);
       gb = { x: gx, y: gy, w: gw, h: gh };
-      placed.push(gb);
+      placed.push(isLed ? { x: gx - ledDepth * 0.34, y: gy, w: gw + ledDepth * 0.34, h: gh + ledDepth } : gb);
       tRes = { fit: tFit, ax: tReg.ax, rect: { x: tReg.ax === 'left' ? gx : tReg.ax === 'right' ? gx + gw - tFit.w : gx + (gw - tFit.w) / 2, y: gy, w: tFit.w, h: tFit.h } };
       pRes = { fit: pFit, ax: tReg.ax, rect: { x: tReg.ax === 'left' ? gx : tReg.ax === 'right' ? gx + gw - pFit.w : gx + (gw - pFit.w) / 2, y: gy + tFit.h + gGap, w: pFit.w, h: pFit.h } };
     } else {
