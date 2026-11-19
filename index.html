@@ -226,6 +226,14 @@
     color:var(--ink);background:#fff;resize:vertical;min-height:88px;outline:0
   }
   .ta:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  /* ✕ 지우기 — 입력칸 글을 한 번에 비우는 작은 단추 */
+  .clr{position:relative}
+  .clr > .ta{padding-right:80px}
+  .clr-btn{position:absolute;top:7px;right:7px;z-index:3;border:1px solid #d7dee9;background:#fff;color:#56637a;
+    font:inherit;font-size:11.5px;font-weight:800;line-height:1;padding:7px 10px;border-radius:99px;cursor:pointer;
+    box-shadow:0 1px 2px rgba(15,23,42,.06)}
+  .clr-btn:hover{background:#fef2f2;border-color:#fca5a5;color:#b42318}
+  .clr-btn:active{transform:scale(.97)}
   .sel{
     width:100%;border:1px solid var(--line);border-radius:11px;padding:0 10px;height:44px;font:inherit;font-size:13.4px;
     font-weight:700;color:var(--ink);background:#fff;outline:0
@@ -3585,6 +3593,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         if (hM == null) hM = b;
       }
     }
+    /* "5미터 1미터", "5m 1m" 처럼 × 없이 숫자+단위가 연달아 나오는 경우 */
+    if (wM == null && hM == null) {
+      var unit = '(cm|센티미터|센치|미터|메타|m)';
+      mm = low.match(new RegExp(num + '\\s*' + unit + '\\s*(?:[,·/]|그리고|와|과|\\s)*' + num + '\\s*' + unit));
+      if (mm) {
+        wM = araUnitToM(araNum(mm[1]) || 0, mm[2]);
+        hM = araUnitToM(araNum(mm[3]) || 0, mm[4]);
+      }
+    }
     if (wM && wM >= 0.2 && wM <= 30) { ARA.wM = Math.round(wM * 100) / 100; out.hits.push('가로 ' + ARA.wM + ' m'); }
     if (hM && hM >= 0.2 && hM <= 30) { ARA.hM = Math.round(hM * 100) / 100; out.hits.push('세로 ' + ARA.hM + ' m'); }
 
@@ -3651,10 +3668,39 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       out.hits.push('전화 ' + ARA.phone);
     }
 
+    /* 상호 / 제목 — "상호는 ...", "제목은 ...", "가게 이름은 ..." */
+    var titleHit = null;
+    var tmm = t.match(/(?:상호(?:명)?|제목|가게\s*(?:이름|명)|업체명|브랜드|가게)\s*(?:은|는|이|가|:|：)?\s*([^\n,.;:]{1,40})/);
+    if (tmm) {
+      var tv = String(tmm[1])
+        .split(/\s*(?:전화|번호|연락|휴대|문구|글씨|크기|사이즈|위치|색깔|색상|배경|폰트|간판|현수막|배너|시트지|넣어|써줘|해줘)/)[0]
+        .replace(/(이고요|이고|이며|이에요|입니다|인데|으로|로)\s*$/, '')
+        .replace(/^["'“”‘’\s]+|["'“”‘’\s]+$/g, '')
+        .trim();
+      tv = tv.split(/\s+/).filter(Boolean).slice(0, 3).join(' ').trim();
+      if (tv && tv.length >= 1 && !/^(크게|작게|중앙|상단|하단|좌측|우측|보통)$/.test(tv)) {
+        titleHit = tv;
+        ARA.title = tv;
+        out.hits.push('상호 “' + tv + '”');
+      }
+    }
+
+    /* 메인 문구 — "문구는 ..." / "메인 문구는 ..." */
+    var mainHit = null;
+    var mmm = t.match(/(?:메인\s*문구|들어갈\s*문구|메인\s*글|문구|글씨|텍스트)\s*(?:은|는|이|가|:|：)?\s*([^\n,.;]{2,60})/);
+    if (mmm) {
+      var mv = String(mmm[1])
+        .split(/\s*(?:전화|번호|연락|휴대|상호|제목|크기|사이즈|위치|색깔|색상|배경|폰트|넣어|써줘|해줘)/)[0]
+        .replace(/(넣어줘|넣어|써줘|해줘|해|라고|으로|로)\s*$/, '')
+        .replace(/^["'“”‘’\s]+|["'“”‘’\s]+$/g, '')
+        .trim();
+      if (mv && mv.length >= 2) mainHit = mv;
+    }
+
     /* 문구 */
-    var main = null;
+    var main = mainHit;
     var q = t.match(/["“'']([^"”'']{2,40})["”'']/);
-    if (q) main = q[1];
+    if (!main && q) main = q[1];
     if (!main) {
       var z = rest.match(/(?:중앙|가운데|상단|하단|좌측|우측|왼쪽|오른쪽)\s*에\s*([^,\.。]{2,40})/);
       if (z) main = z[1];
@@ -3667,7 +3713,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         ARA.main = main;
         out.hits.push('문구 “' + main + '”');
       }
+    } else if (titleHit) {
+      /* 문구를 따로 말하지 않았으면 상호를 큰 글씨로도 쓴다 */
+      ARA.main = titleHit;
+      out.hits.push('문구 “' + titleHit + '”');
     }
+
+    /* 상호·문구를 새로 넣었고 보조문구가 아직 견본 문구 그대로면 비운다 */
+    if ((titleHit || main) && ARA.sub === '맞춤 제작 · 빠른 납기') ARA.sub = '';
 
     return out.hits.length ? out : null;
   }
@@ -4278,6 +4331,40 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ara: ARA, araRenderAll: araRenderAll, araExport: araExport, araScene: araScene,
     araApplyRequest: araApplyRequest, araParseRequest: araParseRequest, araPalettes: araPalettes
   };
+
+  /* ============================================================
+     ✕ 지우기 — 입력칸 글을 한 번에 비우기 (휴대폰에서 편하게)
+     ============================================================ */
+  function addClearButtons() {
+    var ids = ['araAsk', 'nlCut', 'nlStudio', 'nlTextv', 'araMain', 'araTitle', 'araPhone'];
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el || el.__clr) return;
+      el.__clr = true;
+      var host = el.parentNode;
+      var wrap = document.createElement('div');
+      wrap.className = 'clr';
+      host.insertBefore(wrap, el);
+      wrap.appendChild(el);
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'clr-btn';
+      b.textContent = '✕ 지우기';
+      b.setAttribute('aria-label', '입력한 글 지우기');
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        el.value = '';
+        try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (err) { }
+        try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (err) { }
+        var sum = host.querySelector ? host.querySelector('.ara-sum') : null;
+        if (sum) { sum.hidden = true; sum.textContent = ''; }
+        if (el.focus) el.focus();
+      });
+      wrap.appendChild(b);
+    });
+  }
+  addClearButtons();
 
   /* ============================================================
      주소(URL)에 적힌 값으로 디자인 탭을 바로 채우기
