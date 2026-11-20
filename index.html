@@ -4395,7 +4395,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     function placeLedBarBlock(lines, base, pos, font, mode) {
       var ax = ledAxn(pos);
       var maxW = Math.max(W - ledSafeX * 2, W * 0.3);
-      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.98, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
+      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.86, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
       var fit = ledFitC(lines, Math.max(0.6, base), maxW, maxH, font);
       var rect = ledRectFor(fit, ax, mode), guard = 0;
       while (!ledFreeRect(rect) && guard++ < 24) {
@@ -4408,9 +4408,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* 전화번호를 상호 바로 옆(같은 바닥선)에 — 자리가 좁으면 상호 위로 */
     function placeLedBarBeside(t, text, base, font, mode) {
       if (!t) return placeLedBarBlock([text], base, 'tl', font, mode);
-      var gapT = Math.max(3.2, short * 0.045);
+      var gapT = Math.max(4.5, short * 0.05);
       var right = Rx - (t.rect.x + t.rect.w) - gapT;
-      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.98, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
+      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.86, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
       var fit = ledFitC([text], Math.max(0.6, base), Math.max(right, 0.8), maxH, font);
       var rect;
       if (right >= fit.w + 0.01 && fit.size >= base * 0.55) {
