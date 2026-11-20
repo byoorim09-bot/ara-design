@@ -1021,6 +1021,7 @@
             <button type="button" data-ex="가로 4미터 세로 1미터, 시원한 파란색, 중앙에 봄맞이 대할인">가로 4미터 세로 1미터, 시원한 파란색, 중앙에 봄맞이 대할인</button>
             <button type="button" data-ex="고급 검정·금색 느낌, 우측 하단에 상호·전화 크게">고급 검정·금색 느낌, 우측 하단에 상호·전화 크게</button>
             <button type="button" data-ex="0.6 x 1.8 세로 배너, 초록색, 하단에 친환경 세제 010-1234-5678">0.6 x 1.8 세로 배너, 초록색, 하단에 친환경 세제 010-1234-5678</button>
+            <button type="button" data-ex="LED 간판 5x1m, 1줄 바, 검정 바, 원형 채널 45cm 바 앞, 상호 라이트바디 42cm 바 앞, 전화 764-3006 채널박스 24cm 바 앞">LED 간판 5x1m, 1줄 검정 바, 원형 채널 45cm 바 앞, 상호 라이트바디 42cm 바 앞, 전화 764-3006 채널박스 24cm 바 앞</button>
           </div>
           <button class="btn primary" id="araAskGo" type="button" style="width:100%;margin-top:10px">✨ 요청대로 적용 &amp; 샘플 보기</button>
           <div class="ara-sum" id="araAskSum" hidden></div>
@@ -6085,6 +6086,69 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       ARA.ledSide = /골드|금색/.test(sd) ? '#b8912f' : /실버|은색/.test(sd) ? '#c9ced6' : /레드|빨강/.test(sd) ? '#b21f2d' : /화이트|흰색/.test(sd) ? '#f3f4f6' : '#18181b';
       out.hits.push('옆면 ' + sd);
     }
+
+    /* ✨ LED — 맨 앞 원형 채널·사각 로고 / 바 앞·위 배치 / 전화 채널 박스 / 상호·전화 cm */
+    var ledReq = (catHit === 'led') || /(바\s*(?:앞|위)|원형\s*(?:채널|로고)|사각\s*(?:채널|로고)|동그란\s*(?:채널|로고)|채널\s*박스|채널박스)/.test(low);
+    if (ledReq) {
+      var ledCm = '([0-9]{2,3}(?:\\.[0-9])?)\\s*(?:cm|센티미터|센티|센치)';
+      /* 쉼표로 끊은 조각마다 "바 앞 / 바 위"를 찾아 무엇에 붙는 말인지 가른다 */
+      var ledParts = t.split(/\s*[,·]\s*/);
+      var placeAll = null, sawFront = false, sawOn = false;
+      for (var lpi = 0; lpi < ledParts.length; lpi++) {
+        var pseg = ledParts[lpi];
+        var pp = /바\s*(?:앞|앞면|전면|앞쪽)/.test(pseg) ? 'front'
+               : /바\s*위(?:에|로|쪽)?/.test(pseg) ? 'on' : null;
+        if (!pp) continue;
+        if (pp === 'front') sawFront = true; else sawOn = true;
+        if (/(전화|번호|연락|휴대|tel)/i.test(pseg)) ARA.ledPhonePlace = pp;
+        else if (/(상호|제목|가게\s*(?:이름|명)|업체명|브랜드)/.test(pseg)) ARA.ledTitlePlace = pp;
+        else if (/(로고|채널)/.test(pseg)) ARA.ledLogoPlace = pp;
+        else placeAll = pp;
+      }
+      if (sawFront || sawOn) {
+        /* 한 방향만 말했으면 상호·전화·로고 모두 그 방식으로 — 앞이면 바가 글자 뒤 가운데를 지난다 */
+        var ppAll = placeAll || (sawFront ? 'front' : 'on');
+        ARA.ledPlace = ppAll;
+        if (placeAll || !(sawFront && sawOn)) {
+          ARA.ledLogoPlace = ppAll; ARA.ledTitlePlace = ppAll; ARA.ledPhonePlace = ppAll;
+        }
+      }
+      if (sawFront) { ARA.ledBarY = null; out.hits.push('바 앞에 직접'); }
+      else if (sawOn) { ARA.ledBarY = null; out.hits.push('바 위에 얹기'); }
+
+      /* 원형 채널 · 사각 로고 (지름 cm) */
+      var lgc = low.match(/(원형|둥근|동그란|동그라미|라운드)\s*(?:채널|로고|간판|사인)?/);
+      var lgs = low.match(/(사각|네모|네모난|각진|반듯한)\s*(?:채널|로고|간판|사인)?/);
+      var lgShape = null;
+      if (lgc && (!lgs || lgc.index <= lgs.index)) lgShape = 'circle';
+      else if (lgs) lgShape = 'square';
+      if (lgShape) {
+        ARA.ledLogo = lgShape;
+        var lgcm = low.match(new RegExp('(?:원형|둥근|동그란|동그라미|사각|네모)[^,\\n]{0,18}?' + ledCm))
+          || low.match(new RegExp(ledCm + '\\s*(?:지름|크기)?\\s*(?:의\\s*)?(?:원형|둥근|동그란|사각|네모)'));
+        if (lgcm) ARA.ledLogoCm = Math.max(20, Math.min(90, Math.round(araNum(lgcm[1]) || 45)));
+        out.hits.push((lgShape === 'circle' ? '원형 채널' : '사각 로고') + (lgcm ? ' ' + araLedLogoCm() + 'cm' : ''));
+      }
+
+      /* 전화 채널 박스 (박스 크기 cm) */
+      if (/(?:전화\s*)?채널\s*박스|채널박스|전화\s*박스|번호\s*박스/.test(low)) {
+        ARA.phoneStyle = 'box';
+        var pbcm = low.match(new RegExp('(?:채널\\s*박스|채널박스|전화\\s*박스|번호\\s*박스)[^,\\n]{0,10}?' + ledCm))
+          || low.match(new RegExp(ledCm + '\\s*(?:크기\\s*)?(?:전화\\s*)?(?:채널\\s*박스|채널박스|전화\\s*박스)'));
+        if (pbcm) ARA.phoneCm = Math.max(6, Math.min(60, Math.round(araNum(pbcm[1]) || 0)));
+        out.hits.push('전화 채널 박스' + (pbcm ? ' ' + araLedPhoneCm() + 'cm' : ''));
+      }
+
+      /* 상호(제목) cm 크기 — "상호 라이트바디 42cm", "상호 42cm" */
+      var tcmHit = low.match(new RegExp('(?:상호|제목|가게\\s*(?:이름|명)|업체명|브랜드)[^,\\n]{0,24}?' + ledCm));
+      if (tcmHit) {
+        ARA.titleCm = Math.max(10, Math.min(100, Math.round(araNum(tcmHit[1]) || 0)));
+        out.hits.push('상호 ' + araLedTitleCm() + 'cm');
+      }
+      /* 문구 1 cm 크기 — "문구 30cm" */
+      var mcmHit = low.match(new RegExp('(?:문구|글씨)[^,\\n]{0,14}?' + ledCm));
+      if (mcmHit) { ARA.texts[0].cm = Math.max(6, Math.min(60, Math.round(araNum(mcmHit[1]) || 0))); out.hits.push('문구 ' + araLedTextCm(0) + 'cm'); }
+    }
     if (/(얇게|얇은|납작)/.test(low)) { ARA.ledDepth = 'thin'; out.hits.push('입체 얇게'); }
     else if (/(깊게|깊은|두껍게|묵직)/.test(low)) { ARA.ledDepth = 'deep'; out.hits.push('입체 깊게'); }
     else if (/(보통\s*(두께|입체))/.test(low)) { ARA.ledDepth = 'normal'; out.hits.push('입체 보통'); }
@@ -6147,8 +6211,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       else { ARA.texts[0].size = 0.72; out.hits.push('문구 작게'); }
     }
 
-    /* 전화번호 */
+    /* 전화번호 — 휴대폰(010-0000-0000)·지역번호(02-000-0000)·7~8자리 국번 없는 번호(764-3006) */
     var pm = t.match(/(0\d{1,2}[-\s.]?\d{3,4}[-\s.]?\d{4}|1[5-6]\d{2}[-\s.]?\d{4}|15\d{2}[-\s.]?\d{4})/);
+    if (!pm) {
+      /* "전화 764-3006" 처럼 전화·번호 말이 앞에 붙은 7~8자리 */
+      var pLocal = t.match(/(?:전화|번호|연락처|휴대폰|핸드폰|tel)\s*(?:번호)?\s*[:：]?\s*([0-9]{3,4})[-.\s]([0-9]{4})(?![0-9])/i);
+      if (pLocal) pm = [pLocal[0], pLocal[1] + '-' + pLocal[2]];
+    }
+    if (!pm) {
+      /* 전화 말 없이 3~4자리-4자리만 적은 경우 (764-3006 · 764.3006) */
+      var pBare = t.match(/(?:^|[^0-9])([0-9]{3,4})[-.]([0-9]{4})(?![0-9])/);
+      if (pBare) pm = [pBare[0], pBare[1] + '-' + pBare[2]];
+    }
     if (pm) {
       ARA.phone = pm[1].replace(/\s/g, '');
       out.hits.push('전화 ' + ARA.phone);
@@ -6159,6 +6233,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var tmm = t.match(/(?:상호(?:명)?|제목|가게\s*(?:이름|명)|업체명|브랜드|가게)\s*(?:은|는|이|가|:|：)?\s*([^\n,.;:]{1,40})/);
     if (tmm) {
       var tv = String(tmm[1])
+        /* 이름 뒤에 붙은 "42cm", "바 앞", "채널박스 24cm" 같은 크기·배치 말은 이름이 아니다 */
+        .replace(/\s*[0-9]+(?:\.[0-9]+)?\s*(?:cm|센티미터|센티|센치|mm|미터)[\s\S]*$/i, '')
+        .replace(/\s*바\s*(?:앞|위)[\s\S]*$/, '')
+        .replace(/\s*(?:채널\s*박스|채널박스|전화\s*박스)[\s\S]*$/, '')
         .split(/\s*(?:전화|번호|연락|휴대|문구|글씨|크기|사이즈|위치|색깔|색상|배경|폰트|간판|현수막|배너|시트지|상호|제목|크게|작게|넣어|써줘|해줘)/)[0]
         /* 한국어 서술형 어미(이야 · 예요 · 입니다 …)를 떼어내 이름만 남긴다 */
         .replace(/\s*(?:이랍니다|이에요|예요|입니다|이니까|이라서|이라고|이라는|인데요|이지만|이지요|이야|이고|이며|이지|인데|이오|이여|라고|라는|야|요)\s*$/, '')
@@ -6186,6 +6264,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       if (mv && mv.length >= 2) mainHit = mv;
     }
 
+    /* LED 간판 요청(카테고리 LED이거나 지금 LED 간판을 보고 있음)인지 — 상호를 문구에 또 넣지 않게 */
+    var ledTextMode = (catHit === 'led' || (catHit == null && ARA.cat === 'led' && !!(titleHit || mainHit)));
+
     /* 문구 */
     var main = mainHit;
     var q = t.match(/["“'']([^"”'']{2,40})["”'']/);
@@ -6202,10 +6283,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         ARA.texts[0].text = main;
         out.hits.push('문구 “' + main + '”');
       }
-    } else if (titleHit) {
-      /* 문구를 따로 말하지 않았으면 상호를 큰 글씨로도 쓴다 */
+    } else if (titleHit && !ledTextMode) {
+      /* 문구를 따로 말하지 않았으면 상호를 큰 글씨로도 쓴다 (LED는 상호를 한 번만 — 왼쪽에 겹쳐 나오지 않게) */
       ARA.texts[0].text = titleHit;
       out.hits.push('문구 “' + titleHit + '”');
+    }
+    /* LED 간판은 상호·전화·로고만으로 만드는 경우가 많다 — 문구를 말하지 않았으면 문구 1~3을 비워 둔다 */
+    if (ledTextMode && !main) {
+      for (var tq0 = 0; tq0 < 3; tq0++) { ARA.texts[tq0].text = ''; ARA.texts[tq0].cm = 0; }
+      out.hits.push('문구 없음');
     }
 
     /* 상호·문구를 새로 넣었고 보조문구가 아직 견본 문구 그대로면 비운다 */
