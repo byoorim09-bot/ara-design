@@ -1060,10 +1060,21 @@
               <button type="button" data-lp="on" class="on">바 위에 얹기<small>바 윗면에 딱 붙여서</small></button>
               <button type="button" data-lp="front">바 앞에 직접<small>바 앞면에 겹쳐서</small></button>
             </div>
-            <p class="mini">상호·전화번호를 <b>바 위</b>에 얹거나 <b>바 앞면</b>에 겹쳐 놓습니다. 문구 1·2·3은 각 칸에서 따로 고를 수 있어요.</p>
+            <p class="mini">상호·전화번호를 <b>바 위</b>에 얹거나 <b>바 앞면</b>에 겹쳐 놓습니다. <b>바 앞</b>이면 사진처럼 <b>바가 글자 뒤 가운데</b>를 지나갑니다. 상호·전화·문구는 각 칸에서 따로, <b>cm 크기</b>까지 정할 수 있어요.</p>
           </div>
 
           <div class="slider" style="margin-top:14px"><div class="row"><span id="araLedBarHLabel">바 높이</span><button class="q" type="button" data-h="araLedBarH" aria-expanded="false" aria-label="바 높이 설명 보기">?</button><span class="val" id="araLedBarHV">15 cm</span></div><input type="range" id="araLedBarH" min="8" max="40" step="1" value="15"><div class="ends"><span>8 cm</span><span>40 cm</span></div></div>
+
+          <div class="field" id="araLedBarYBox" style="margin-top:14px">
+            <div class="lblrow"><span class="lbl2">바 세로 위치</span><button class="q" type="button" data-h="araLedBarY" aria-expanded="false" aria-label="바 세로 위치 설명 보기">?</button><span class="val" id="araLedBarYV">자동</span></div>
+            <div class="pills" id="araLedBarYQuick">
+              <button type="button" data-y="auto" class="on">자동</button>
+              <button type="button" data-y="bottom">하단</button>
+              <button type="button" data-y="center">가운데(글자 뒤)</button>
+            </div>
+            <div class="slider" style="margin-top:8px;margin-bottom:0"><div class="row"><span>아래에서 띄우기</span><span class="val" id="araLedBarYV2">0 cm</span></div><input type="range" id="araLedBarY" min="0" max="90" step="1" value="0"><div class="ends"><span>0 cm (바닥)</span><span>90 cm</span></div></div>
+            <p class="mini">사진처럼 <b>바가 글자 뒤 가운데를 지나게</b> 하려면 <b>글자 놓는 방식을 ‘바 앞에 직접’</b>으로 두고, 여기서 <b>가운데(글자 뒤)</b>를 누르세요.</p>
+          </div>
 
           <div class="field" style="margin-top:4px"><div class="lblrow"><span class="lbl2" id="araLedBarColorLabel">바 색상</span><button class="q" type="button" data-h="araLedBarColor" aria-expanded="false" aria-label="바 색상 설명 보기">?</button></div>
             <div class="ara-sw" id="araLedBarColor">
@@ -1090,7 +1101,28 @@
             <div class="slider" style="margin-top:14px"><div class="row"><span>2번 바 위아래 위치</span><button class="q" type="button" data-h="araLedBar2Y" aria-expanded="false" aria-label="2번 바 위아래 위치 설명 보기">?</button><span class="val" id="araLedBar2YV">0 cm</span></div><input type="range" id="araLedBar2Y" min="-15" max="24" step="1" value="0"><div class="ends"><span>위로 15</span><span>아래로 24</span></div></div>
           </div>
 
-          <div class="field" style="margin-top:14px"><div class="lblrow"><span class="lbl2">입체 글자 옆면(채널) 색</span><button class="q" type="button" data-h="araLedSide" aria-expanded="false" aria-label="입체 옆면 색 설명 보기">?</button></div>
+          <div class="field" style="margin-top:16px" id="araLedLogoBox">
+            <div class="lblrow"><span class="lbl2">맨 앞 로고 (원형 채널)</span><button class="q" type="button" data-h="araLedLogo" aria-expanded="false" aria-label="맨 앞 로고 설명 보기">?</button></div>
+            <div class="ara-seg" id="araLedLogoKind" style="grid-template-columns:repeat(3,1fr)">
+              <button type="button" data-l="none" class="on">없음</button>
+              <button type="button" data-l="circle">원형 채널<small>동그란 로고</small></button>
+              <button type="button" data-l="square">사각 로고<small>네모 판</small></button>
+            </div>
+            <div id="araLedLogoMore" hidden>
+              <div class="ara-seg" id="araLedLogoPlace" style="grid-template-columns:1fr 1fr;margin-top:8px">
+                <button type="button" data-lp="front" class="on">바 앞<small>바를 가로지르게</small></button>
+                <button type="button" data-lp="on">바 위<small>바 윗면에</small></button>
+              </div>
+              <div class="ara-seg" id="araLedLogoPos" style="grid-template-columns:1fr 1fr;margin-top:8px">
+                <button type="button" data-lx="left" class="on">왼쪽</button>
+                <button type="button" data-lx="right">오른쪽</button>
+              </div>
+              <div class="slider" style="margin-top:10px;margin-bottom:0"><div class="row"><span>로고 크기(지름)</span><span class="val" id="araLedLogoCmV">45 cm</span></div><input type="range" id="araLedLogoCm" min="20" max="90" step="1" value="45"><div class="ends"><span>20 cm</span><span>90 cm</span></div></div>
+              <p class="mini">사진을 <b>로고(좌·우)</b>로 넣었으면 그 사진이 동그라미 안에 들어가고, 없으면 <b>상호 첫 글자</b>로 만듭니다.</p>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:16px"><div class="lblrow"><span class="lbl2">입체 글자 옆면(채널) 색</span><button class="q" type="button" data-h="araLedSide" aria-expanded="false" aria-label="입체 옆면 색 설명 보기">?</button></div>
             <div class="ara-sw" id="araLedSide">
               <button type="button" data-c="#18181b" class="on"><i style="background:#18181b"></i>블랙</button>
               <button type="button" data-c="#c9ced6"><i style="background:#c9ced6"></i>실버</button>
@@ -1145,6 +1177,16 @@
               <button type="button" data-s="1.35">크게</button>
             </div></div>
 
+          <div id="araLedTitleBox" hidden>
+            <div class="field" style="margin-bottom:0;margin-top:14px"><div class="lblrow"><span class="lbl2">상호 바 배치</span><button class="q" type="button" data-h="araLedElemPlace" aria-expanded="false" aria-label="상호 바 배치 설명 보기">?</button></div>
+              <div class="ara-seg" id="araLedTitlePlace" style="grid-template-columns:repeat(3,1fr)">
+                <button type="button" data-lp="auto" class="on">자동<small>위 설정 따름</small></button>
+                <button type="button" data-lp="on">바 위</button>
+                <button type="button" data-lp="front">바 앞</button>
+              </div></div>
+            <div class="slider" style="margin-top:10px"><div class="row"><span>상호 글자 크기</span><button class="q" type="button" data-h="araLedCmSize" aria-expanded="false" aria-label="cm 글자 크기 설명 보기">?</button><span class="val" id="araTitleCmV">자동</span></div><input type="range" id="araTitleCm" min="0" max="80" step="1" value="0"><div class="ends"><span>자동</span><span>80 cm</span></div></div>
+          </div>
+
           <div class="field" style="margin-top:18px"><label class="lbl2" for="araPhone">전화번호</label><input class="ta" id="araPhone" value="010-0000-0000" style="min-height:auto;font-size:15px">
             <p class="warn" id="araPhoneWarn" hidden style="margin-top:8px"></p></div>
           <div class="field" style="margin-bottom:0"><label class="lbl2" for="araPhoneFont">전화번호 폰트</label>
@@ -1165,6 +1207,21 @@
               <button type="button" data-s="1" class="on">보통</button>
               <button type="button" data-s="1.35">크게</button>
             </div></div>
+
+          <div id="araLedPhoneBox" hidden>
+            <div class="field" style="margin-bottom:0;margin-top:14px"><div class="lblrow"><span class="lbl2">전화번호 바 배치</span><button class="q" type="button" data-h="araLedElemPlace" aria-expanded="false" aria-label="전화번호 바 배치 설명 보기">?</button></div>
+              <div class="ara-seg" id="araLedPhonePlace" style="grid-template-columns:repeat(3,1fr)">
+                <button type="button" data-lp="auto" class="on">자동<small>위 설정 따름</small></button>
+                <button type="button" data-lp="on">바 위</button>
+                <button type="button" data-lp="front">바 앞</button>
+              </div></div>
+            <div class="field" style="margin-top:14px"><div class="lblrow"><span class="lbl2">전화번호 모양</span><button class="q" type="button" data-h="araLedPhoneStyle" aria-expanded="false" aria-label="전화번호 모양 설명 보기">?</button></div>
+              <div class="ara-seg" id="araLedPhoneStyle" style="grid-template-columns:1fr 1fr">
+                <button type="button" data-ps="text" class="on">글자만</button>
+                <button type="button" data-ps="box">채널 박스<small>둥근 사각판</small></button>
+              </div></div>
+            <div class="slider" style="margin-top:10px;margin-bottom:0"><div class="row"><span>전화번호 글자 크기</span><span class="val" id="araPhoneCmV">자동</span></div><input type="range" id="araPhoneCm" min="0" max="50" step="1" value="0"><div class="ends"><span>자동</span><span>50 cm</span></div></div>
+          </div>
         </section>
 
         <section class="card">
@@ -1197,6 +1254,7 @@
                 <button type="button" data-lp="on">바 위<small>얹기</small></button>
                 <button type="button" data-lp="front">바 앞<small>겹치기</small></button>
               </div>
+              <div class="slider" style="margin-top:8px;margin-bottom:0"><div class="row"><span>글자 크기(cm)</span><span class="val" id="araTextCmV1">자동</span></div><input type="range" id="araTextCm1" min="0" max="50" step="1" value="0"><div class="ends"><span>자동</span><span>50 cm</span></div></div>
             </div>
             <div class="slider" style="margin-top:8px"><div class="row"><span>크기 <button class="q" type="button" data-h="araTextSize" aria-expanded="false" aria-label="문구 크기 설명 보기">?</button></span><span class="val" id="araSize1V">보통 100%</span></div><input type="range" id="araSize1" min="20" max="160" step="5" value="100"></div>
           </div>
@@ -1223,6 +1281,7 @@
                 <button type="button" data-lp="on">바 위<small>얹기</small></button>
                 <button type="button" data-lp="front">바 앞<small>겹치기</small></button>
               </div>
+              <div class="slider" style="margin-top:8px;margin-bottom:0"><div class="row"><span>글자 크기(cm)</span><span class="val" id="araTextCmV2">자동</span></div><input type="range" id="araTextCm2" min="0" max="50" step="1" value="0"><div class="ends"><span>자동</span><span>50 cm</span></div></div>
             </div>
             <div class="slider" style="margin-top:8px"><div class="row"><span>크기</span><span class="val" id="araSize2V">작게 35%</span></div><input type="range" id="araSize2" min="20" max="160" step="5" value="35"></div>
           </div>
@@ -1249,6 +1308,7 @@
                 <button type="button" data-lp="on">바 위<small>얹기</small></button>
                 <button type="button" data-lp="front">바 앞<small>겹치기</small></button>
               </div>
+              <div class="slider" style="margin-top:8px;margin-bottom:0"><div class="row"><span>글자 크기(cm)</span><span class="val" id="araTextCmV3">자동</span></div><input type="range" id="araTextCm3" min="0" max="50" step="1" value="0"><div class="ends"><span>자동</span><span>50 cm</span></div></div>
             </div>
             <div class="slider" style="margin-top:8px"><div class="row"><span>크기</span><span class="val" id="araSize3V">작게 35%</span></div><input type="range" id="araSize3" min="20" max="160" step="5" value="35"></div>
           </div>
@@ -3865,9 +3925,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     phone: '010-0000-0000', phonePos: 'with', phoneScale: 1, phoneFont: 'auto',
     textFont: 'auto',
     texts: [
-      { text: ARA_TEXT_DEFAULT[0], pos: 'center', size: 1, led: 'auto' },
-      { text: ARA_TEXT_DEFAULT[1], pos: 'bc', size: 0.35, led: 'auto' },
-      { text: ARA_TEXT_DEFAULT[2], pos: 'tr', size: 0.35, led: 'auto' }
+      { text: ARA_TEXT_DEFAULT[0], pos: 'center', size: 1, led: 'auto', cm: 0 },
+      { text: ARA_TEXT_DEFAULT[1], pos: 'bc', size: 0.35, led: 'auto', cm: 0 },
+      { text: ARA_TEXT_DEFAULT[2], pos: 'tr', size: 0.35, led: 'auto', cm: 0 }
     ],
     theme: 'auto', themeColor: '#0f766e',
     ledNight: true,
@@ -3877,6 +3937,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ledPlace: 'on',
     /* 2단 바 — 1번(메인) 바는 ledBarH·ledBarColor, 2번(보조) 바는 따로 */
     ledBar2H: 9, ledBar2Color: '#18181b', ledBar2Y: 0,
+    /* 바 세로 위치 — null(자동: 바 앞이면 가운데, 바 위면 바닥) 또는 아래에서부터 cm */
+    ledBarY: null,
+    /* 맨 앞 원형 채널·사각 로고 — 없음 / 원형 채널 / 사각 로고 · 바 앞/위 · 좌/우 · 지름 cm */
+    ledLogo: 'none', ledLogoPlace: 'front', ledLogoPos: 'left', ledLogoCm: 45,
+    /* 상호·전화의 바 배치(자동=위 글자 놓는 방식 따름)와 cm 크기(0=자동) */
+    ledTitlePlace: 'auto', ledPhonePlace: 'auto',
+    titleCm: 0, phoneCm: 0, phoneStyle: 'text',
     ledSide: '#18181b', ledDepth: 'normal',
     photo: null, place: 'full', darken: 25,
     view: 0, confirmed: -1, made: false, _t: null, _mctx: null, _measIdx: 0, cards: []
@@ -3989,6 +4056,47 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   }
   /* 글자 놓는 방식 — 'on'(바 위에 얹기) / 'front'(바 앞면에 겹쳐 놓기) */
   function araLedPlace() { return (ARA.ledPlace === 'front') ? 'front' : 'on'; }
+
+  /* ---------- ✨ 바 세로 위치 · 맨 앞 로고 · cm 크기 도우미 ---------- */
+  /* 바 세로 위치 — null 이면 자동(바 앞 배치면 글자 뒤 가운데, 바 위 배치면 바닥) */
+  function araLedBarYcm() {
+    var v = ARA.ledBarY;
+    if (v === null || v === undefined || v === '') return null;
+    v = parseFloat(v);
+    if (!isFinite(v)) return null;
+    return Math.max(0, Math.min(400, Math.round(v)));
+  }
+  function araLedLogoKind() {
+    var v = String(ARA.ledLogo || 'none');
+    return (v === 'circle' || v === 'square') ? v : 'none';
+  }
+  function araLedLogoPlace() { return (ARA.ledLogoPlace === 'on') ? 'on' : 'front'; }
+  function araLedLogoPos() { return (ARA.ledLogoPos === 'right') ? 'right' : 'left'; }
+  function araLedLogoCm() {
+    var v = parseFloat(ARA.ledLogoCm);
+    if (!isFinite(v)) v = 45;
+    return Math.max(20, Math.min(90, Math.round(v)));
+  }
+  /* 상호·전화·문구의 cm 크기 — 0 이면 자동 */
+  function araLedCm(v, lo, hi) {
+    v = parseFloat(v);
+    if (!isFinite(v) || v <= 0) return 0;
+    return Math.max(lo, Math.min(hi, Math.round(v * 10) / 10));
+  }
+  function araLedTitleCm() { return araLedCm(ARA.titleCm, 10, 100); }
+  function araLedPhoneCm() { return araLedCm(ARA.phoneCm, 6, 60); }
+  function araLedTextCm(i) { var s = ARA.texts && ARA.texts[i]; return araLedCm(s && s.cm, 6, 60); }
+  function araLedPhoneStyle() { return (ARA.phoneStyle === 'box') ? 'box' : 'text'; }
+  function araLedTitlePlace() { var v = ARA.ledTitlePlace; return (v === 'on' || v === 'front') ? v : 'auto'; }
+  function araLedPhonePlace() { var v = ARA.ledPhonePlace; return (v === 'on' || v === 'front') ? v : 'auto'; }
+  /* 로고 자리에 사진이 없을 때 넣을 글자 — '아라광고' → '아라', 'Light Body' → 'LB' */
+  function araLedInitials(t) {
+    var s = String(t == null ? '' : t).replace(/\s+/g, ' ').trim();
+    if (!s) return '★';
+    var words = s.split(' ').filter(function (v) { return v.length; });
+    if (words.length >= 2) return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
+    return Array.from(s).slice(0, 2).join('').toUpperCase();
+  }
   function araLedSlotPlace(i) {
     var v = ARA.texts && ARA.texts[i] ? ARA.texts[i].led : 'auto';
     return (v === 'on' || v === 'front') ? v : 'auto';
@@ -4183,9 +4291,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* ---------- ✨ LED : 바(프레임) 자리 미리 계산 ---------- */
     var ledBarType = 'row1', ledBarH = 0, ledDepth = 0;
     var ledBar1 = null, ledBar2 = null, ledBandTop = 0;
+    /* 상호·전화·로고·문구가 바 앞(front)으로 나오는지 — 자동 바 위치(가운데) 판단에 쓴다 */
+    var ledPlaceBase = araLedPlace();
+    var ledTitleMode = (araLedTitlePlace() === 'auto') ? ledPlaceBase : araLedTitlePlace();
+    var ledPhoneMode = (araLedPhonePlace() === 'auto') ? ledPlaceBase : araLedPhonePlace();
+    var ledAnyFront = (ledPlaceBase === 'front') || (araLedTitlePlace() === 'front') || (araLedPhonePlace() === 'front');
+    for (si = 0; si < 3; si++) if (slots[si].lines.length && araLedSlotPlace(si) === 'front') ledAnyFront = true;
     if (isLed) {
       ledBarType = araLedBarType();
       ledDepth = araLedDepthCm(short);
+      var ledBarYset = araLedBarYcm();
       if (ledBarType === 'row1' || ledBarType === 'row2') {
         ledBarH = Math.min(H * 0.45, araLedBarCm());
         if (ledBarType === 'row2') {
@@ -4193,15 +4308,20 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
              2번 바 높이·색은 따로 정하고, 위아래 위치(ledBar2Y)로 두 바 사이를 벌리거나 겹친다. */
           var bar2H = Math.min(H * 0.32, araLedBar2Cm());
           var bar2Off = araLedBar2Ycm();
-          var b2y = H - bar2H;
+          var b2y = (ledBarYset != null) ? (H - ledBarYset - bar2H) : (H - bar2H);
+          b2y = Math.max(0, Math.min(b2y, H - bar2H));
           var b1y = b2y - bar2Off - ledBarH;
           if (b1y < 0) { b1y = 0; }
           ledBar1 = { x: 0, y: b1y, w: W, h: ledBarH };
           ledBar2 = { x: 0, y: b2y, w: W, h: bar2H };
           ledBandTop = ledBar1.y;
         } else {
-          ledBar1 = { x: 0, y: H - ledBarH, w: W, h: ledBarH };
-          ledBandTop = ledBar1.y;
+          var b1y1;
+          if (ledBarYset != null) b1y1 = H - ledBarYset - ledBarH;
+          else b1y1 = ledAnyFront ? (H - ledBarH) / 2 : H - ledBarH;   /* 자동: 바 앞이면 글자 뒤 가운데 */
+          b1y1 = Math.max(0, Math.min(b1y1, H - ledBarH));
+          ledBar1 = { x: 0, y: b1y1, w: W, h: ledBarH };
+          ledBandTop = b1y1;
         }
       } else if (ledBarType === 'panel') {
         ledBar1 = { x: 0, y: 0, w: W, h: H };
@@ -4211,7 +4331,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* 상호·전화번호를 바 위/앞 중 어디에 놓을지 (1줄·2단 바에서만) */
     var ledBarMode = (isLed && ledBar1 && (ledBarType === 'row1' || ledBarType === 'row2')) ? araLedPlace() : null;
 
-    var scene = { W: W, H: H, bg: null, shapes: [], texts: [], style: styleIdx, photo: null };
+    var scene = { W: W, H: H, bg: null, shapes: [], texts: [], style: styleIdx, photo: null, shrunk: [] };
 
     /* ---------- 사진 자리 ---------- */
     var ph = araPhotoInfo();
@@ -4220,8 +4340,33 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var card = null;              /* 시안 B · 사진 위에 얹는 흰 카드 */
     var photo = null;             /* 사진이 들어갈 사각형 */
     var ledLogo = null;           /* LED · 바 위에 올리는 로고 자리 */
+    /* ✨ LED 맨 앞 로고(원형 채널·사각 로고) — 지름 cm, 바 앞/위, 좌/우 */
+    var ledBadge = null;
+    if (isLed && araLedLogoKind() !== 'none') {
+      var bdKind = araLedLogoKind();
+      var bd = Math.min(araLedLogoCm(), W * 0.36, H * 0.96);
+      var bmX = Math.max(mg * 0.45, short * 0.028);
+      var bbx = (araLedLogoPos() === 'right') ? (W - bmX - bd) : bmX;
+      var bGapOn = Math.max(0.8, short * 0.012);
+      var bby;
+      if (ledBar1) {
+        bby = (araLedLogoPlace() === 'on') ? (ledBandTop - bGapOn - bd) : (ledBar1.y + (ledBar1.h - bd) / 2);
+      } else {
+        bby = (H - bd) / 2;
+      }
+      bby = Math.max(short * 0.008, Math.min(bby, H - bd - short * 0.008));
+      ledBadge = { kind: bdKind, x: bbx, y: bby, d: bd };
+      var bGap = Math.max(short * 0.05, 4);
+      if (araLedLogoPos() === 'left') C0 = bbx + bd + bGap; else C1 = bbx - bGap;
+      /* 사진을 로고(좌·우)로 넣었으면 그 사진을 동그라미/네모 안에 넣는다 */
+      ledBadge.img = (ph && (place === 'logo-left' || place === 'logo-right')) ? ph.img : null;
+      ledBadge.initials = araLedInitials(title);
+      scene.ledBadge = ledBadge;
+    }
     if (ph) {
-      if (isLed && (place === 'logo-left' || place === 'logo-right')) {
+      if (isLed && ledBadge && (place === 'logo-left' || place === 'logo-right')) {
+        /* 사진은 이미 원형·사각 로고 안에 들어간다 — 판을 따로 세우지 않는다 */
+      } else if (isLed && (place === 'logo-left' || place === 'logo-right')) {
         /* 사진을 통째로 배경에 깔지 않고, 바 위에 올라가는 로고 판으로 놓는다 */
         var iwL = (ph.img && (ph.img.naturalWidth || ph.img.width)) || 1;
         var ihL = (ph.img && (ph.img.naturalHeight || ph.img.height)) || 1;
@@ -4253,7 +4398,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       }
       if (ledLogo) {
         scene.logo = { img: ph.img, x: ledLogo.x, y: ledLogo.y, w: ledLogo.w, h: ledLogo.h };
-      } else {
+      } else if (photo) {
         scene.photo = {
           img: ph.img, x: photo.x, y: photo.y, w: photo.w, h: photo.h,
           mode: (isLed ? 'dark' : (styleIdx === 2 ? 'color' : 'dark')),
@@ -4377,14 +4522,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     /* 바 위(on) — 글자 아랫면이 바 윗면에 딱 닿게 / 바 앞(front) — 바 앞면 가운데에 겹치게 */
     function ledRectFor(fit, ax, mode) {
       var x = ax === 'left' ? Lx : ax === 'right' ? Rx - fit.w : (Lx + Rx - fit.w) / 2;
-      var y;
+      var y, edge = Math.max(1.2, short * 0.014);
       if (mode === 'front') {
-        /* 바 앞면 가운데 — 단, 글자 아랫면이 간판 밖으로 잘리지 않게 조금 띄운다 */
-        var gapF = Math.max(1.8, short * 0.028);
-        y = Math.min(ledBar1.y + (ledBar1.h - fit.h) / 2, ledBar1.y + ledBar1.h - gapF - fit.h);
-        y = Math.max(y, ledBar1.y - fit.h * 0.12);
+        /* 바 앞면 가운데 — 글자가 바보다 커도 되고, 바가 글자 뒤 가운데를 지난다 */
+        y = ledBar1 ? ledBar1.y + (ledBar1.h - fit.h) / 2 : (H - fit.h) / 2;
+        y = Math.max(edge, Math.min(y, H - fit.h - edge));
       } else {
         y = ledBandTop - ledGapOn - fit.h;
+        if (y < ledSafeTop) y = ledSafeTop;     /* 위로 넘치면 간판 안쪽으로 당긴다 */
+        if (y + fit.h > H - edge) y = Math.max(edge, H - edge - fit.h);
       }
       return { x: Math.max(ledSafeX * 0.45, Math.min(x, W - ledSafeX * 0.45 - fit.w)), y: y, w: fit.w, h: fit.h };
     }
@@ -4392,51 +4538,102 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       for (var i = 0; i < placed.length; i++) if (hits(r, placed[i])) return false;
       return true;
     }
-    function placeLedBarBlock(lines, base, pos, font, mode) {
+    /* 겹칠 때 — 크기는 그대로 두고 가장 가까운 빈 자리로 비켜 준다 (옆·위·아래) */
+    function ledShiftAside(rect) {
+      var best = null, bestD = 1e9;
+      var lo = ledSafeX * 0.4, hi = W - ledSafeX * 0.4 - rect.w;
+      var candsX = [];
+      for (var i = 0; i < placed.length; i++) {
+        var h = placed[i];
+        candsX.push({ x: h.x + h.w + gap, y: rect.y, w: rect.w, h: rect.h, dy: 0 });
+        candsX.push({ x: h.x - gap - rect.w, y: rect.y, w: rect.w, h: rect.h, dy: 0 });
+        /* 위·아래로도 피해 본다 (같은 높이에 자리가 없을 때) */
+        candsX.push({ x: rect.x, y: h.y + h.h + gap, w: rect.w, h: rect.h, dy: 1 });
+        candsX.push({ x: rect.x, y: h.y - gap - rect.h, w: rect.w, h: rect.h, dy: 1 });
+      }
+      for (var c = 0; c < candsX.length; c++) {
+        var cd = candsX[c];
+        if (cd.x < lo - 0.001 || cd.x > hi + 0.001) continue;
+        if (cd.y < ledSafeTop * 0.4 || cd.y + rect.h > H - ledSafeTop * 0.4) continue;
+        var r2 = { x: cd.x, y: cd.y, w: rect.w, h: rect.h };
+        if (!ledFreeRect(r2)) continue;
+        var d = Math.abs(cd.x - rect.x) + Math.abs(cd.y - rect.y) * (cd.dy ? 8 : 1);
+        if (d < bestD) { bestD = d; best = r2; }
+      }
+      return best;
+    }
+    /* mode:'on'|'front' · fixedCm>0 이면 그 cm 크기를 그대로 쓴다(넘치면 부득이 줄이고 알림) */
+    function placeLedBarBlock(lines, base, pos, font, mode, fixedCm, reserveW) {
       var ax = ledAxn(pos);
-      var maxW = Math.max(W - ledSafeX * 2, W * 0.3);
-      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.86, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
-      var fit = ledFitC(lines, Math.max(0.6, base), maxW, maxH, font);
+      var maxW = Math.max(Rx - Lx - (reserveW || 0), W * 0.2);
+      var maxH = (mode === 'front')
+        ? Math.max(H - ledSafeTop * 1.4, H * 0.3)
+        : Math.max(ledBandTop - ledSafeTop - ledGapOn, H * 0.12);
+      var want = Math.max(0.6, (fixedCm > 0) ? fixedCm : base);
+      var fit = ledFitC(lines, want, maxW, maxH, font);
+      if (fixedCm > 0 && fit.size < want * 0.985 && scene.shrunk) {
+        scene.shrunk.push({ want: Math.round(want), got: Math.round(fit.size * 10) / 10 });
+      }
       var rect = ledRectFor(fit, ax, mode), guard = 0;
-      while (!ledFreeRect(rect) && guard++ < 24) {
-        fit = ledFitC(lines, fit.size * 0.92, maxW, maxH, font);
+      /* 겹치면 먼저 옆으로 비켜 본다 (사용자가 정한 cm 크기를 지킨다) */
+      while (!ledFreeRect(rect) && guard++ < 16) {
+        var moved = ledShiftAside(rect);
+        if (!moved) break;
+        rect = moved;
+      }
+      /* 그래도 자리가 없을 때만 조금씩 줄인다 */
+      guard = 0;
+      while (!ledFreeRect(rect) && guard++ < 10) {
+        fit = ledFitC(lines, fit.size * 0.94, maxW, maxH, font);
         rect = ledRectFor(fit, ax, mode);
       }
       placed.push({ x: rect.x - ledDepth * 0.34, y: rect.y, w: rect.w + ledDepth * 0.34, h: rect.h + ledDepth * 0.5 });
       return { fit: fit, rect: rect, ax: ax };
     }
     /* 전화번호를 상호 바로 옆(같은 바닥선)에 — 자리가 좁으면 상호 위로 */
-    function placeLedBarBeside(t, text, base, font, mode) {
-      if (!t) return placeLedBarBlock([text], base, 'tl', font, mode);
-      var gapT = Math.max(4.5, short * 0.05);
-      var right = Rx - (t.rect.x + t.rect.w) - gapT;
-      var maxH = (mode === 'front') ? Math.max(ledBar1.h * 0.86, 2) : Math.max(ledBandTop - ledSafeTop - ledGapOn, 2);
-      var fit = ledFitC([text], Math.max(0.6, base), Math.max(right, 0.8), maxH, font);
-      var rect;
-      if (right >= fit.w + 0.01 && fit.size >= base * 0.55) {
-        rect = {
-          x: t.rect.x + t.rect.w + gapT,
-          y: (mode === 'front') ? ledRectFor(fit, 'left', 'front').y : t.rect.y + (t.fit.h - fit.h),
-          w: fit.w, h: fit.h
-        };
+    function placeLedBarBeside(t, text, base, font, mode, fixedCm, padW) {
+      if (!t) return placeLedBarBlock([text], base, 'tl', font, mode, fixedCm, padW);
+      var want = Math.max(0.6, (fixedCm > 0) ? fixedCm : base);
+      var gapT = Math.max(6, short * 0.05);
+      var maxW = Math.max(W - ledSafeX * 2 - (padW || 0), 1);
+      var maxH = (mode === 'front')
+        ? Math.max(H - ledSafeTop * 1.4, H * 0.3)
+        : Math.max(ledBandTop - ledSafeTop - ledGapOn, H * 0.12);
+      var barCy = ledBar1 ? (ledBar1.y + ledBar1.h / 2) : (H / 2);
+      var padHalf = (padW || 0) / 2;
+      var roomBeside = Math.max(Rx - (t.rect.x + t.rect.w) - gapT - padHalf, 0.8);
+      var fit = ledFitC([text], want, roomBeside, maxH, font);
+      var rect = null;
+      if (roomBeside >= fit.w - 0.01 && fit.size >= want * 0.9) {
+        /* 상호 바로 옆에 그대로 들어간다 (박스 여백만큼 더 띄운다) */
+        rect = { x: t.rect.x + t.rect.w + gapT + padHalf, w: fit.w, h: fit.h, y: 0 };
       } else {
-        fit = ledFitC([text], Math.max(0.6, base), Math.max(W - ledSafeX * 2, 1), maxH, font);
-        var ax2 = t.ax;
-        rect = {
-          x: ax2 === 'left' ? t.rect.x : ax2 === 'right' ? t.rect.x + t.rect.w - fit.w : t.rect.x + (t.rect.w - fit.w) / 2,
-          y: Math.max(ledSafeTop, t.rect.y - fit.h - ledGapOn * 1.2),
-          w: fit.w, h: fit.h
-        };
+        /* 옆에 들어가지 않으면: 오른쪽 끝 → 상호 위 → 상호 아래 순서로 찾는다 */
+        fit = ledFitC([text], want, maxW, maxH, font);
+        if (fixedCm > 0 && fit.size < want * 0.985 && scene.shrunk) scene.shrunk.push({ want: Math.round(want), got: Math.round(fit.size * 10) / 10 });
+        var cy0 = (mode === 'front') ? (ledBar1 ? ledBar1.y + (ledBar1.h - fit.h) / 2 : (H - fit.h) / 2) : t.rect.y + (t.fit.h - fit.h);
+        var cands = [
+          { x: Math.max(ledSafeX * 0.45, Rx - fit.w), y: cy0 },
+          { x: t.rect.x, y: t.rect.y - fit.h - ledGapOn * 1.4 },
+          { x: t.rect.x, y: t.rect.y + t.rect.h + ledGapOn * 1.4 }
+        ];
+        for (var ci3 = 0; ci3 < cands.length && !rect; ci3++) {
+          var cd = cands[ci3];
+          if (cd.y < 1 || cd.y + fit.h > H - 1) continue;
+          var r3 = { x: Math.max(0.5, Math.min(cd.x, W - fit.w - 0.5)), y: cd.y, w: fit.w, h: fit.h };
+          if (ledFreeRect(r3)) rect = r3;
+        }
       }
-      var guard = 0;
-      while (!ledFreeRect(rect) && guard++ < 16) {
-        fit = ledFitC([text], Math.max(0.6, fit.size * 0.9), Math.max(W - ledSafeX * 2, 1), maxH, font);
-        rect = {
-          x: t.rect.x + t.rect.w + gapT,
-          y: (mode === 'front') ? ledRectFor(fit, 'left', 'front').y : t.rect.y + (t.fit.h - fit.h),
-          w: fit.w, h: fit.h
-        };
+      if (!rect) {
+        /* 그래도 안 되면 조금씩 줄이며 옆자리에 맞춘다 */
+        fit = ledFitC([text], fit.size, roomBeside, maxH, font);
+        if (fixedCm > 0 && fit.size < want * 0.985 && scene.shrunk) scene.shrunk.push({ want: Math.round(want), got: Math.round(fit.size * 10) / 10 });
+        rect = { x: t.rect.x + t.rect.w + gapT + padHalf, w: fit.w, h: fit.h, y: 0 };
       }
+      rect.y = (mode === 'front')
+        ? Math.max(1.2, Math.min(barCy - fit.h / 2, H - fit.h - 1.2))
+        : t.rect.y + (t.fit.h - fit.h);
+      if (rect.x + rect.w > W - 0.5) rect.x = Math.max(0.5, W - rect.w - 0.5);
       placed.push({ x: rect.x - ledDepth * 0.34, y: rect.y, w: rect.w + ledDepth * 0.34, h: rect.h + ledDepth * 0.5 });
       return { fit: fit, rect: rect, ax: t.ax };
     }
@@ -4446,12 +4643,34 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var phonePos = (ARA.phonePos === 'with' || !ARA.phonePos) ? 'with' : araPosKey(ARA.phonePos, 'bc');
     var tRes = null, pRes = null, gb = null;
 
+    /* ✨ LED — 맨 앞 로고 자리를 먼저 잡아 두고(겹치지 않게), 상호·전화·문구가 그 옆으로 간다 */
+    if (ledBarMode && ledBadge) {
+      var bz = Math.max(ledDepth * 0.5, 1);
+      placed.push({ x: ledBadge.x - bz * 0.34, y: ledBadge.y, w: ledBadge.d + bz * 0.34, h: ledBadge.d + bz * 0.5 });
+    }
+
     if (ledBarMode) {
-      /* ✨ LED — 상호·전화번호를 바 위에 얹거나 바 앞면에 겹쳐 놓는다 */
-      if (title) tRes = placeLedBarBlock([title], tBase * (ARA.titleScale || 1), titlePos, fTitle, ledBarMode);
+      /* ✨ LED — 상호·전화번호를 바 위에 얹거나 바 앞면에 겹쳐 놓는다 (cm 크기·개별 바 배치) */
+      if (title) {
+        /* 전화번호가 상호 옆에 붙는 경우 — 전화번호 자리를 먼저 비워 두고 상호를 맞춘다 */
+        var reserveT = 0;
+        if (phone && phonePos === 'with' && ledTitleMode === ledPhoneMode) {
+          var pWant0 = Math.max(0.6, araLedPhoneCm() > 0 ? araLedPhoneCm() : pBase * (ARA.phoneScale || 1));
+          var pw0 = ledFitC([phone], pWant0, W, H * 2, fPhone);
+          reserveT = pw0.w + Math.max(6, short * 0.05) + (araLedPhoneStyle() === 'box' ? pWant0 * 0.96 : 0);
+        }
+        tRes = placeLedBarBlock([title], tBase * (ARA.titleScale || 1), titlePos, fTitle, ledTitleMode, araLedTitleCm(), reserveT);
+      }
       if (phone) {
-        if (title && phonePos === 'with') pRes = placeLedBarBeside(tRes, phone, pBase * (ARA.phoneScale || 1), fPhone, ledBarMode);
-        else pRes = placeLedBarBlock([phone], pBase * (ARA.phoneScale || 1), phonePos === 'with' ? titlePos : phonePos, fPhone, ledBarMode);
+        var phonePadW = (araLedPhoneStyle() === 'box')
+          ? Math.max(0.6, araLedPhoneCm() > 0 ? araLedPhoneCm() : pBase * (ARA.phoneScale || 1)) * 0.96 : 0;
+        if (title && phonePos === 'with') pRes = placeLedBarBeside(tRes, phone, pBase * (ARA.phoneScale || 1), fPhone, ledPhoneMode, araLedPhoneCm(), phonePadW);
+        else pRes = placeLedBarBlock([phone], pBase * (ARA.phoneScale || 1), phonePos === 'with' ? titlePos : phonePos, fPhone, ledPhoneMode, araLedPhoneCm(), phonePadW);
+        /* 채널 박스는 글자보다 넓게 차지한다 — 다른 글자가 박스에 붙지 않게 자리를 잡아 둔다 */
+        if (pRes && araLedPhoneStyle() === 'box') {
+          var bPad = pRes.fit.size * 0.48;
+          placed.push({ x: pRes.rect.x - bPad, y: pRes.rect.y - pRes.fit.size * 0.16, w: pRes.rect.w + bPad * 2, h: pRes.rect.h + pRes.fit.size * 0.32 });
+        }
       }
     } else if (title && phone && phonePos === 'with') {
       /* 둘을 한 덩어리로: 상호 아래에 전화번호 */
@@ -4469,8 +4688,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       tRes = { fit: tFit, ax: tReg.ax, rect: { x: tReg.ax === 'left' ? gx : tReg.ax === 'right' ? gx + gw - tFit.w : gx + (gw - tFit.w) / 2, y: gy, w: tFit.w, h: tFit.h } };
       pRes = { fit: pFit, ax: tReg.ax, rect: { x: tReg.ax === 'left' ? gx : tReg.ax === 'right' ? gx + gw - pFit.w : gx + (gw - pFit.w) / 2, y: gy + tFit.h + gGap, w: pFit.w, h: pFit.h } };
     } else {
-      if (title) tRes = placeBlock([title], tBase * (ARA.titleScale || 1), titlePos, fTitle, maxTitleH);
-      if (phone) pRes = placeBlock([phone], pBase * (ARA.phoneScale || 1), phonePos === 'with' ? titlePos : phonePos, fPhone, maxPhoneH);
+      var tBaseUse = (isLed && araLedTitleCm() > 0) ? araLedTitleCm() : tBase * (ARA.titleScale || 1);
+      var pBaseUse = (isLed && araLedPhoneCm() > 0) ? araLedPhoneCm() : pBase * (ARA.phoneScale || 1);
+      if (title) tRes = placeBlock([title], tBaseUse, titlePos, fTitle, maxTitleH);
+      if (phone) pRes = placeBlock([phone], pBaseUse, phonePos === 'with' ? titlePos : phonePos, fPhone, maxPhoneH);
     }
 
     /* ---------- 문구 1 · 2 · 3 ---------- */
@@ -4478,12 +4699,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     for (si = 0; si < 3; si++) {
       if (!slots[si].lines.length) continue;
       var slotPlace = ledBarMode ? araLedSlotPlace(si) : 'auto';
+      var slotCm = isLed ? araLedTextCm(si) : 0;
       if (slotPlace !== 'auto') {
         /* 문구도 ① 바 위에 얹기 ② 바 앞에 직접 배치 */
         var barBase = Math.min(Math.max(ledBarH * 0.85, short * 0.06), short * 0.34) * Math.max(0.35, slots[si].size);
-        sRes[si] = placeLedBarBlock(slots[si].lines, barBase, slots[si].pos, fText, slotPlace);
+        sRes[si] = placeLedBarBlock(slots[si].lines, barBase, slots[si].pos, fText, slotPlace, slotCm);
       } else {
-        sRes[si] = placeBlock(slots[si].lines, mBase * slots[si].size, slots[si].pos, fText, maxTextH);
+        sRes[si] = placeBlock(slots[si].lines, slotCm > 0 ? slotCm : mBase * slots[si].size, slots[si].pos, fText, maxTextH);
       }
     }
 
@@ -4583,14 +4805,97 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         ledHalo(sRes[2] ? sRes[2].rect : null, sRes[2] ? sRes[2].fit.size : short * 0.1, 0.14 * hb);
       }
 
+      /* ✨ 맨 앞 원형 채널 · 사각 로고 — 바·글자보다 앞에 선다 */
+      if (ledBadge) {
+        var bdx = ledBadge.x, bdy = ledBadge.y, bdd = ledBadge.d;
+        var bCx = bdx + bdd / 2, bCy = bdy + bdd / 2, bR = bdd / 2;
+        var bDep = Math.min(Math.max(ledDepth, 2), bdd * 0.16);
+        var bFace = pal.face, bSide = sideCol;
+        var bInk = String(ARA.themeColor || '#0f766e');
+        if (araLum(bInk) > 0.78) bInk = araMix(bInk, '#000000', 0.45);
+        var iB, frB;
+        if (ledBadge.kind === 'circle') {
+          /* 옆면(채널 두께) — 왼쪽·아래로 여러 겹 */
+          var nB = 10;
+          for (iB = nB; iB >= 1; iB--) {
+            frB = iB / nB;
+            scene.shapes.push({
+              t: 'circle', cx: bCx - bDep * 0.32 * frB, cy: bCy + bDep * frB, r: bR,
+              fill: araMix(bSide, '#000000', 0.05 + 0.25 * frB)
+            });
+          }
+          scene.shapes.push({ t: 'circle', cx: bCx, cy: bCy, r: bR, fill: bFace });
+          /* 바깥 테두리(채널 프레임) — 얇은 금속 테 */
+          scene.shapes.push({ t: 'circle', cx: bCx, cy: bCy, r: Math.max(0.05, bR - Math.max(0.3, bR * 0.02)), fill: null, stroke: araMix(bSide, '#ffffff', 0.42), sw: Math.max(0.45, bR * 0.05) });
+          /* 안쪽 링 — 사진·글자가 들어갈 자리 */
+          scene.shapes.push({ t: 'circle', cx: bCx, cy: bCy, r: bR * 0.80, fill: null, stroke: araMix(bInk, '#ffffff', 0.62), sw: Math.max(0.3, bR * 0.032), alpha: 0.95 });
+          if (ledNight) scene.shapes.push({ t: 'glow', x: bdx - bdd * 0.3, y: bdy - bdd * 0.3, w: bdd * 1.6, h: bdd * 1.6, color: pal.glow, alpha: 0.22, canvasOnly: true });
+        } else {
+          var bRr = bdd * 0.14;
+          var nB2 = 8;
+          for (iB = nB2; iB >= 1; iB--) {
+            frB = iB / nB2;
+            scene.shapes.push({
+              t: 'rect', x: bdx - bDep * 0.32 * frB, y: bdy + bDep * frB, w: bdd, h: bdd, r: bRr,
+              fill: araMix(bSide, '#000000', 0.05 + 0.25 * frB)
+            });
+          }
+          scene.shapes.push({ t: 'rect', x: bdx, y: bdy, w: bdd, h: bdd, r: bRr, fill: bFace });
+          scene.shapes.push({ t: 'rect', x: bdx, y: bdy, w: bdd, h: bdd, r: bRr, fill: null, stroke: araMix(bSide, '#ffffff', 0.18), sw: Math.max(0.5, bdd * 0.028) });
+          scene.shapes.push({ t: 'rect', x: bdx + bdd * 0.09, y: bdy + bdd * 0.09, w: bdd * 0.82, h: bdd * 0.82, r: bRr * 0.8, fill: null, stroke: araMix(bInk, '#ffffff', 0.35), sw: Math.max(0.3, bdd * 0.018), alpha: 0.9 });
+          if (ledNight) scene.shapes.push({ t: 'glow', x: bdx - bdd * 0.3, y: bdy - bdd * 0.3, w: bdd * 1.6, h: bdd * 1.6, color: pal.glow, alpha: 0.2, canvasOnly: true });
+        }
+        scene.ledBadge = {
+          kind: ledBadge.kind, x: bdx, y: bdy, d: bdd, img: ledBadge.img || null,
+          initials: ledBadge.initials || '', ink: bInk, face: bFace, side: bSide, depth: bDep
+        };
+        /* 사진이 없으면 상호 첫 글자를 로고 안에 넣는다 */
+        if (!ledBadge.img && ledBadge.initials) {
+          var iniS = bdd * 0.34;
+          var iniW = meas(ledBadge.initials, iniS, fTitle);
+          /* 두 글자가 동그라미 안을 넘지 않게 */
+          var iniMax = bdd * 0.62;
+          if (iniW > iniMax && iniW > 0) { iniS *= iniMax / iniW; iniW = meas(ledBadge.initials, iniS, fTitle); }
+          scene.texts.push({
+            text: ledBadge.initials, x: bCx - iniW / 2, y: bCy + iniS * 0.36,
+            size: iniS, color: bInk, f: fTitle, depth: 0, side: null, halo: 0
+          });
+        }
+      }
+
+      /* ✨ 전화번호 채널 박스(둥근 사각판) — 사진 우측처럼 바 앞에 붙는 라이트박스 */
+      if (pRes && araLedPhoneStyle() === 'box') {
+        var bxP2 = pRes.fit.size * 0.48;
+        var byP2 = pRes.fit.size * 0.16;
+        var needW = pRes.rect.w + bxP2 * 2;
+        var needH = pRes.rect.h + byP2 * 2;
+        /* 박스가 간판 밖으로 나가지 않게 전화번호를 안쪽으로 밀어 준다 */
+        if (pRes.rect.x - bxP2 < 0.6) pRes.rect.x = 0.6 + bxP2;
+        if (pRes.rect.x + pRes.rect.w + bxP2 > W - 0.6) pRes.rect.x = Math.max(0.6 + bxP2, W - 0.6 - bxP2 - pRes.rect.w);
+        if (pRes.rect.y - byP2 < 0.6) pRes.rect.y = 0.6 + byP2;
+        if (pRes.rect.y + pRes.rect.h + byP2 > H - 0.6) pRes.rect.y = Math.max(0.6 + byP2, H - 0.6 - byP2 - pRes.rect.h);
+        var boxX = pRes.rect.x - bxP2;
+        var boxY = pRes.rect.y - byP2;
+        var boxW = Math.min(W - boxX - 0.4, needW);
+        var boxH = Math.min(H - boxY - 0.4, needH);
+        var boxR = Math.min(boxH * 0.30, boxW * 0.16);
+        var boxFace = '#f7f9ff';
+        if (ledNight) scene.shapes.push({ t: 'glow', x: boxX - boxW * 0.12, y: boxY - boxW * 0.12, w: boxW * 1.24, h: boxH * 1.5, color: pal.glow, alpha: 0.16, canvasOnly: true });
+        scene.shapes.push({ t: 'rect', x: boxX + Math.max(0.3, boxH * 0.05), y: boxY + Math.max(0.3, boxH * 0.05), w: boxW, h: boxH, r: boxR, fill: araMix(boxFace, '#000000', 0.55) });
+        scene.shapes.push({ t: 'rect', x: boxX, y: boxY, w: boxW, h: boxH, r: boxR, fill: boxFace });
+        scene.shapes.push({ t: 'rect', x: boxX, y: boxY, w: boxW, h: boxH, r: boxR, fill: null, stroke: araMix(boxFace, '#000000', 0.35), sw: Math.max(0.3, boxH * 0.022) });
+        scene.phoneBoxFace = true;
+      }
+
       /* 글자 앞면(아크릴) 색 — 시안마다 다르게 */
       tColor = pal.face; pColor = pal.face2;
+      if (scene.phoneBoxFace) pColor = '#191d24';   /* 흰 박스 안의 전화번호는 진한 글씨 */
       s1Colors = [pal.face, pal.face2]; s2Color = pal.face2; s3Color = pal.face2;
       ringAlpha = 0.4;
 
       scene.ledGlow = ledNight ? pal.glow : null;
       scene.ledHalo = pal.halo || 0;
-      scene.led = { variant: pal.led, night: ledNight, bar: ledBarType, barH: ledBarH, bar2H: (ledBar2 ? ledBar2.h : 0), depth: ledDepth, side: sideCol, face: pal.face, barColor: barFill, place: ledBarMode };
+      scene.led = { variant: pal.led, night: ledNight, bar: ledBarType, barH: ledBarH, bar2H: (ledBar2 ? ledBar2.h : 0), barY: (ledBar1 ? ledBar1.y : null), depth: ledDepth, side: sideCol, face: pal.face, barColor: barFill, place: ledBarMode, badge: (scene.ledBadge ? { kind: scene.ledBadge.kind, x: scene.ledBadge.x, y: scene.ledBadge.y, d: scene.ledBadge.d } : null) };
       scene.ledDepth = 0;
     }
     /* ---------------- 시안 A : 모던 · 고급 (딥 차콜 + 얇은 골드 프레임) ---------------- */
@@ -4689,7 +4994,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
 
     function pushLine(text, x, y, size, color, font) {
-      if (!text) return;
+      if (!text) return null;
       var o = { text: text, x: x, y: y, size: size, color: color, f: font };
       if (isLed) {
         o.depth = Math.min(ledDepth, size * 0.55);   /* 입체 옆면(채널) */
@@ -4697,8 +5002,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         o.halo = (pal.halo || 0);
       }
       scene.texts.push(o);
+      return o;
     }
-    function pushBlock(res, colors, font) {
+    function pushBlock(res, colors, font, flat) {
       if (!res) return;
       var fit = res.fit, rect = res.rect, i, ln, lw, lx;
       for (i = 0; i < fit.lines.length; i++) {
@@ -4708,13 +5014,15 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         lx = res.ax === 'left' ? rect.x : res.ax === 'right' ? rect.x + rect.w - lw : rect.x + (rect.w - lw) / 2;
         /* LED는 한글 잉크가 글자 크기(em)만큼 꽉 차므로 기준선을 블록 바닥에 맞춘다 */
         var baseR = isLed ? 1.0 : 0.82;
-        pushLine(ln, lx, rect.y + fit.size * baseR + i * fit.size * fit.pitch, fit.size,
+        var po = pushLine(ln, lx, rect.y + fit.size * baseR + i * fit.size * fit.pitch, fit.size,
           colors[i % colors.length], font);
+        /* 전화번호 채널 박스 안의 글씨는 라이트박스에 인쇄된 납작한 글씨로 */
+        if (flat && po) { po.depth = 0; po.side = null; po.halo = 0; }
       }
     }
 
     pushBlock(tRes, [tColor], fTitle);
-    pushBlock(pRes, [pColor], fPhone);
+    pushBlock(pRes, [pColor], fPhone, isLed && araLedPhoneStyle() === 'box');
     pushBlock(sRes[0], s1Colors, fText);
     pushBlock(sRes[1], [s2Color], fText);
     pushBlock(sRes[2], [s3Color], fText);
@@ -4797,7 +5105,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       } else if (s.t === 'circle') {
         g.beginPath();
         g.arc(s.cx * k, s.cy * k, Math.max(0.2, s.r * k), 0, Math.PI * 2);
-        g.fillStyle = s.fill; g.fill();
+        if (s.fill) { g.fillStyle = s.fill; g.fill(); }
+        if (s.stroke) {
+          g.strokeStyle = s.stroke;
+          g.lineWidth = Math.max(0.6, (s.sw || 0.2) * k);
+          g.stroke();
+        }
       } else if (s.t === 'line') {
         g.beginPath(); g.moveTo(s.x1 * k, s.y1 * k); g.lineTo(s.x2 * k, s.y2 * k);
         g.strokeStyle = s.color; g.lineWidth = Math.max(0.6, s.w * k); g.stroke();
@@ -4833,6 +5146,19 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       g.strokeStyle = 'rgba(255,255,255,0.55)';
       g.lineWidth = Math.max(1, Math.min(lgw, lgh) * 0.012);
       g.strokeRect(lgx, lgy, lgw, lgh);
+      g.restore();
+    }
+    /* ✨ 맨 앞 원형·사각 로고 안의 사진 — 동그라미(네모) 안에만 보이게 잘라서 */
+    if (scene.ledBadge && scene.ledBadge.img) {
+      var bdg = scene.ledBadge;
+      var dbx = bdg.x * k, dby = bdg.y * k, dbd = bdg.d * k;
+      g.save();
+      if (bdg.kind === 'circle') {
+        g.beginPath(); g.arc(dbx + dbd / 2, dby + dbd / 2, dbd / 2 * 0.78, 0, Math.PI * 2); g.clip();
+      } else {
+        araRoundPath(g, dbx, dby, dbd, dbd, dbd * 0.14); g.clip();
+      }
+      araPhotoCover(g, bdg.img, dbx, dby, dbd, dbd);
       g.restore();
     }
     g.textBaseline = 'alphabetic';
@@ -5025,15 +5351,28 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
 
     /* 사진 — JPEG 한 장으로 넣고, 글자는 그 위에 벡터 윤곽선으로.
        LED 로고는 바·도형 위에 올려야 하므로 나중에 그린다. */
-    var imgObj = null, photoOp = null;
-    var phTarget = scene.photo || scene.logo;
+    var imgObj = null, lateOp = null;
+    var badgeImg = (scene.ledBadge && scene.ledBadge.img) ? scene.ledBadge.img : null;
+    var phTarget = scene.photo || scene.logo || (badgeImg ?
+      { img: badgeImg, x: scene.ledBadge.x, y: scene.ledBadge.y, w: scene.ledBadge.d, h: scene.ledBadge.d } : null);
     if (phTarget && phTarget.img) {
       var pj = araPhotoJpeg(phTarget);
       if (pj) {
         imgObj = { bin: pj.bin, w: pj.w, h: pj.h };
-        photoOp = 'q ' + n(phTarget.w * k) + ' 0 0 ' + n(phTarget.h * k) + ' ' +
-          n(phTarget.x * k) + ' ' + n(ph - (phTarget.y + phTarget.h) * k) + ' cm /Im0 Do Q';
-        if (!scene.logo) { ops.push(photoOp); photoOp = null; }
+        var imgBody = n(phTarget.w * k) + ' 0 0 ' + n(phTarget.h * k) + ' ' +
+          n(phTarget.x * k) + ' ' + n(ph - (phTarget.y + phTarget.h) * k) + ' cm /Im0 Do';
+        if (badgeImg && phTarget.img === badgeImg) {
+          /* 맨 앞 로고 사진 — 동그라미(둥근 네모) 안에만 보이게 잘라서, 도형 위에 */
+          var bd0 = scene.ledBadge;
+          var clipD = (bd0.kind === 'circle')
+            ? (circle(bd0.x + bd0.d / 2, bd0.y + bd0.d / 2, bd0.d / 2 * 0.78) + ' W n ')
+            : (rrect(bd0.x + bd0.d * 0.04, bd0.y + bd0.d * 0.04, bd0.d * 0.92, bd0.d * 0.92, bd0.d * 0.12) + ' W n ');
+          lateOp = 'q ' + clipD + imgBody + ' Q';
+        } else if (scene.logo) {
+          lateOp = 'q ' + imgBody + ' Q';
+        } else {
+          ops.push('q ' + imgBody + ' Q');
+        }
       }
     }
 
@@ -5048,17 +5387,19 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         if (s.fill) ops.push('q ' + gs + col(s.fill) + '\n' + p + '\nf Q');
         if (s.stroke) ops.push('q ' + gs + n(Math.max(0.1, (s.sw || 0.2)) * k) + ' w 1 J 1 j ' + col(s.stroke, true) + '\n' + p + '\nS Q');
       } else if (s.t === 'circle') {
-        ops.push('q ' + gs + col(s.fill) + '\n' + circle(s.cx, s.cy, Math.max(0.05, s.r)) + '\nf Q');
+        var pc = circle(s.cx, s.cy, Math.max(0.05, s.r));
+        if (s.fill) ops.push('q ' + gs + col(s.fill) + '\n' + pc + '\nf Q');
+        if (s.stroke) ops.push('q ' + gs + n(Math.max(0.1, (s.sw || 0.2)) * k) + ' w 1 J ' + col(s.stroke, true) + '\n' + pc + '\nS Q');
       } else if (s.t === 'line') {
         ops.push('q ' + gs + n(Math.max(0.1, s.w) * k) + ' w 1 J ' + col(s.color, true) + ' ' +
           n(s.x1 * k) + ' ' + n(ph - s.y1 * k) + ' m ' + n(s.x2 * k) + ' ' + n(ph - s.y2 * k) + ' l S Q');
       }
     }
 
-    /* LED 로고 — 바 위에 올린 사진 판 + 테두리 */
-    if (photoOp) {
-      ops.push(photoOp);
-      ops.push('q ' + n(Math.max(0.1, Math.min(scene.logo.w, scene.logo.h) * 0.012) * k) + ' w 1 J ' +
+    /* LED 로고 — 바 위에 올린 사진 판 + 테두리 / 맨 앞 로고 사진 */
+    if (lateOp) {
+      ops.push(lateOp);
+      if (scene.logo) ops.push('q ' + n(Math.max(0.1, Math.min(scene.logo.w, scene.logo.h) * 0.012) * k) + ' w 1 J ' +
         '0.6 0.6 0.6 RG ' + n(scene.logo.x * k) + ' ' + n(ph - (scene.logo.y + scene.logo.h) * k) + ' ' +
         n(scene.logo.w * k) + ' ' + n(scene.logo.h * k) + ' re S Q');
     }
@@ -5178,6 +5519,17 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ledBarHLabel: $('#araLedBarHLabel'), ledBarColorLabel: $('#araLedBarColorLabel'),
     textLedBox: [$('#araLedPosBox1'), $('#araLedPosBox2'), $('#araLedPosBox3')],
     textLed: [$('#araLedPos1'), $('#araLedPos2'), $('#araLedPos3')],
+    textCm: [$('#araTextCm1'), $('#araTextCm2'), $('#araTextCm3')],
+    textCmV: [$('#araTextCmV1'), $('#araTextCmV2'), $('#araTextCmV3')],
+    ledBarYBox: $('#araLedBarYBox'), ledBarY: $('#araLedBarY'), ledBarYV: $('#araLedBarYV'),
+    ledBarYV2: $('#araLedBarYV2'), ledBarYQuick: $('#araLedBarYQuick'),
+    ledLogoBox: $('#araLedLogoBox'), ledLogoKind: $('#araLedLogoKind'), ledLogoMore: $('#araLedLogoMore'),
+    ledLogoPlace: $('#araLedLogoPlace'), ledLogoPos: $('#araLedLogoPos'),
+    ledLogoCm: $('#araLedLogoCm'), ledLogoCmV: $('#araLedLogoCmV'),
+    ledTitleBox: $('#araLedTitleBox'), ledTitlePlace: $('#araLedTitlePlace'),
+    titleCm: $('#araTitleCm'), titleCmV: $('#araTitleCmV'),
+    ledPhoneBox: $('#araLedPhoneBox'), ledPhonePlace: $('#araLedPhonePlace'),
+    phoneStyleSeg: $('#araLedPhoneStyle'), phoneCm: $('#araPhoneCm'), phoneCmV: $('#araPhoneCmV'),
     phoneWarn: $('#araPhoneWarn'), warn: $('#araWarn'),
     placeLed: $('#araPlaceLed'), placeNote: $('#araPlaceNote'),
     viewName: $('#araViewName'), liveDim: $('#araLiveDim'), liveAspect: $('#araLiveAspect'),
@@ -5248,6 +5600,63 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     }
     if (araEl.ledBarHLabel) araEl.ledBarHLabel.textContent = (araLedBarType() === 'row2') ? '1번 바(메인) 높이' : '바 높이';
     if (araEl.ledBarColorLabel) araEl.ledBarColorLabel.textContent = (araLedBarType() === 'row2') ? '1번 바(메인) 색상' : '바 색상';
+
+    /* ✨ 바 세로 위치 — 자동(바 앞이면 글자 뒤 가운데, 바 위면 바닥) / 아래에서 cm */
+    if (araEl.ledBarYBox) araEl.ledBarYBox.hidden = !(ledOn && ledBars);
+    if (araEl.ledBarY) {
+      var ledHcm = ARA.hM * 100;
+      var barHcm = Math.min(ledHcm * 0.45, araLedBarCm());
+      var autoYc = Math.round((ledHcm - barHcm) / 2);
+      var autoYb = Math.round(ledHcm - barHcm);
+      var curY = araLedBarYcm();
+      var showY = (curY == null) ? (araLedPlace() === 'front' ? autoYc : autoYb) : curY;
+      araEl.ledBarY.max = Math.max(10, autoYb);
+      araEl.ledBarY.value = Math.max(0, Math.min(autoYb, showY));
+      if (araEl.ledBarYV) araEl.ledBarYV.textContent = (curY == null) ? ('자동 (' + showY + ' cm)') : (curY + ' cm');
+      if (araEl.ledBarYV2) araEl.ledBarYV2.textContent = Math.max(0, Math.min(autoYb, showY)) + ' cm';
+      if (araEl.ledBarYQuick) {
+        $$('#araLedBarYQuick button').forEach(function (b) {
+          var y = b.getAttribute('data-y');
+          b.classList.toggle('on', y === 'auto' ? (curY == null)
+            : y === 'bottom' ? (curY === 0)
+            : (curY != null && Math.abs(curY - autoYc) < 1.5));
+        });
+      }
+    }
+
+    /* ✨ 맨 앞 로고(원형 채널·사각 로고) */
+    if (araEl.ledLogoBox) araEl.ledLogoBox.hidden = !ledOn;
+    if (araEl.ledLogoKind) $$('#araLedLogoKind button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-l') === araLedLogoKind()); });
+    if (araEl.ledLogoMore) araEl.ledLogoMore.hidden = (araLedLogoKind() === 'none');
+    if (araEl.ledLogoPlace) $$('#araLedLogoPlace button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lp') === araLedLogoPlace()); });
+    if (araEl.ledLogoPos) $$('#araLedLogoPos button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lx') === araLedLogoPos()); });
+    if (araEl.ledLogoCm) {
+      araEl.ledLogoCm.value = araLedLogoCm();
+      if (araEl.ledLogoCmV) araEl.ledLogoCmV.textContent = araLedLogoCm() + ' cm';
+    }
+    /* ✨ 상호·전화의 바 배치 · cm 크기 · 전화 채널 박스 */
+    if (araEl.ledTitleBox) araEl.ledTitleBox.hidden = !(ledOn && ledBars);
+    if (araEl.ledTitlePlace) $$('#araLedTitlePlace button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lp') === araLedTitlePlace()); });
+    if (araEl.titleCm) {
+      var tcm = araLedTitleCm();
+      araEl.titleCm.value = tcm;
+      if (araEl.titleCmV) araEl.titleCmV.textContent = tcm > 0 ? (tcm + ' cm') : '자동';
+    }
+    if (araEl.ledPhoneBox) araEl.ledPhoneBox.hidden = !(ledOn && ledBars);
+    if (araEl.ledPhonePlace) $$('#araLedPhonePlace button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lp') === araLedPhonePlace()); });
+    if (araEl.phoneStyleSeg) $$('#araLedPhoneStyle button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-ps') === araLedPhoneStyle()); });
+    if (araEl.phoneCm) {
+      var pcm = araLedPhoneCm();
+      araEl.phoneCm.value = pcm;
+      if (araEl.phoneCmV) araEl.phoneCmV.textContent = pcm > 0 ? (pcm + ' cm') : '자동';
+    }
+    for (var lq0 = 0; lq0 < 3; lq0++) {
+      if (araEl.textCm && araEl.textCm[lq0]) {
+        var scm = araLedTextCm(lq0);
+        araEl.textCm[lq0].value = scm;
+        if (araEl.textCmV[lq0]) araEl.textCmV[lq0].textContent = scm > 0 ? (scm + ' cm') : '자동';
+      }
+    }
     for (var lq = 0; lq < 3; lq++) {
       if (araEl.textLedBox && araEl.textLedBox[lq]) araEl.textLedBox[lq].hidden = !(ledOn && ledBars);
       var lseg = araEl.textLed ? araEl.textLed[lq] : null;
@@ -5351,7 +5760,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (araEl.warn) {
       var minSize = Infinity;
       for (var wb = 0; wb < sc.blocks.length; wb++) if (sc.blocks[wb].size < minSize) minSize = sc.blocks[wb].size;
-      if (sc.blocks.length && minSize < 1.5) {
+      if (sc.shrunk && sc.shrunk.length) {
+        var sh0 = sc.shrunk[0];
+        araEl.warn.hidden = false;
+        araEl.warn.innerHTML = '⚠️ 정한 크기보다 간판이 좁아 글자를 줄였어요 — 요청 <b>' + sh0.want + ' cm</b> → <b>' + sh0.got +
+          ' cm</b>. 간판 가로 크기를 늘리거나 글자를 짧게 줄여 주세요. (바꾼 cm 그대로 저장됩니다)';
+      } else if (sc.blocks.length && minSize < 1.5) {
         araEl.warn.hidden = false;
         araEl.warn.innerHTML = '⚠️ 글자가 아주 작게 줄었어요 — 가장 작은 글자가 약 <b>' + minSize.toFixed(1) +
           ' cm</b>입니다. 멀리서 읽기 어려울 수 있으니 <b>가로 크기를 늘리거나</b>, 문구를 짧게 줄이거나 줄을 나눠 주세요.';
@@ -5852,6 +6266,84 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       ARA.ledPlace = (b.getAttribute('data-lp') === 'front') ? 'front' : 'on';
       araSyncInputs(); araSoon(50);
     });
+    /* ✨ 바 세로 위치 */
+    if (araEl.ledBarYQuick) araEl.ledBarYQuick.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var y = b.getAttribute('data-y');
+      var ledHcm = ARA.hM * 100, barHcm = Math.min(ledHcm * 0.45, araLedBarCm());
+      if (y === 'auto') ARA.ledBarY = null;
+      else if (y === 'bottom') ARA.ledBarY = 0;
+      else ARA.ledBarY = Math.round((ledHcm - barHcm) / 2);
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.ledBarY) {
+      araEl.ledBarY.addEventListener('input', function () {
+        ARA.ledBarY = Math.max(0, parseInt(this.value, 10) || 0);
+        if (araEl.ledBarYV) araEl.ledBarYV.textContent = ARA.ledBarY + ' cm';
+        if (araEl.ledBarYV2) araEl.ledBarYV2.textContent = ARA.ledBarY + ' cm';
+        araSoon(60);
+      });
+      araEl.ledBarY.addEventListener('change', function () { araSyncInputs(); });
+    }
+    /* ✨ 맨 앞 로고 — 원형 채널 / 사각 로고 */
+    if (araEl.ledLogoKind) araEl.ledLogoKind.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var v = b.getAttribute('data-l');
+      ARA.ledLogo = (v === 'circle' || v === 'square') ? v : 'none';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.ledLogoPlace) araEl.ledLogoPlace.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      ARA.ledLogoPlace = (b.getAttribute('data-lp') === 'on') ? 'on' : 'front';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.ledLogoPos) araEl.ledLogoPos.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      ARA.ledLogoPos = (b.getAttribute('data-lx') === 'right') ? 'right' : 'left';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.ledLogoCm) {
+      araEl.ledLogoCm.addEventListener('input', function () {
+        ARA.ledLogoCm = Math.max(20, Math.min(90, parseInt(this.value, 10) || 45));
+        if (araEl.ledLogoCmV) araEl.ledLogoCmV.textContent = ARA.ledLogoCm + ' cm';
+        araSoon(60);
+      });
+      araEl.ledLogoCm.addEventListener('change', function () { araSyncInputs(); });
+    }
+    /* ✨ 상호·전화 — 바 배치 · cm 크기 · 채널 박스 */
+    if (araEl.ledTitlePlace) araEl.ledTitlePlace.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var v = b.getAttribute('data-lp');
+      ARA.ledTitlePlace = (v === 'on' || v === 'front') ? v : 'auto';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.titleCm) {
+      araEl.titleCm.addEventListener('input', function () {
+        ARA.titleCm = Math.max(0, Math.min(80, parseInt(this.value, 10) || 0));
+        if (araEl.titleCmV) araEl.titleCmV.textContent = ARA.titleCm > 0 ? (ARA.titleCm + ' cm') : '자동';
+        araSoon(60);
+      });
+      araEl.titleCm.addEventListener('change', function () { araSyncInputs(); });
+    }
+    if (araEl.ledPhonePlace) araEl.ledPhonePlace.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var v = b.getAttribute('data-lp');
+      ARA.ledPhonePlace = (v === 'on' || v === 'front') ? v : 'auto';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.phoneStyleSeg) araEl.phoneStyleSeg.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      ARA.phoneStyle = (b.getAttribute('data-ps') === 'box') ? 'box' : 'text';
+      araSyncInputs(); araSoon(50);
+    });
+    if (araEl.phoneCm) {
+      araEl.phoneCm.addEventListener('input', function () {
+        ARA.phoneCm = Math.max(0, Math.min(50, parseInt(this.value, 10) || 0));
+        if (araEl.phoneCmV) araEl.phoneCmV.textContent = ARA.phoneCm > 0 ? (ARA.phoneCm + ' cm') : '자동';
+        araSoon(60);
+      });
+      araEl.phoneCm.addEventListener('change', function () { araSyncInputs(); });
+    }
     if (araEl.ledBar2H) {
       araEl.ledBar2H.addEventListener('input', function () {
         ARA.ledBar2H = Math.max(4, Math.min(40, parseInt(this.value, 10) || 9));
@@ -5940,6 +6432,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
           ARA.texts[idx].led = (v === 'on' || v === 'front') ? v : 'auto';
           araSyncInputs(); araSoon(60);
         });
+        /* ✨ LED 문구의 cm 글자 크기 */
+        var csl = araEl.textCm ? araEl.textCm[idx] : null;
+        if (csl) {
+          csl.addEventListener('input', function () {
+            ARA.texts[idx].cm = Math.max(0, Math.min(50, parseInt(this.value, 10) || 0));
+            if (araEl.textCmV && araEl.textCmV[idx]) araEl.textCmV[idx].textContent = ARA.texts[idx].cm > 0 ? (ARA.texts[idx].cm + ' cm') : '자동';
+            araSoon(60);
+          });
+          csl.addEventListener('change', function () { araSyncInputs(); });
+        }
       })(ai);
     }
     araEl.theme.addEventListener('click', function (e) {
@@ -6724,7 +7226,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   var AS_ARA_KEYS = ['cat', 'wM', 'hM', 'title', 'titlePos', 'titleScale', 'titleFont',
     'phone', 'phonePos', 'phoneScale', 'phoneFont', 'textFont', 'theme', 'themeColor',
     'ledNight', 'ledBar', 'ledBarH', 'ledBarColor', 'ledSide', 'ledDepth', 'place', 'darken',
-    'ledPlace', 'ledBar2H', 'ledBar2Color', 'ledBar2Y', 'view', 'confirmed'];
+    'ledPlace', 'ledBar2H', 'ledBar2Color', 'ledBar2Y', 'view', 'confirmed',
+    'ledBarY', 'ledLogo', 'ledLogoPlace', 'ledLogoPos', 'ledLogoCm',
+    'ledTitlePlace', 'ledPhonePlace', 'titleCm', 'phoneCm', 'phoneStyle'];
   var AS_CUT_KEYS = ['mode', 'widthCm', 'heightManual', 'heightCm', 'sensitivity', 'smooth',
     'denoise', 'strokeW', 'color', 'trimBorder', 'angle', 'view'];
   var AS_ST_KEYS = ['preset', 'w', 'h', 'dpi', 'unit', 'customW', 'customH', 'bg', 'c1', 'c2',
@@ -6781,7 +7285,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     var d = {
       v: 1, t: Date.now(), tab: asCurTab,
       ara: asPick(ARA, AS_ARA_KEYS),
-      araTexts: (ARA.texts || []).map(function (x) { return { text: x.text, pos: x.pos, size: x.size, led: x.led || 'auto' }; }),
+      araTexts: (ARA.texts || []).map(function (x) { return { text: x.text, pos: x.pos, size: x.size, led: x.led || 'auto', cm: x.cm || 0 }; }),
       cut: asPick(state, AS_CUT_KEYS),
       st: asPick(st, AS_ST_KEYS),
       tv: asPick(tv, AS_TV_KEYS)
@@ -6846,7 +7350,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
             text: String((d.araTexts[i] && d.araTexts[i].text) || ''),
             pos: (d.araTexts[i] && d.araTexts[i].pos) || 'center',
             size: (d.araTexts[i] && Number(d.araTexts[i].size)) || 1,
-            led: (ld === 'on' || ld === 'front') ? ld : 'auto'
+            led: (ld === 'on' || ld === 'front') ? ld : 'auto',
+            cm: (d.araTexts[i] && Number(d.araTexts[i].cm)) || 0
           };
         }
       }
@@ -7052,8 +7557,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     araLedBarColor: '<b class="ht">바 색상</b>기둥의 색입니다. 실제 제작에서는 대부분 <b>무광 블랙</b>이나 <b>다크 그레이</b>를 씁니다(빛 반사가 적어 글자가 잘 보임).<br>· 매장이 밝고 밝은 느낌이면 <b>실버·화이트</b><br>· 카페·전통주점처럼 따뜻한 느낌이면 <b>우드</b>',
     araLedSide: '<b class="ht">입체 글자 옆면(채널) 색</b>글자 <b>옆면(두께 부분)</b>의 색이에요. 앞면은 빛나는 아크릴, 옆면은 이 색으로 만들어집니다.<br>· <b>블랙</b> — 밤에 글자 모양이 가장 또렷<br>· <b>실버·골드</b> — 고급스러운 느낌<br>· <b>레드</b> — 포인트, <b>화이트</b> — 밝고 가벼운 느낌',
     araLedDepth: '<b class="ht">입체 두께</b>글자가 벽에서 얼마나 튀어나오는지(옆면 깊이)입니다.<br>· <b>얇게 4cm</b> — 납작하고 깔끔<br>· <b>보통 7cm</b> — 가장 흔한 채널 글자 두께<br>· <b>깊게 12cm</b> — 크고 묵직한 간판<br>간판이 작으면 글자 크기에 맞춰 알아서 줄어듭니다.',
-    araLedPlace: '<b class="ht">글자 놓는 방식 (바 위 · 바 앞)</b>상호·전화번호를 <b>바(기둥)와 어떻게 붙일지</b> 정합니다.<br>· <b>바 위에 얹기</b> — 글자 아랫면이 바 윗면에 딱 닿게 올려 놓습니다. 실제 채널간판에서 가장 많이 보는 모양이에요.<br>· <b>바 앞에 직접</b> — 글자를 바 앞면에 겹쳐서 붙입니다. 글자가 바보다 커도 되고, 바 색이 글자 뒤 배경처럼 보입니다.<br>문구 1·2·3은 각 칸의 <b>LED 바 배치</b>에서 <b>자동(바 위 여백) · 바 위 · 바 앞</b> 중 따로 고를 수 있어요.',
-    araLedTextPlace: '<b class="ht">문구의 LED 바 배치</b>그 문구만 바와 어떻게 붙일지 정합니다.<br>· <b>자동</b> — 지금처럼 바 위쪽 빈 자리에 놓습니다.<br>· <b>바 위</b> — 문구 아랫면을 바 윗면에 붙여 얹습니다.<br>· <b>바 앞</b> — 문구를 바 앞면에 겹쳐 놓습니다.<br>상호·다른 문구와 겹치면 그 문구만 조금씩 작아집니다.',
+    araLedPlace: '<b class="ht">글자 놓는 방식 (바 위 · 바 앞)</b>상호·전화번호를 <b>바(기둥)와 어떻게 붙일지</b> 정합니다.<br>· <b>바 위에 얹기</b> — 글자 아랫면이 바 윗면에 딱 닿게 올려 놓습니다. 실제 채널간판에서 가장 많이 보는 모양이에요.<br>· <b>바 앞에 직접</b> — 사진처럼 <b>바가 글자 뒤 가운데를 가로지릅니다</b>. 글자가 바보다 커도 되고, 바 색이 글자 뒤 배경처럼 보입니다. 이때는 <b>바 세로 위치</b>가 자동으로 가운데에 맞춰집니다(아래 칸에서 직접 정할 수도 있어요).<br>상호·전화번호는 각 칸의 <b>바 배치</b>, 문구 1·2·3은 <b>LED 바 배치</b>에서 따로 고를 수 있어요.',
+    araLedTextPlace: '<b class="ht">문구의 LED 바 배치</b>그 문구만 바와 어떻게 붙일지 정합니다.<br>· <b>자동</b> — 지금처럼 바 위쪽 빈 자리에 놓습니다.<br>· <b>바 위</b> — 문구 아랫면을 바 윗면에 붙여 얹습니다.<br>· <b>바 앞</b> — 문구를 바 앞면에 겹쳐 놓습니다.<br>여기에 <b>cm 글자 크기</b>를 함께 정하면 그 크기 그대로 놓입니다. 겹치면 크기는 두고 옆으로 비켜 줍니다.',
+    araLedBarY: '<b class="ht">바 세로 위치</b>가로 기둥(바)을 간판 안 <b>어디 높이에</b> 달지 정합니다.<br>· <b>자동</b> — 글자 놓는 방식이 <b>바 앞이면 글자 뒤 가운데</b>, <b>바 위면 바닥</b>에 맞춥니다.<br>· <b>하단</b> — 기둥을 간판 바닥에 붙입니다(가장 흔한 모양).<br>· <b>가운데(글자 뒤)</b> — 사진처럼 바가 글자·로고 <b>뒤 가운데를 가로지릅니다</b>.<br>아래 슬라이더로 <b>아래에서 몇 cm</b> 띄울지 직접 정할 수도 있습니다.',
+    araLedLogo: '<b class="ht">맨 앞 로고 (원형 채널 · 사각 로고)</b>간판 맨 앞에 따로 붙이는 로고입니다.<br>· <b>원형 채널</b> — 사진 왼쪽처럼 동그란 채널 간판. 안에는 넣은 로고 사진이 들어가고, 사진이 없으면 <b>상호 첫 글자</b>로 만듭니다.<br>· <b>사각 로고</b> — 둥근 네모 판 모양.<br>· <b>바 앞</b> — 바를 가로질러 글자와 같은 높이에 섭니다. <b>바 위</b> — 바 윗면에 올립니다.<br>지름은 20~90 cm에서 정합니다.',
+    araLedElemPlace: '<b class="ht">상호·전화번호의 바 배치</b>위의 <b>글자 놓는 방식</b>을 따르지 않고, 이 글자만 따로 정할 때 씁니다.<br>· <b>자동</b> — 위에서 고른 방식(바 위 / 바 앞)을 그대로 따릅니다.<br>· <b>바 위</b> — 이 글자만 바 윗면에 얹습니다.<br>· <b>바 앞</b> — 이 글자만 바 앞면에 겹칩니다.',
+    araLedCmSize: '<b class="ht">cm 글자 크기</b>글자의 <b>실제 높이</b>를 cm로 정합니다. 화면이 아니라 인쇄했을 때 크기예요.<br>· <b>자동</b> — 간판 크기에 맞춰 알아서 정합니다.<br>· 직접 정하면 그 크기 그대로 놓고, 간판 밖으로 넘칠 때만 줄이며 알려 줍니다.<br>· 간판 높이(예: 1 m = 100 cm)보다 크게는 잡지 않는 것이 좋습니다.',
+    araLedPhoneStyle: '<b class="ht">전화번호 모양</b>· <b>글자만</b> — 글자만 바 위·앞에 붙입니다.<br>· <b>채널 박스</b> — 사진 오른쪽처럼 <b>둥근 사각 라이트박스</b> 안에 전화번호를 넣습니다. 밤에는 박스가 은은하게 빛나 보입니다.',
     araLedBar2: '<b class="ht">2번 바(보조 바) 높이 · 색상</b>2단 바에서 <b>아래쪽 보조 기둥</b>의 두께와 색입니다.<br>· 1번 바(메인)와 색을 다르게 하면 두 줄이 또렷하게 나뉩니다.<br>· 보통은 1번 바보다 <b>조금 얇게</b> 만듭니다.',
     araLedBar2Y: '<b class="ht">2번 바 위아래 위치</b>1번 바를 기준으로 2번 바를 <b>위아래로 움직입니다</b>.<br>· <b>0</b> — 두 바가 딱 붙어 있습니다<br>· <b>+</b> — 두 바 사이가 벌어집니다<br>· <b>-</b> — 두 바가 겹칩니다 (2번 바가 앞에 보임)<br>맨 아래 간판 끝을 넘지 않게 알아서 맞춥니다.',
     /* ---------- 탭 1 : 커팅 외곽선 ---------- */
