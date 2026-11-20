@@ -6293,6 +6293,10 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       for (var tq0 = 0; tq0 < 3; tq0++) { ARA.texts[tq0].text = ''; ARA.texts[tq0].cm = 0; }
       out.hits.push('문구 없음');
     }
+    /* LED 요청에 상호·문구를 새로 적었는데 자리 말이 없으면 기본 자리로 — 예전에 눌러 둔 모서리 자리가 바 앞 배치를 망치지 않게 */
+    if (ledTextMode && (titleHit || main) && !/(좌측|왼쪽|우측|오른쪽|상단|하단|중앙|가운데|위쪽|아래쪽|모서리)/.test(low)) {
+      ARA.titlePos = 'tl'; ARA.phonePos = 'with';
+    }
 
     /* 상호·문구를 새로 넣었고 보조문구가 아직 견본 문구 그대로면 비운다 */
     if ((titleHit || main) && ARA.texts[1].text === '맞춤 제작 · 빠른 납기') ARA.texts[1].text = '';
