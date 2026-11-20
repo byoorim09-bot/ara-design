@@ -4310,9 +4310,20 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
              2번 바 높이·색은 따로 정하고, 위아래 위치(ledBar2Y)로 두 바 사이를 벌리거나 겹친다. */
           var bar2H = Math.min(H * 0.32, araLedBar2Cm());
           var bar2Off = araLedBar2Ycm();
-          var b2y = (ledBarYset != null) ? (H - ledBarYset - bar2H) : (H - bar2H);
-          b2y = Math.max(0, Math.min(b2y, H - bar2H));
-          var b1y = b2y - bar2Off - ledBarH;
+          var stackH = Math.max(ledBarH + bar2H - Math.abs(Math.min(0, bar2Off)), 1);
+          var b2y, b1y;
+          if (ledBarYset != null) {
+            b2y = H - ledBarYset - bar2H;
+            b2y = Math.max(0, Math.min(b2y, H - bar2H));
+            b1y = b2y - bar2Off - ledBarH;
+          } else if (ledAnyFront) {
+            /* 자동 + 바 앞 — 두 바가 글자 뒤 가운데를 지나게 */
+            b1y = Math.max(0, (H - stackH) / 2);
+            b2y = b1y + ledBarH + bar2Off;
+          } else {
+            b2y = H - bar2H;
+            b1y = b2y - bar2Off - ledBarH;
+          }
           if (b1y < 0) { b1y = 0; }
           ledBar1 = { x: 0, y: b1y, w: W, h: ledBarH };
           ledBar2 = { x: 0, y: b2y, w: W, h: bar2H };
@@ -4429,6 +4440,17 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
       tBase = Math.min(area.h * 0.50, CW * 0.66, W * 0.20);
       pBase = tBase * 0.42;
       mBase = Math.min(area.h * 0.26, CW * 0.24);
+      /* 바 앞(front)은 바 높이가 아니라 간판 높이에 맞춰 크게 — 사진처럼 바가 글자 뒤를 지난다 */
+      if (ledTitleMode === 'front' || ledPhoneMode === 'front') {
+        if (ledTitleMode === 'front') tBase = Math.min(H * 0.44, CW * 0.62);
+        if (ledPhoneMode === 'front') pBase = Math.max(tBase * 0.45, Math.min(H * 0.20, CW * 0.22));
+        /* 둘 다 자동(직접 cm 없음)이면 한 줄에 나란히 들어가게 함께 줄인다 */
+        if (araLedTitleCm() <= 0 && araLedPhoneCm() <= 0 && title && phone && ledTitleMode === ledPhoneMode) {
+          var need0 = meas(title, tBase, fTitle) + meas(phone, pBase, fPhone) + Math.max(6, short * 0.05);
+          var fit0 = need0 > 0 ? (CW - 2) / need0 : 1;
+          if (fit0 < 1) { tBase *= fit0; pBase *= fit0; }
+        }
+      }
     } else {
       tBase = Math.min(H * 0.115, CW * 0.52, W * 0.14);
       pBase = tBase * 0.56;
