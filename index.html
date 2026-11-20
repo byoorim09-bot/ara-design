@@ -7447,6 +7447,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
   }
   function araWireRangeTouch() {
     var list = document.querySelectorAll('input[type=range]');
+    /* 끌기 시작 — 어떤 이유로 ‘떼기’ 신호를 놓쳐도 5초 뒤에는 반드시 풀린다 */
+    function dragBegin() {
+      ARA._drag = true;
+      clearTimeout(ARA._dragT);
+      ARA._dragT = setTimeout(function () {
+        if (ARA._drag) { ARA._drag = false; araSoon(20); }
+      }, 5000);
+    }
+    function dragEnd() {
+      clearTimeout(ARA._dragT);
+      if (ARA._drag) { ARA._drag = false; araSoon(30); }
+    }
     for (var i = 0; i < list.length; i++) {
       (function (el) {
         if (el.__touchWired) return;
@@ -7462,7 +7474,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
           if (e.touches.length !== 1) { st = null; return; }
           var t = e.touches[0];
           st = { x: t.clientX, y: t.clientY, y0: window.scrollY, v: el.value, mode: '' };
-          ARA._drag = true;
+          dragBegin();
         }, { passive: true });
         el.addEventListener('touchmove', function (e) {
           if (!st) return;
@@ -7482,18 +7494,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
           /* 세로로 끌어 화면을 옮긴 경우에만 값을 처음 것으로 되돌린다 (가로로 끈 값은 그대로) */
           if (st && st.mode === 'scroll') putBack();
           st = null;
-          if (ARA._drag) { ARA._drag = false; araSoon(30); }
+          dragEnd();
         }
         el.addEventListener('touchend', end, { passive: true });
         el.addEventListener('touchcancel', end, { passive: true });
-        el.addEventListener('pointerdown', function () { ARA._drag = true; });
+        el.addEventListener('pointerdown', dragBegin);
+        el.addEventListener('change', dragEnd);
+        el.addEventListener('keyup', dragEnd);
       })(list[i]);
     }
     /* 손가락·마우스를 어디서 떼든 한 번에 끝내고 3장까지 다시 그린다 */
     ['pointerup', 'pointercancel', 'touchend'].forEach(function (t) {
-      document.addEventListener(t, function () {
-        if (ARA._drag) { ARA._drag = false; araSoon(30); }
-      }, true);
+      document.addEventListener(t, function () { dragEnd(); }, true);
     });
   }
   araAddRangeSteps();
