@@ -5350,6 +5350,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     scene.logoBox = ledBadge ? { x: ledBadge.x, y: ledBadge.y, w: ledBadge.d, h: ledBadge.d } : null;
     if (!pRes) scene.phoneBox = null;
     else if (!scene.phoneBox) scene.phoneBox = { x: pRes.rect.x, y: pRes.rect.y, w: pRes.rect.w, h: pRes.rect.h };
+    /* ✨ 정해 둔 자리끼리 부딪렸는지 — 자리는 그대로 두고 화면에서 한 번 알려만 준다 */
+    scene.overlaps = [];
+    if (tRes) {
+      var tB = tRes.rect;
+      if (ledBadge && !(tB.x + tB.w <= ledBadge.x || ledBadge.x + ledBadge.d <= tB.x ||
+                        tB.y + tB.h <= ledBadge.y || ledBadge.y + ledBadge.d <= tB.y)) scene.overlaps.push('logo');
+      var pB = scene.phoneBox;
+      if (pB && !(tB.x + tB.w <= pB.x || pB.x + pB.w <= tB.x ||
+                  tB.y + tB.h <= pB.y || pB.y + pB.h <= tB.y)) scene.overlaps.push('phone');
+    }
 
     return scene;
   }
@@ -6267,6 +6277,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         araEl.warn.hidden = false;
         araEl.warn.innerHTML = '⚠️ 글자가 아주 작게 줄었어요 — 가장 작은 글자가 약 <b>' + minSize.toFixed(1) +
           ' cm</b>입니다. 멀리서 읽기 어려울 수 있으니 <b>가로 크기를 늘리거나</b>, 문구를 짧게 줄이거나 줄을 나눠 주세요.';
+      } else if (sc.overlaps && sc.overlaps.length) {
+        /* 정해 둔 cm 자리끼리 부딪힌 경우 — 자리는 그대로 두고 어떻게 풀지 알려 준다 */
+        var ovNames = sc.overlaps.map(function (k) { return k === 'logo' ? '<b>로고</b>' : '<b>전화번호</b>'; });
+        araEl.warn.hidden = false;
+        araEl.warn.innerHTML = '⚠️ 상호 글자와 ' + ovNames.join('·') + '가 겹칩니다 — <b>상호 좌우 위치</b>를 옮기거나 ' +
+          '<b>상호 글자 크기</b>를 줄이거나, ' + (sc.overlaps.indexOf('logo') >= 0 ? '<b>로고' : '<b>전화번호') +
+          ' 좌우 위치</b>의 cm를 바꿔 주세요. (정해 둔 cm 자리는 그대로 두었어요)';
       } else {
         araEl.warn.hidden = true;
       }
