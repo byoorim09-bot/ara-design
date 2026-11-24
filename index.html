@@ -4785,19 +4785,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         : Math.max(ledBandTop - ledSafeTop - ledGapOn, H * 0.12);
       var barCy = ledBar1 ? (ledBar1.y + ledBar1.h / 2) : (H / 2);
       var padHalf = (padW || 0) / 2;
-      var roomBeside = Math.max(Rx - (t.rect.x + t.rect.w) - gapT - padHalf, 0.8);
+      /* 상호 묶음(글자+로고)의 양 끝 — 로고가 옆에 붙어 있으면 그쪽 끝까지 포함한다 */
+      var gL = badgeGrouped && ledBadge ? Math.min(t.rect.x, ledBadge.x) : t.rect.x;
+      var gR = badgeGrouped && ledBadge ? Math.max(t.rect.x + t.rect.w, ledBadge.x + ledBadge.d) : t.rect.x + t.rect.w;
+      var roomBeside = Math.max(Rx - gR - gapT - padHalf, 0.8);
+      var roomLeft = Math.max(gL - ledSafeX * 0.4 - gapT - padHalf, 0.8);
       var fit = ledFitC([text], want, roomBeside, maxH, font);
       var rect = null;
       if (roomBeside >= fit.w - 0.01 && fit.size >= want * 0.9) {
         /* 상호 바로 옆에 그대로 들어간다 (박스 여백만큼 더 띄운다) */
         rect = { x: t.rect.x + t.rect.w + gapT + padHalf, w: fit.w, h: fit.h, y: 0 };
       } else {
-        /* 옆에 들어가지 않으면: 오른쪽 끝 → 상호 위 → 상호 아래 순서로 찾는다 */
+        /* 옆에 들어가지 않으면: 오른쪽 끝 → 상호 묶음 왼쪽 → 상호 위 → 상호 아래 순서로 찾는다 */
         fit = ledFitC([text], want, maxW, maxH, font);
         if (fixedCm > 0 && fit.size < want * 0.985 && scene.shrunk) scene.shrunk.push({ want: Math.round(want), got: Math.round(fit.size * 10) / 10 });
         var cy0 = (mode === 'front') ? (ledBar1 ? ledBar1.y + (ledBar1.h - fit.h) / 2 : (H - fit.h) / 2) : t.rect.y + (t.fit.h - fit.h);
         var cands = [
           { x: Math.max(ledSafeX * 0.45, Rx - fit.w), y: cy0 },
+          { x: Math.max(ledSafeX * 0.4, gL - gapT - padHalf - fit.w), y: cy0 },
           { x: t.rect.x, y: t.rect.y - fit.h - ledGapOn * 1.4 },
           { x: t.rect.x, y: t.rect.y + t.rect.h + ledGapOn * 1.4 }
         ];
@@ -4809,10 +4814,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
         }
       }
       if (!rect) {
-        /* 그래도 안 되면 조금씩 줄이며 옆자리에 맞춘다 */
-        fit = ledFitC([text], fit.size, roomBeside, maxH, font);
+        /* 그래도 안 되면: 남은 자리가 넓은 쪽(왼쪽/오른쪽)에 줄여서라도 넣는다 */
+        var useLeft = roomLeft > roomBeside;
+        fit = ledFitC([text], fit.size, useLeft ? roomLeft : roomBeside, maxH, font);
         if (fixedCm > 0 && fit.size < want * 0.985 && scene.shrunk) scene.shrunk.push({ want: Math.round(want), got: Math.round(fit.size * 10) / 10 });
-        rect = { x: t.rect.x + t.rect.w + gapT + padHalf, w: fit.w, h: fit.h, y: 0 };
+        rect = useLeft
+          ? { x: Math.max(ledSafeX * 0.4, gL - gapT - padHalf - fit.w), w: fit.w, h: fit.h, y: 0 }
+          : { x: t.rect.x + t.rect.w + gapT + padHalf, w: fit.w, h: fit.h, y: 0 };
       }
       rect.y = (mode === 'front')
         ? Math.max(1.2, Math.min(barCy - fit.h / 2, H - fit.h - 1.2))
@@ -5964,7 +5972,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     if (araEl.titleX) {
       var tx = araTitleX();
       if (document.activeElement !== araEl.titleX) araEl.titleX.value = Math.round(tx * 1000) / 10;
-      if (araEl.titleXV) araEl.titleXV.textContent = (Math.abs(tx - 0.5) < 0.005) ? '50% · 중앙' : (Math.round(tx * 1000) / 10) + '%';
+      var txShown = parseFloat(araEl.titleX.value);
+      if (!isFinite(txShown)) txShown = tx * 100;
+      if (araEl.titleXV) araEl.titleXV.textContent = (Math.abs(txShown - 50) < 0.05) ? '50% · 중앙' : txShown + '%';
     }
     if (araEl.titleCmBase) $$('#araTitleCmBase button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-b') === (ARA._tCmBase === 'right' ? 'right' : 'left')); });
     $$('#araTitlePos button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === araTitlePosKey()); });
