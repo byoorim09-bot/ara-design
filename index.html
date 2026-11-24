@@ -6054,8 +6054,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = CutlineCor
     ARA._tGw = g ? g.w : 0;
     ARA._tW = W;
     ARA._tHasTitle = !!g;
-    araEl.titleLeftCm.innerHTML = (Math.round(lw * 10) / 10).toFixed(1) + '<i>cm</i>';
-    araEl.titleRightCm.innerHTML = (Math.round(rw * 10) / 10).toFixed(1) + '<i>cm</i>';
+    if (g) {
+      araEl.titleLeftCm.innerHTML = (Math.round(lw * 10) / 10).toFixed(1) + '<i>cm</i>';
+      araEl.titleRightCm.innerHTML = (Math.round(rw * 10) / 10).toFixed(1) + '<i>cm</i>';
+    } else {
+      araEl.titleLeftCm.innerHTML = '—';
+      araEl.titleRightCm.innerHTML = '—';
+    }
     if (araEl.titleCmInfo) {
       araEl.titleCmInfo.textContent = '바 폭 ' + (Math.round(W * 10) / 10).toFixed(1) + ' cm · 상호 폭 ' +
         (Math.round((g ? g.w : 0) * 10) / 10).toFixed(1) + ' cm' +
